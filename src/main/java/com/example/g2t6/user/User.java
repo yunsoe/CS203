@@ -15,11 +15,8 @@ import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.example.g2t6.feedback.Feedback;
+import com.example.g2t6.swabTest.SwabTest;
 import com.example.g2t6.company.Company;
-
-/// ? do we need sub class for like employee and admin - since a normal user and admin is already defined by the authorities
-// --> technically an admin is the user with the ROLE_ADMIN authority, and a normal employee would be ROLE_USER, or i think this can be renamed to ROLE_EMPLOYEE as well
-// and also in terms of attributes i think there is no difference between an employee and admin - just what they can do (which is the authorities)
 
 @Entity
 @Getter
@@ -49,6 +46,10 @@ public class User implements UserDetails {
     // @JoinColumn(name = "company_id", nullable = false) //may need to be update depending on company class impl
     // private Company company;
 
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<SwabTest> swabTests;
+
     @NotNull(message = "Role should not be null")
     @Size(min = 2, max = 30, message = "Role should be between 2 and 30 characters")
     private String role;
@@ -58,7 +59,7 @@ public class User implements UserDetails {
     private List<Feedback> feedbacks;
 
     @NotNull(message = "Authorities should not be null")
-    // We define two roles/authorities: ROLE_USER or ROLE_ADMIN, or maybe we can do ROLE_EMPLOYEE and ROLE_ADMIN instead?
+    // We define two roles/authorities: ROLE_USER or ROLE_ADMIN
     private String authorities;
 
     public User(String email, String name, String password, String role, String authorities){
