@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class swabTest {
+public class SwabTest {
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
     @JoinColumn(name = "userEmail",nullable = false);
