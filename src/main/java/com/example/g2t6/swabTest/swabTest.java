@@ -2,6 +2,7 @@ package com.example.g2t6.swabTest;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.*;
+import com.example.g2t6.user.*;
 @Entity
 @Getter
 @Setter
@@ -12,7 +13,7 @@ import lombok.*;
 public class SwabTest {
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
-    @JoinColumn(name = "userEmail",nullable = false);
+    @JoinColumn(name = "userEmail",nullable = false)
     private User user;
 
     @NotNull(message = "expected swab date cannot be null")
