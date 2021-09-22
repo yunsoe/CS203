@@ -3,6 +3,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.*;
 import com.example.g2t6.user.*;
+import java.util.Date;
 @Entity
 @Getter
 @Setter
@@ -13,16 +14,13 @@ import com.example.g2t6.user.*;
 public class SwabTest {
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
-    @JoinColumn(name = "userEmail",nullable = false)
+    @JoinColumn(name = "user", referencedColumnName = "email",nullable = false)
     private User user;
 
-    @NotNull(message = "expected swab date cannot be null")
-    private String expectedswabDate;// should this be stored in user // there is like a swab test history and a swab test subscription 
-
     @NotNull(message = "swabResult no cannot be null")
-    private String swabResult;
+    private boolean swabResult;
 
-    @NotNull(message = "actual swab date no cannot be null")
-    private String actualSwabDate;
+    @NotNull(message = "actual swab date cannot be null")
+    private Date actualSwabDate;
 
 }

@@ -3,6 +3,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface SwabTestRepository extends JpaRepository<SwabTest, Long>{
-    List<SwabTest> findByUserEmail(String userEmail);
-
+    List<SwabTest> findByUserEmail(String email);
+    List<SwabTest> findBySwabResult(boolean result);
 }
