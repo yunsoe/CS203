@@ -5,6 +5,6 @@ import java.util.Date;
 public interface SwabTestService {
     List<SwabTest> listSwabHistory(String userEmail);
     SwabTest addSwabHistory(SwabTest test);
-    Swabtest updateDate(Date date);
+    SwabTest updateDate(Date date);
     void setSwabAlert();
 }
