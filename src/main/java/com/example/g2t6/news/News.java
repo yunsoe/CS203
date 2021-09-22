@@ -51,4 +51,20 @@ public class News {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime time;
 
+    public News(String news, String category, String industry, LocalDate date, LocalTime time) {
+        this.news = news;
+        this.category = category;
+        this.industry = industry;
+        this.date = date;
+        this.time = time;
+    }
+
+    public News(int casesQuarantined, int casesHospCritical, int casesHospNotCritical, int deaths) {
+        this.casesQuarantined = casesQuarantined;
+        this.casesHospCritical = casesHospCritical;
+        this.casesHospNotCritical = casesHospNotCritical;
+        this.deaths = deaths;
+    
+    }
+
 }
