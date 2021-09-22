@@ -23,6 +23,9 @@ public class Event {
     @JoinColumn(name = "companyID",nullable = false);
     private Company company;
 
+    @NotNull(message = "Event Name cannot be empty")
+    private String eventName;
+
     @NotNull(message = "Event Date cannot be empty")
     private String eventDate; 
 
