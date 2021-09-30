@@ -23,4 +23,7 @@ public class SwabTest {
     @NotNull(message = "actual swab date cannot be null")
     private Date actualSwabDate;
 
+    public SwabTest(Date actualSwabDate){
+        this.actualSwabDate = actualSwabDate;
+    }
 }

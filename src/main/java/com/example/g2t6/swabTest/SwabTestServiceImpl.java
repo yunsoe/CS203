@@ -20,15 +20,15 @@ public class SwabTestServiceImpl implements SwabTestService{
     }
 
     @Override
-    public SwabTest updateDate(Long id,Date date){
-        return swabTests.findById(id).map(swabTest -> {swabTest.setActualSwabDate(date);
+    public SwabTest updateDate(Long id,SwabTest newSwabTest){
+        return swabTests.findById(id).map(swabTest -> {swabTest.setActualSwabDate(newSwabTest.getActualSwabDate());
             return swabTests.save(swabTest);
         }).orElse(null);
     }
 
     @Override
     public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,Date actualSwabDate){ // for admin to see that whose reult is positive
-        return swabTests.findBySwabResult(swabResult);// how to set for a range from curr to that datae?
+        return swabTests.findBySwabResultAndDate(swabResult, actualSwabDate);// how to set for a range from curr to that datae?
     }
 
 }
