@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and() //  "and()"" method allows us to continue configuring the parent
         .authorizeRequests()
             //.antMatchers(HttpMethod.GET, "/books", "/books/**").permitAll() // Anyone can view books and reviews
-
+            .antMatchers(HttpMethod.GET, "/swabTests/*").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/swabTests").hasRole("ADMIN")
             .and()
         .csrf().disable() // CSRF protection is needed only for browser based attacks
         //not sure abt this part

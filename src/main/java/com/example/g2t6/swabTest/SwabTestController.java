@@ -1,6 +1,6 @@
 package com.example.g2t6.swabTest;
 import java.util.List;
-
+import java.util.Date;
 import javax.validation.Valid;
 
 
@@ -26,6 +26,11 @@ public class SwabTestController {
         return swabTestService.listSwabHistory(userId); // need to throw user not found exceptions
     }
 
+    @GetMapping("/swabTests")
+    public List<SwabTest> getSpecificSwabTests(@Valid @RequestBody boolean swabResult,@Valid @RequestBody Date actualSwabDate){
+        return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, actualSwabDate);
+    }
+
     @GetMapping("/users/{userEmail}/swabTests")
     public List<SwabTest> getIndividuSwabTests(@PathVariable (value = "userEmail") String userEmail){
         return swabTestService.listSwabHistory(userEmail);
@@ -35,8 +40,17 @@ public class SwabTestController {
     @PostMapping("/users/{userEmail}/swabTests")
     public SwabTest addSwabTest(@Valid @RequestBody SwabTest swabTest){
         SwabTest savedSwabTest = swabTestService.addSwabHistory(swabTest);
-        //if (savedBook ==  null) throw new SwabExistsException(swabTest.getDate());
+        //if (savedSwabTest ==  null) throw new SwabExistsException(swabTest.getDate());
         return savedSwabTest;
+    }
+
+    @PutMapping("/users/{userEmail}/swabTests/{swabId}")
+    public SwabTest updateSwabTest(@PathVariable(value = "userEmail") String userEmail,
+                                    @PathVariable(value = "swabId") Long swabId,
+                                    @Valid @RequestBody SwabTest newSwabTest){
+        SwabTest swabTest = swabTestService.updateDate(swabId, newSwabTest);
+        //if(swabTest2 == null) throw new SwabTestNotFoundException(swabId);
+        return swabTest;
     }
 
 }
