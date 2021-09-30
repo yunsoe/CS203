@@ -31,8 +31,8 @@ public class AlertController {
     @PostMapping("/users/{userEmail}/alerts")
     public Alert addAlert(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Alert alert) {
         return users.findById(userEmail.map(user ->{
-            review.setBook(book);
-            return reviews.save(review);
-        }).orElseThrow(() -> new BookNotFoundException(bookId));
+            alerts.setAlert(alert);
+            return alerts.save(alert);
+        }).orElseThrow(() -> new AlertNotFoundException(userEmail)));
     }
 }
