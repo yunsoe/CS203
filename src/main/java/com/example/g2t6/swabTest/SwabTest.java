@@ -26,4 +26,6 @@ public class SwabTest {
     public SwabTest(Date actualSwabDate){
         this.actualSwabDate = actualSwabDate;
     }
+
+    
 }

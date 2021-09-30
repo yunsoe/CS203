@@ -40,7 +40,7 @@ public class SwabTestController {
     @PostMapping("/users/{userEmail}/swabTests")
     public SwabTest addSwabTest(@Valid @RequestBody SwabTest swabTest){
         SwabTest savedSwabTest = swabTestService.addSwabHistory(swabTest);
-        //if (savedSwabTest ==  null) throw new SwabExistsException(swabTest.getDate());
+        if (savedSwabTest ==  null) throw new SwabTestExistsException(swabTest.getActualSwabDate());
         return savedSwabTest;
     }
 
@@ -49,7 +49,7 @@ public class SwabTestController {
                                     @PathVariable(value = "swabId") Long swabId,
                                     @Valid @RequestBody SwabTest newSwabTest){
         SwabTest swabTest = swabTestService.updateDate(swabId, newSwabTest);
-        //if(swabTest2 == null) throw new SwabTestNotFoundException(swabId);
+        if(swabTest == null) throw new SwabTestNotFoundException(swabId);
         return swabTest;
     }
 
