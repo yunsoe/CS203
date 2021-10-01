@@ -7,6 +7,7 @@ import com.example.g2t6.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import AlertNotFoundException
 //import Alert Repo
 
