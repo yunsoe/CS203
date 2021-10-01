@@ -23,7 +23,7 @@ public class AlertController {
     @GetMapping("/users/{userEmail}/alerts")
     public List<Alert> getAllAlertsByUser(@PathVariable (value = "userEmail") String userEmail) {
         if(!users.existsById(userEmail)) {
-            throw new UserNotFoundException(userEmail);
+            throw new UsernameNotFoundException(userEmail);
         }
         return alerts.findByUserEmail(userEmail);
     }
