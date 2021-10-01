@@ -34,6 +34,6 @@ public class AlertController {
         return users.findById(userEmail.map(user ->{
             alerts.setAlert(alert);
             return alerts.save(alert);
-        }).orElseThrow(() -> new AlertNotFoundException(userEmail)));
+        }).orElseThrow(() -> new UsernameNotFoundException(userEmail)));
     }
 }
