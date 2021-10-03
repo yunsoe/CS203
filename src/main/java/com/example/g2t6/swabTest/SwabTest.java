@@ -3,7 +3,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.*;
 import com.example.g2t6.user.*;
-import java.util.Date;
 @Entity
 @Getter
 @Setter
@@ -21,9 +20,9 @@ public class SwabTest {
     private boolean swabResult;
 
     @NotNull(message = "actual swab date cannot be null")
-    private Date actualSwabDate;
+    private String actualSwabDate;
 
-    public SwabTest(Date actualSwabDate){
+    public SwabTest(String actualSwabDate){ // use string for now but may change to LocalDate
         this.actualSwabDate = actualSwabDate;
     }
 

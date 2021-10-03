@@ -1,6 +1,5 @@
 package com.example.g2t6.swabTest;
 import java.util.List;
-import java.util.Date;
 import javax.validation.Valid;
 
 
@@ -27,7 +26,7 @@ public class SwabTestController {
     }
 
     @GetMapping("/swabTests")
-    public List<SwabTest> getSpecificSwabTests(@Valid @RequestBody boolean swabResult,@Valid @RequestBody Date actualSwabDate){
+    public List<SwabTest> getSpecificSwabTests(@Valid @RequestBody boolean swabResult,@Valid @RequestBody String actualSwabDate){
         return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, actualSwabDate);
     }
 

@@ -6,7 +6,7 @@ import java.util.Date;
 public class SwabTestExistsException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
-    public SwabTestExistsException(Date date) {
+    public SwabTestExistsException(String date) {
         super("This date for this swab already exists, the date is: " + date);
     }
 }
