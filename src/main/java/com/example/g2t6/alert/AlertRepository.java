@@ -7,6 +7,6 @@ import java.util.*;
 @Repository
 public interface AlertRepository extends JpaRepository <Alert, Long>{
     List<Alert> findByUserEmail(String userEmail);
-    Optional<Alert> findById(String userEmail, long id);
+    Optional<Alert> findByIdAndUserEmail(long id, String userEmail);
     
 }
