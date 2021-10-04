@@ -17,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.g2t6.feedback.Feedback;
 import com.example.g2t6.swabTest.SwabTest;
 import com.example.g2t6.company.Company;
+import com.example.g2t6.alert.Alert;
 
 @Entity
 @Getter
@@ -57,6 +58,10 @@ public class User implements UserDetails {
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Feedback> feedbacks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Alert> alerts;
 
     @NotNull(message = "Authorities should not be null")
     // We define two roles/authorities: ROLE_USER or ROLE_ADMIN

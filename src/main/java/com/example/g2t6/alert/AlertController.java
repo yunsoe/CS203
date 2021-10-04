@@ -1,6 +1,6 @@
 package com.example.g2t6.alert;
 
-import java.util.List;
+import java.util.*;
 
 import com.example.g2t6.user.UserRepository;
 
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.example.g2t6.user.*;
 //import AlertNotFoundException
 //import Alert Repo
 
@@ -31,9 +32,13 @@ public class AlertController {
 
     @PostMapping("/users/{userEmail}/alerts")
     public Alert addAlert(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Alert alert) {
-        return users.findById(userEmail.map(user ->{
-            alerts.setAlert(alert);
-            return alerts.save(alert);
-        }).orElseThrow(() -> new UsernameNotFoundException(userEmail)));
+        return users.findByEmail(userEmail).map(user ->{
+            alert.setUser(user);
+            return reviews.save(review);
+        }).orElseThrow(() -> new BookNotFoundException(bookId));
     }
+
+
+
+
 }

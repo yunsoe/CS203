@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.*;
 import java.util.*;
+import com.example.g2t6.user.*;
 
 @Entity
 @Getter
