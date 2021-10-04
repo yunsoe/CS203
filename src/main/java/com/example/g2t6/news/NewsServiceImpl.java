@@ -1,4 +1,4 @@
-package com.example.g2t6.News;
+package com.example.g2t6.news;
 
 import java.util.*;
 
