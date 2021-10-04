@@ -34,8 +34,35 @@ public class AlertController {
     public Alert addAlert(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Alert alert) {
         return users.findByEmail(userEmail).map(user ->{
             alert.setUser(user);
-            return reviews.save(review);
-        }).orElseThrow(() -> new BookNotFoundException(bookId));
+            return alerts.save(alert);
+        }).orElseThrow(() -> new UsernameNotFoundException(userEmail));
+    }
+
+    @PutMapping("/users/{userEmail}/alerts/{alertId}")
+    public Alert updateAlert(@PathVariable (value = "userEmail") String userEmail,
+                                 @PathVariable (value = "alertId") Long alertId,
+                                 @Valid @RequestBody Alert newAlert) {
+        if(!users.existsById(userEmail)) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+        return alerts.findByIdAndUserEmail(alertId, userEmail).map(alert -> {
+            alert.setAlert(newAlert.getAlert());
+            return alerts.save(alert);
+        }).orElseThrow(() -> new AlertNotFoundException(alertId));
+    }
+
+    @DeleteMapping("/users/{userEmail}/alerts/{alertId}")
+    public ResponseEntity<?> deleteAlert(@PathVariable (value = "userEmail") String userEmail,
+                              @PathVariable (value = "alertId") Long alertId) {
+        
+        if(!users.existsById(userEmail)) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        return alerts.findByIdAndUserEmail(alertId, userEmail).map(alert -> {
+            alerts.delete(alert);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new AlertNotFoundException(alertId));
     }
 
 

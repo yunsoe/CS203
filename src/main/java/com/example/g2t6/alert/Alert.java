@@ -16,7 +16,7 @@ import com.example.g2t6.user.*;
 public class Alert {
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
-    @JoinColumn(name = "userEmail", nullable = false);
+    @JoinColumn(name = "userEmail", nullable = false)
     private User user;
 
     @NotNull(message = "Status cannot be null.")
