@@ -20,7 +20,7 @@ public class Event {
 
     private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
-    @JoinColumn(name = "companyID",nullable = false);
+    @JoinColumn(name = "companyID", nullable = false)
     private Company company;
 
     @NotNull(message = "Event Name cannot be empty")

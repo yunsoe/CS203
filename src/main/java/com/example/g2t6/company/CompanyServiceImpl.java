@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    private CompanyRepo companyList;
+    private CompanyRepository companyList;
 
-    public CompanyServiceImpl(CompanyRepo companyList) {
+    public CompanyServiceImpl(CompanyRepository companyList) {
         this.companyList = companyList;
     }
 

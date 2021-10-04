@@ -2,13 +2,15 @@ package com.example.g2t6.industry;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
+
 
 import com.example.g2t6.company.Company;
 
@@ -25,7 +27,7 @@ import lombok.*;
 public class Industry {
 
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "industryList")
     @JsonIgnore
     private List<Company> companies;
 

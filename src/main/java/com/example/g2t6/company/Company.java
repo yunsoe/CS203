@@ -7,12 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.g2t6.industry.Industry;
+import com.example.g2t6.event.Event;
 
 import lombok.*;
 
@@ -32,9 +36,19 @@ public class Company {
     @Size(min = 1, max = 200, message = "Comapny's name should be at least 5 characters long")
     private String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)          
+    private List<Event> eventList;
+
+    @ManyToMany
+    @JoinTable(
+        name = "industry_list", 
+        joinColumns = @JoinColumn(name = "company_id"), 
+        inverseJoinColumns = @JoinColumn(name = "industry_id"))     
     @JsonIgnore
     private List<Industry> industryList;
+
+
     
     public Company(String name){
         this.name = name;
