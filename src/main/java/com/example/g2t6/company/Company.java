@@ -1,6 +1,8 @@
 package com.example.g2t6.company;
 
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,12 +13,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.g2t6.industry.Industry;
 import com.example.g2t6.event.Event;
+import com.example.g2t6.user.User;
+
 
 import lombok.*;
 
@@ -41,11 +46,11 @@ public class Company {
 
     @ManyToMany
     @JoinTable(
-        name = "industry_list", 
+        name = "company_industries", 
         joinColumns = @JoinColumn(name = "company_id"), 
         inverseJoinColumns = @JoinColumn(name = "industry_id"))     
     @JsonIgnore
-    private List<Industry> industryList;
+    private Set<Industry> industries = new HashSet<> ();
 
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "email", nullable = false)

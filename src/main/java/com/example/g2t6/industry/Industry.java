@@ -1,6 +1,8 @@
 package com.example.g2t6.industry;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 
 import javax.persistence.Entity;
@@ -27,9 +29,9 @@ import lombok.*;
 public class Industry {
 
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
-    @ManyToMany(mappedBy = "industryList")
+    @ManyToMany(mappedBy = "industries")
     @JsonIgnore
-    private List<Company> companies;
+    private Set <Industry> industries = new HashSet<>();
 
     @NotNull(message = "Industry name should not be null")
     private String name;
