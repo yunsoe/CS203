@@ -68,3 +68,16 @@ Authorization: Basic abc@gmail.com goodpassword
     "role": "developer",
     "authorities": "ROLE_USER"
 }
+###
+GET http://localhost:8080/industries
+
+###
+GET http://localhost:8080/industries/1
+
+###
+POST http://localhost:8080/industries
+Content-Type: application/json
+
+{
+    "name": "Education"
+}
