@@ -3,6 +3,8 @@ package com.example.g2t6.user;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,6 +20,7 @@ import com.example.g2t6.feedback.Feedback;
 import com.example.g2t6.swabTest.SwabTest;
 import com.example.g2t6.company.Company;
 import com.example.g2t6.alert.Alert;
+import com.example.g2t6.event.Event;
 
 @Entity
 @Getter
@@ -42,10 +45,17 @@ public class User implements UserDetails {
     @Size(min = 8, message = "Password should be at least 8 characters")
     private String password;
 
-    // i think this needs company to be implemented with the @OneToMany to user before i can uncomment this
-    // @ManyToOne //composition, since we cant have a user without a company, in company class there should be orphanRemoval = true (refer to week 4 slide 17)
-    // @JoinColumn(name = "company_id", nullable = false) //may need to be update depending on company class impl
-    // private Company company;
+    @ManyToOne //composition, since we cant have a user without a company, in company class there should be orphanRemoval = true (refer to week 4 slide 17)
+    @JoinColumn(name = "company_id", nullable = false) //may need to be update depending on company class impl
+    private Company company;
+
+    @ManyToMany
+    @JoinTable(name="user_events",
+        joinColumns = 
+            @JoinColumn(name="user_email"),
+        inverseJoinColumns = 
+        @JoinColumn(name="event_id"))
+    private Set<Event> events = new HashSet<>();
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
