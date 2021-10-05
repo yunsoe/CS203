@@ -1,0 +1,8 @@
+# add company
+###
+POST http://localhost:8080/companies
+Content-Type: application/json
+
+{
+    "name": "company c"
+}

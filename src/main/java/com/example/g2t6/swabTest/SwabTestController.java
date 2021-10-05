@@ -1,10 +1,12 @@
 package com.example.g2t6.swabTest;
 import java.util.List;
 import javax.validation.Valid;
-
-
+import com.example.g2t6.user.User;
+import com.example.g2t6.user.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SwabTestController {
     private SwabTestService swabTestService;
-    public SwabTestController(SwabTestService s){
+    private UserRepository userRepository;
+    public SwabTestController(SwabTestService s, UserRepository userRepository){
         this.swabTestService = s;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/swabTests/{userId}")  // this is for admin to see only, how to differenttiate it from the users' seeing their own result
@@ -25,8 +29,8 @@ public class SwabTestController {
         return swabTestService.listSwabHistory(userId); // need to throw user not found exceptions
     }
 
-    @GetMapping("/swabTests")
-    public List<SwabTest> getSpecificSwabTests(@Valid @RequestBody boolean swabResult,@Valid @RequestBody String actualSwabDate){
+    @GetMapping("/swabTests/{swabResult}/{actualSwabDate}")
+    public List<SwabTest> getSpecificSwabTests(@Valid @PathVariable boolean swabResult,@Valid @PathVariable String actualSwabDate){
         return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, actualSwabDate);
     }
 
@@ -37,10 +41,14 @@ public class SwabTestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userEmail}/swabTests")
-    public SwabTest addSwabTest(@Valid @RequestBody SwabTest swabTest){
-        SwabTest savedSwabTest = swabTestService.addSwabHistory(swabTest);
+    public SwabTest addSwabTest(@PathVariable (value = "userEmail") String userEmail,@Valid @RequestBody SwabTest swabTest){
+        return userRepository.findByEmail(userEmail).map(user ->{
+            swabTest.setUser(user);
+          SwabTest savedSwabTest = swabTestService.addSwabHistory(swabTest);
         if (savedSwabTest ==  null) throw new SwabTestExistsException(swabTest.getActualSwabDate());
         return savedSwabTest;
+        }).orElseThrow(() -> new UsernameNotFoundException(userEmail));
+      
     }
 
     @PutMapping("/users/{userEmail}/swabTests/{swabId}")

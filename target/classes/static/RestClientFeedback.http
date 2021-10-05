@@ -1,0 +1,11 @@
+# add feedback
+###
+POST http://localhost:8080/users/def@gmail.com/feedbacks
+Content-Type: application/json
+# User role
+Authorization: Basic def@gmail.com:goodpassword
+
+{
+    "title": "feedback2",
+    "details": "details for feedback2"
+}
