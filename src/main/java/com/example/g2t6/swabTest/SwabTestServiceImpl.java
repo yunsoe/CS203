@@ -16,7 +16,11 @@ public class SwabTestServiceImpl implements SwabTestService{
 
     @Override
     public SwabTest addSwabHistory(SwabTest test){
-        return swabTests.save(test);
+        List<SwabTest> sameDate = swabTests.findByActualSwabDate(test.getActualSwabDate());
+        if(sameDate.size() == 0){
+            return swabTests.save(test);
+        }
+        return null;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class SwabTestServiceImpl implements SwabTestService{
     }
 
     @Override
-    public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,Date actualSwabDate){ // for admin to see that whose reult is positive
+    public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,String actualSwabDate){ // for admin to see that whose reult is positive
         return swabTests.findBySwabResultAndDate(swabResult, actualSwabDate);// how to set for a range from curr to that datae?
     }
 
