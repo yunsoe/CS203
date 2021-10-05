@@ -9,6 +9,7 @@ public class SwabTestServiceImpl implements SwabTestService{
     public SwabTestServiceImpl(SwabTestRepository swabTest){
         this.swabTests = swabTest;
     }
+
     @Override
     public List<SwabTest> listSwabHistory(String userEmail){
         return swabTests.findByUserEmail(userEmail);
@@ -32,7 +33,7 @@ public class SwabTestServiceImpl implements SwabTestService{
 
     @Override
     public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,String actualSwabDate){ // for admin to see that whose reult is positive
-        return swabTests.findBySwabResultAndDate(swabResult, actualSwabDate);// how to set for a range from curr to that datae?
+        return swabTests.findBySwabResultAndActualSwabDate(swabResult, actualSwabDate);// how to set for a range from curr to that datae?
     }
 
 }

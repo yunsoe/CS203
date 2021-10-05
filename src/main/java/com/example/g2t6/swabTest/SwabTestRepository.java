@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface SwabTestRepository extends JpaRepository<SwabTest, Long>{
     List<SwabTest> findByUserEmail(String email);
-    List<SwabTest> findBySwabResultAndDate(boolean result,String actualSwabDate);
+    List<SwabTest> findBySwabResultAndActualSwabDate(boolean result,String actualSwabDate);
     List<SwabTest> findByActualSwabDate(String actualSwabDate);
 
 }
