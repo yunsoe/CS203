@@ -8,6 +8,7 @@ import java.time.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,13 +63,17 @@ public class NewsController {
     }
 
     @GetMapping("/news/date/{date}") 
-    public List<News> getNewsByDate(@PathVariable LocalDate date) {
+    public List<News> getNewsByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         return newsRepo.findByDate(date);
     }
 
-    @GetMapping("/news/{industry}/{category}")
-    public List<News> getNewsByIndustryAndCategory(Long id, String category) {
-        return newsService.getNewsByIndustryAndCategory(id, category);
+    @GetMapping("/news/industry/{id}/category/{category}")
+    public List<News> getNewsByIndustryAndCategory(@PathVariable Long id, @PathVariable String category) {
+        Industry industry = industryService.getIndustry(id);
+        if (industry == null) {
+            throw new IndustryNotFoundException(id);
+        }
+        return newsRepo.findByIndustryIdAndCategory(id, category);
     }
 
     @GetMapping("/news/{id}")

@@ -42,7 +42,7 @@ public class NewsServiceImpl implements NewsService{
     @Override
     public List<News> getNewsByIndustryAndCategory(Long id, String category) {
         Industry industry = industryRepo.findById(id).orElse(null);
-        return newsRepo.findByIndustryAndCategory(industry, category);
+        return newsRepo.findByIndustryIdAndCategory(id, category);
     }
 
     @Override
