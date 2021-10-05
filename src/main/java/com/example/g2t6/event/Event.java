@@ -3,6 +3,9 @@ package com.example.g2t6.event;
 import com.example.g2t6.company.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import com.example.g2t6.user.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 import lombok.*;
@@ -21,6 +24,9 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "company_ID", nullable = false)
     private Company company;
+
+    @ManyToMany(mappedBy = "events")
+    private Set<User> users = new HashSet<>();
 
     @NotNull(message = "Event Name should not be null")
     private String event;
