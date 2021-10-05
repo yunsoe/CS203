@@ -1,0 +1,5 @@
+# get swab tests
+###
+GET http://localhost:8080/swabTests/abc@gmail.com
+Accept: application/json
+Authorization: Basic abc@gmail.com goodpassword

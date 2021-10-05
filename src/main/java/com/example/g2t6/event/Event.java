@@ -31,13 +31,13 @@ public class Event {
     @ManyToMany(mappedBy = "events")
     private Set<User> users = new HashSet<>();
 
-    @NotNull(message = "Event Name should not be null")
+    // @NotNull(message = "Event Name should not be null")
     private String event;
 
-    @NotNull(message = "Event Date should not be null")
+    // @NotNull(message = "Event Date should not be null")
     private String eventDate; 
 
-    @NotNull(message = "Location should not be null")
+    // @NotNull(message = "Location should not be null")
     private String location;
 
 }
