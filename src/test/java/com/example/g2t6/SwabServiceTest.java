@@ -53,4 +53,26 @@ public class SwabServiceTest {
         verify(swabTests).findByActualSwabDate(swabtest.getActualSwabDate());
         verify(swabTests).save(swabtest);
     }
+
+    @Test
+    void  addSwabTest_SameDate_ReturnNull(){
+        SwabTest swabtest = new SwabTest("2020-08-01");
+        List<SwabTest> swabs = new ArrayList<>();
+        swabs.add(swabtest);
+        when(swabTests.findByActualSwabDate(any(String.class))).thenReturn(swabs);
+        SwabTest savedSwab = swabService.addSwabHistory(swabtest);
+        assertNull(savedSwab);
+        verify(swabTests).findByActualSwabDate(swabtest.getActualSwabDate());
+
+    }
+
+    @Test
+    void updateSwabDate_NotFound_ReturnNull(){
+        SwabTest swabtest = new SwabTest("2020-08-01");
+        Long id = 10L;
+        when(swabTests.findById(id)).thenReturn(Optional.empty());
+        SwabTest updatedSwabTest = swabService.updateDate(id, swabtest);
+        assertNull(updatedSwabTest);
+        verify(swabTests).findById(id);
+    }
 }
