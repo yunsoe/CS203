@@ -3,8 +3,7 @@ package com.example.g2t6.event;
 import com.example.g2t6.company.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.List;
+
 
 import lombok.*;
 

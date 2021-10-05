@@ -31,7 +31,7 @@ public class CompanyServiceImpl implements CompanyService {
     
     @Override
     public Company updateCompany(Long id, Company newCompanyInfo){
-        return companyList.findById(id).map(company -> {company.setTitle(newCompanyInfo.getTitle());
+        return companyList.findById(id).map(company -> {company.setName(newCompanyInfo.getName());
             return companyList.save(company);
         }).orElse(null);
 

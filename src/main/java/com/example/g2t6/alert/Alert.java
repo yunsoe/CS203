@@ -25,6 +25,6 @@ public class Alert {
     @NotNull(message = "Date cannot be null.")
     private Date alertDate;
     
-    private String message;
+    private String alert;
 
 }
