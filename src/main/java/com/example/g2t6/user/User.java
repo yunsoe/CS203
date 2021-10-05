@@ -47,6 +47,7 @@ public class User implements UserDetails {
 
     @ManyToOne //composition, since we cant have a user without a company, in company class there should be orphanRemoval = true (refer to week 4 slide 17)
     @JoinColumn(name = "company_id", nullable = false) //may need to be update depending on company class impl
+    @JsonIgnore
     private Company company;
 
     @ManyToMany
@@ -55,6 +56,7 @@ public class User implements UserDetails {
             @JoinColumn(name="user_email"),
         inverseJoinColumns = 
         @JoinColumn(name="event_id"))
+    @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

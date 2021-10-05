@@ -43,7 +43,7 @@ public class Company {
     @JsonIgnore
     private Set<Industry> industryList = new HashSet<> ();
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <User> users;
     
     public Company(String name){

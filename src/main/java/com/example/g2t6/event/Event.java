@@ -7,6 +7,7 @@ import com.example.g2t6.user.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.*;
 
@@ -21,8 +22,10 @@ import lombok.*;
 public class Event {
 
     private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    
     @ManyToOne
     @JoinColumn(name = "company_ID", nullable = false)
+    @JsonIgnore
     private Company company;
 
     @ManyToMany(mappedBy = "events")
