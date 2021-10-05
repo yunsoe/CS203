@@ -26,6 +26,17 @@ public class UserController {
         return users.findAll();
     }
 
+    @GetMapping("/users/{companyId}")
+    public List<User> getUsersByCompanyId(@PathVariable Long companyId) {
+        Company company = companies.getCompany(companyId);
+
+        if(company == null) {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        return company.getUsers();
+    }
+
     /**
     * Using BCrypt encoder to encrypt the password for storage 
     * @param user
@@ -35,7 +46,7 @@ public class UserController {
     public User addUser(@Valid @RequestBody User user, @PathVariable Long companyId){
         user.setPassword(encoder.encode(user.getPassword()));
         Company company = companies.getCompany(companyId);
-        
+
         if(company == null) {
             throw new CompanyNotFoundException(companyId);
         }
