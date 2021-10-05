@@ -52,8 +52,9 @@ public class AlertController {
             throw new UsernameNotFoundException(userEmail);
         }
         return alerts.findByIdAndUserEmail(alertId, userEmail).map(alert -> {
+            alert.setAlertDate(newAlert.getAlertDate());
             alert.setAlert(newAlert.getAlert());
-            Mail mail = new Mail("waddyrocks@gmail.com", newAlert, newAlert.getAlert());
+            Mail mail = new Mail("waddyrocks@gmail.com", newAlert.getAlertDate(), newAlert.getAlert());
             mailService.sendMail(mail);
             return alerts.save(alert);
         }).orElseThrow(() -> new AlertNotFoundException(alertId));

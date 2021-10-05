@@ -28,8 +28,8 @@ public class Alert {
     @NotNull(message = "Alert cannot be null.")
     private String alert;
 
-    public Alert(User user, String alertDate, String alert) {
-        this.user = user;
+    public Alert(String alertDate, String alert) {
+        //this.user = user;
         this.alertDate = alertDate;
         this.alert = alert;
     }
