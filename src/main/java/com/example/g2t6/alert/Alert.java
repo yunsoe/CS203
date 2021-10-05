@@ -20,7 +20,7 @@ public class Alert {
     private User user;
 
     //@NotNull(message = "Status cannot be null.")
-    //private boolean status;
+    //private Boolean status;
 
     @NotNull(message = "Date cannot be null.")
     private String alertDate;
