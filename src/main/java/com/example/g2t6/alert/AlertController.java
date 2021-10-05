@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.example.g2t6.user.*;
+import com.example.g2t6.mail.*;
 //import AlertNotFoundException
 //import Alert Repo
 
@@ -17,6 +18,7 @@ import com.example.g2t6.user.*;
 public class AlertController {
     private AlertRepository alerts;
     private UserRepository users;
+    private MailService mailService;
 
     public AlertController(AlertRepository alerts, UserRepository users){
         this.alerts = alerts;
@@ -36,6 +38,8 @@ public class AlertController {
     public Alert addAlert(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Alert alert) {
         return users.findByEmail(userEmail).map(user ->{
             alert.setUser(user);
+            Mail mail = new Mail("waddyrocks@gmail.com", alert.getStatus(), alert.getDate(), alert.getAlert());
+            mailService.sendMail(mail);
             return alerts.save(alert);
         }).orElseThrow(() -> new UsernameNotFoundException(userEmail));
     }
@@ -49,6 +53,8 @@ public class AlertController {
         }
         return alerts.findByIdAndUserEmail(alertId, userEmail).map(alert -> {
             alert.setAlert(newAlert.getAlert());
+            Mail mail = new Mail("waddyrocks@gmail.com", newAlert.getStatus(), newAlert.getDate(), newAlert.getAlert());
+            mailService.sendMail(mail);
             return alerts.save(alert);
         }).orElseThrow(() -> new AlertNotFoundException(alertId));
     }
