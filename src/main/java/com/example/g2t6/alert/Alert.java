@@ -27,4 +27,11 @@ public class Alert {
     
     private String alert;
 
+    public Alert(User user, boolean status, Date alertDate, String alert) {
+        this.user = user;
+        this.status = status;
+        this.alertDate = alertDate;
+        this.alert = alert;
+    }
+
 }
