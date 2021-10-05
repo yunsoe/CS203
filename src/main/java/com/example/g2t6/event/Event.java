@@ -24,7 +24,7 @@ public class Event {
     private Company company;
 
     @NotNull(message = "Event Name should not be null")
-    private String eventName;
+    private String event;
 
     @NotNull(message = "Event Date should not be null")
     private String eventDate; 
