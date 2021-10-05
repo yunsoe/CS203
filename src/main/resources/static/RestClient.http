@@ -68,3 +68,46 @@ Authorization: Basic abc@gmail.com goodpassword
     "role": "developer",
     "authorities": "ROLE_USER"
 }
+
+###
+GET http://localhost:8080/industries
+
+###
+GET http://localhost:8080/industries/1
+
+###
+POST http://localhost:8080/industries
+Content-Type: application/json
+
+{
+    "name": "Education"
+}
+###
+DELETE http://localhost:8080/industries/1
+
+###
+GET http://localhost:8080/companies/1/events
+
+###
+POST http://localhost:8080/companies/1/events
+Content-Type: application/json
+
+{
+    "event": "Company Dinner",
+    "eventDate": "12-10-21",
+    "location": "Dhoby Ghaut"
+}
+
+###
+PUT http://localhost:8080/companies/1/events/1
+Content-Type: application/json
+
+{
+    "event": "Project Meeting"
+}
+
+###
+DELETE http://localhost:8080/companies/1/events/1
+
+
+
