@@ -20,7 +20,7 @@ public class EventController {
         this.companies = companies;
     }
 
-    @GetMapping("/company/{companyId}/events")
+    @GetMapping("/companies/{companyId}/events")
     public List<Event> getAllEventsByCompanyId(@PathVariable (value = "companyId") Long companyId) {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
@@ -45,7 +45,7 @@ public class EventController {
      * @return
      */
 
-    @PostMapping("/company/{companyId}/events")
+    @PostMapping("/companies/{companyId}/events")
     public Event addEvent (@PathVariable (value = "companyId") Long companyId, @RequestBody Event event) {
         return companies.findById(companyId).map(company -> {
             event.setCompany(company);
@@ -53,7 +53,7 @@ public class EventController {
         }).orElseThrow(() -> new CompanyNotFoundException(companyId));
         }
     
-    @PutMapping("/company/{companyId}/events/{eventId}")
+    @PutMapping("/companies/{companyId}/events/{eventId}")
     public Event updateEvent(@PathVariable (value = "eventId") Long eventId,
                                  @PathVariable (value = "companyId") Long companyId,
                                  @RequestBody Event newEvent) {
@@ -69,7 +69,7 @@ public class EventController {
     /**
      * Use a ResponseEntity to have more control over the response sent to client
      */
-    @DeleteMapping("/company/{companyId}/events/{eventId}")
+    @DeleteMapping("/companies/{companyId}/events/{eventId}")
     public ResponseEntity<?> deleteEvent(@PathVariable (value = "companyId") Long companyId,
                               @PathVariable (value = "eventId") Long eventId) {
         
