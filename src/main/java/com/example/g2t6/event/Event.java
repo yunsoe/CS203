@@ -20,16 +20,16 @@ public class Event {
 
     private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     @ManyToOne
-    @JoinColumn(name = "companyID", nullable = false)
+    @JoinColumn(name = "company_ID", nullable = false)
     private Company company;
 
-    @NotNull(message = "Event Name cannot be empty")
+    @NotNull(message = "Event Name should not be null")
     private String eventName;
 
-    @NotNull(message = "Event Date cannot be empty")
+    @NotNull(message = "Event Date should not be null")
     private String eventDate; 
 
-    @NotNull(message = "Location cannot be empty")
+    @NotNull(message = "Location should not be null")
     private String location;
 
 }

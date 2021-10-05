@@ -31,7 +31,7 @@ public class Industry {
     @JsonIgnore
     private List<Company> companies;
 
-    @NotNull(message = "Industry name cannot be empty")
+    @NotNull(message = "Industry name should not be null")
     private String name;
 
     public Industry(String name){
