@@ -36,7 +36,6 @@ public class Company {
     @Size(min = 1, max = 200, message = "Comapny's name should be at least 5 characters long")
     private String name;
 
-    
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)          
     private List<Event> eventList;
 
@@ -48,7 +47,9 @@ public class Company {
     @JsonIgnore
     private List<Industry> industryList;
 
-
+    @ManyToOne
+    @JoinColumn(name = "user", referencedColumnName = "email", nullable = false)
+    private User user;
     
     public Company(String name){
         this.name = name;
