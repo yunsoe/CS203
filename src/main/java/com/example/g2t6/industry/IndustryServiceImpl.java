@@ -6,26 +6,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class IndustryServiceImpl implements IndustryService {
 
-    private IndustryRepository industries;
+    private IndustryRepository industryList;
 
-    public IndustryServiceImpl (IndustryRepository industries){
-        this.industries = industries;
+    public IndustryServiceImpl (IndustryRepository industryList){
+        this.industryList = industryList;
     }
 
     @Override
     public List<Industry> listIndustries() {
-        return industries.findAll();
+        return industryList.findAll();
     }
 
     
     @Override
     public Industry getIndustry(Long id){
-        return industries.findById(id).orElse(null);
+        return industryList.findById(id).orElse(null);
     }
     
     @Override
     public Industry addIndustry(Industry industry) {
-        return industries.save(industry);
+        return industryList.save(industry);
     }
 
      /**
@@ -35,7 +35,7 @@ public class IndustryServiceImpl implements IndustryService {
      */
     @Override
     public void deleteIndustry(Long id){
-        industries.deleteById(id);
+        industryList.deleteById(id);
     }
     
  
