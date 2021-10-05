@@ -6,3 +6,86 @@ Content-Type: application/json
 {
     "name": "company c"
 }
+###
+POST http://localhost:8080/companies
+Content-Type: application/json
+
+{
+    "name": "company b"
+}
+
+# get companies
+### 
+GET http://localhost:8080/companies
+Accept: application/json
+
+#update company
+###
+PUT http://localhost:8080/companies/1
+Content-Type: application/json
+
+{
+    "name": "company d"
+}
+
+
+#add event
+###
+POST http://localhost:8080/companies/2/events
+Content-Type: application/json
+
+{
+    "event": "Company Dinner",
+    "eventDate": "12-10-21",
+    "location": "Dhoby Ghaut"
+}
+
+#add user to company
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+    "email": "hijdfdf@gmail.com",
+    "name": "employee a",
+    "password": "goodpassword",
+    "role": "tester",
+    "authorities": "ROLE_USER"
+}
+
+#add multiple users to the same company (email must be unique)
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+    "email": "hi@gmail.com",
+    "name": "employee b",
+    "password": "goodpassword",
+    "role": "tester",
+    "authorities": "ROLE_USER"
+}
+
+# add admin to company
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+    "email": "abc@gmail.com",
+    "name": "admin a",
+    "password": "goodpassword",
+    "role": "HR",
+    "authorities": "ROLE_ADMIN"
+}
+
+
+# delete company
+###
+DELETE http://localhost:8080/companies/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+
+
+
