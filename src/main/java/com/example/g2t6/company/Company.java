@@ -4,18 +4,9 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.g2t6.industry.Industry;
@@ -50,11 +41,10 @@ public class Company {
         joinColumns = @JoinColumn(name = "company_id"), 
         inverseJoinColumns = @JoinColumn(name = "industry_id"))     
     @JsonIgnore
-    private Set<Industry> industries = new HashSet<> ();
+    private Set<Industry> industryList = new HashSet<> ();
 
-    @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "email", nullable = false)
-    private User user;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List <User> users;
     
     public Company(String name){
         this.name = name;
