@@ -1,0 +1,22 @@
+
+# get industries 
+###
+GET http://localhost:8080/industries
+
+# get industry 
+###
+GET http://localhost:8080/industries/1
+
+# add industry 
+###
+POST http://localhost:8080/industries
+Content-Type: application/json
+
+{
+    "name": "Education"
+}
+
+
+#delete industry
+###
+DELETE http://localhost:8080/industries/1

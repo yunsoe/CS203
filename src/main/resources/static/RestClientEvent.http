@@ -1,0 +1,31 @@
+
+#get events 
+###
+GET http://localhost:8080/companies/1/events
+
+#add event
+###
+POST http://localhost:8080/companies/1/events
+Content-Type: application/json
+
+{
+    "event": "Company Dinner",
+    "eventDate": "12-10-21",
+    "location": "Dhoby Ghaut"
+}
+
+#update event 
+###
+PUT http://localhost:8080/companies/1/events/1
+Content-Type: application/json
+
+{
+    "event": "Project Meeting"
+}
+
+#delete event 
+###
+DELETE http://localhost:8080/companies/1/events/1
+
+
+
