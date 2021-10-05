@@ -2,9 +2,9 @@
 GET http://localhost:8080/users
 Accept: application/json
 
-# get swab tests
+# get swab tests(admin)
 ###
-GET http://localhost:8080/swabTests/abc@gmail.com
+GET http://localhost:8080/swabTests/def@gmail.com
 Accept: application/json
 Authorization: Basic abc@gmail.com goodpassword
 
@@ -67,4 +67,24 @@ Authorization: Basic abc@gmail.com goodpassword
     "password": "goodpassword",
     "role": "developer",
     "authorities": "ROLE_USER"
+}
+
+# get specific swab Test according to swabResult and date
+###
+GET http://localhost:8080/swabTests/false/2020-09-09
+//Accept: application/json
+
+# get individual swab results (user)
+###
+GET http://localhost:8080/users/def@gmail.com/swabTests
+Accept: application/json
+
+#add swab result
+###
+POST http://localhost:8080/users/def@gmail.com/swabTests
+Content-Type: application/json
+
+{
+    "swabResult": "false",
+    "actualSwabDate": "2020-09-09"
 }

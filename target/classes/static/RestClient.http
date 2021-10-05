@@ -2,6 +2,12 @@
 GET http://localhost:8080/users
 Accept: application/json
 
+# get swab tests(admin)
+###
+GET http://localhost:8080/swabTests/def@gmail.com
+Accept: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
 # add feedback
 ###
 POST http://localhost:8080/users/def@gmail.com/feedbacks
@@ -14,9 +20,18 @@ Authorization: Basic def@gmail.com:goodpassword
     "details": "details for feedback2"
 }
 
+# add company
+###
+POST http://localhost:8080/companies
+Content-Type: application/json
+
+{
+    "name": "company b"
+}
+
 # add user: admin
 ###
-POST http://localhost:8080/users
+POST http://localhost:8080/users/1
 Content-Type: application/json
 
 {
@@ -27,9 +42,22 @@ Content-Type: application/json
     "authorities": "ROLE_ADMIN"
 }
 
+# add user: employee - company doesnt exist
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+    "email": "hij@gmail.com",
+    "name": "employee c",
+    "password": "goodpassword",
+    "role": "tester",
+    "authorities": "ROLE_USER"
+}
+
 # add user: employee
 ###
-POST http://localhost:8080/users
+POST http://localhost:8080/users/1
 Content-Type: application/json
 Authorization: Basic abc@gmail.com goodpassword
 
@@ -41,3 +69,22 @@ Authorization: Basic abc@gmail.com goodpassword
     "authorities": "ROLE_USER"
 }
 
+# get specific swab Test according to swabResult and date
+###
+GET http://localhost:8080/swabTests/false/2020-09-09
+//Accept: application/json
+
+# get individual swab results (user)
+###
+GET http://localhost:8080/users/def@gmail.com/swabTests
+Accept: application/json
+
+#add swab result
+###
+POST http://localhost:8080/users/def@gmail.com/swabTests
+Content-Type: application/json
+
+{
+    "swabResult": "false",
+    "actualSwabDate": "2020-09-09"
+}
