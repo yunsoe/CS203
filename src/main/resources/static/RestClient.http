@@ -69,12 +69,15 @@ Authorization: Basic abc@gmail.com goodpassword
     "authorities": "ROLE_USER"
 }
 
+# get industries 
 ###
 GET http://localhost:8080/industries
 
+# get industry 
 ###
 GET http://localhost:8080/industries/1
 
+# add industry 
 ###
 POST http://localhost:8080/industries
 Content-Type: application/json
@@ -82,12 +85,16 @@ Content-Type: application/json
 {
     "name": "Education"
 }
+
+#delete industry
 ###
 DELETE http://localhost:8080/industries/1
 
+#get events 
 ###
 GET http://localhost:8080/companies/1/events
 
+#add event
 ###
 POST http://localhost:8080/companies/1/events
 Content-Type: application/json
@@ -98,6 +105,7 @@ Content-Type: application/json
     "location": "Dhoby Ghaut"
 }
 
+#update event 
 ###
 PUT http://localhost:8080/companies/1/events/1
 Content-Type: application/json
@@ -106,6 +114,7 @@ Content-Type: application/json
     "event": "Project Meeting"
 }
 
+#delete event 
 ###
 DELETE http://localhost:8080/companies/1/events/1
 
