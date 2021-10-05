@@ -13,6 +13,12 @@ Authorization: Basic abc@gmail.com goodpassword
 GET http://localhost:8080/users/def@gmail.com/alerts
 Accept: application/json
 
+###
+DELETE http://localhost:8080/users/def@gmail.com/alerts/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+
 # add company
 ###
 POST http://localhost:8080/companies
@@ -21,6 +27,7 @@ Content-Type: application/json
 {
     "name": "company b"
 }
+
 
 # add user: admin
 ###
@@ -48,6 +55,4 @@ Authorization: Basic abc@gmail.com goodpassword
     "role": "developer",
     "authorities": "ROLE_USER"
 }
-
-
 
