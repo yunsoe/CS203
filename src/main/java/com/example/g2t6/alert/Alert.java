@@ -19,19 +19,43 @@ public class Alert {
     @JoinColumn(name = "userEmail", nullable = false)
     private User user;
 
-    @NotNull(message = "Status cannot be null.")
-    private boolean status;
+    //@NotNull(message = "Status cannot be null.")
+    //private boolean status;
 
     @NotNull(message = "Date cannot be null.")
-    private Date alertDate;
+    private String alertDate;
     
+    @NotNull(message = "Alert cannot be null.")
     private String alert;
 
-    public Alert(User user, boolean status, Date alertDate, String alert) {
+    public Alert(User user, String alertDate, String alert) {
         this.user = user;
-        this.status = status;
         this.alertDate = alertDate;
         this.alert = alert;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User newUser) {
+        user = newUser;
+    }
+
+    public String getAlertDate() {
+        return alertDate;
+    }
+
+    public void setAlertDate(String newAlertDate) {
+        alertDate = newAlertDate;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public void setAlert(String newAlert) {
+        alert = newAlert;
     }
 
 }
