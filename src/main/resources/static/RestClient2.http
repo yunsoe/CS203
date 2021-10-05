@@ -1,0 +1,53 @@
+# add alert
+###
+POST http://localhost:8080/users/def@gmail.com/alerts
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "alertDate": "5 October 2021", 
+    "alert": "Reminder for swab test at 6pm."
+}
+
+### 
+GET http://localhost:8080/users/def@gmail.com/alerts
+Accept: application/json
+
+# add company
+###
+POST http://localhost:8080/companies
+Content-Type: application/json
+
+{
+    "name": "company b"
+}
+
+# add user: admin
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+    "email": "abc@gmail.com",
+    "name": "admin a",
+    "password": "goodpassword",
+    "role": "HR",
+    "authorities": "ROLE_ADMIN"
+}
+
+# add user: employee
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "email": "def@gmail.com",
+    "name": "employee b",
+    "password": "goodpassword",
+    "role": "developer",
+    "authorities": "ROLE_USER"
+}
+
+
+

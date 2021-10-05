@@ -20,9 +20,10 @@ public class AlertController {
     private UserRepository users;
     private MailService mailService;
 
-    public AlertController(AlertRepository alerts, UserRepository users){
+    public AlertController(AlertRepository alerts, UserRepository users, MailService mailService){
         this.alerts = alerts;
         this.users = users;
+        this.mailService = mailService;
     }
 
     @GetMapping("/users/{userEmail}/alerts")
