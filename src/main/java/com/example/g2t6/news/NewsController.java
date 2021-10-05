@@ -19,12 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.g2t6.industry.*;
 
 @RestController
 public class NewsController {
 
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private IndustryService industryService;
+
+    @Autowired
+    private NewsRepository newsRepo;
 
     
     // public NewsController (NewsService newsService) {
@@ -36,24 +43,32 @@ public class NewsController {
         return newsService.getAllNews();
     }
 
-    @GetMapping("/news/{industry}") 
-    public List<News> getNewsByIndustry(@PathVariable String industry) {
-        return newsService.getNewsByIndustry(industry);
+    @GetMapping("/news/industries/{id}") 
+    public List<News> getNewsByIndustry(@PathVariable Long id) {     
+        Industry industry = industryService.getIndustry(id);
+        if (industry == null) {
+            throw new IndustryNotFoundException(id);
+        }
+
+        List<News> newsByIndustry = industry.getNews();
+
+        return newsByIndustry;
     }
 
-    @GetMapping("/news/{category}") 
+    @GetMapping("/news/category/{category}") 
     public List<News> getNewsByCategory(@PathVariable String category) {
-        return newsService.getNewsByCategory(category);
+
+        return newsRepo.findByCategory(category);
     }
 
-    @GetMapping("/news/{date}") 
+    @GetMapping("/news/date/{date}") 
     public List<News> getNewsByDate(@PathVariable LocalDate date) {
-        return newsService.getNewsByDate(date);
+        return newsRepo.findByDate(date);
     }
 
     @GetMapping("/news/{industry}/{category}")
-    public List<News> getNewsByIndustryAndCategory(String industry, String category) {
-        return newsService.getNewsByIndustryAndCategory(industry, category);
+    public List<News> getNewsByIndustryAndCategory(Long id, String category) {
+        return newsService.getNewsByIndustryAndCategory(id, category);
     }
 
     @GetMapping("/news/{id}")
@@ -62,39 +77,60 @@ public class NewsController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/news")
-    public News addNews(@Valid @RequestBody News news) {
+    @PostMapping("/news/{id}")
+    public News addNews(@PathVariable Long id, @Valid @RequestBody News news) {
+        Industry industry = industryService.getIndustry(id);
+        if (industry == null) {
+            throw new IndustryNotFoundException(id);
+        }
+        news.setIndustry(industry);
         return newsService.addNews(news);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/news/cases")
-    public News addCasesOnly(@Valid @RequestBody News cases) {
+    @PostMapping("/news/cases/{id}")
+    public News addCasesOnly(@PathVariable Long id, @Valid @RequestBody News cases) {
+        Industry industry = industryService.getIndustry(id);
+        if (industry == null) {
+            throw new IndustryNotFoundException(id);
+        }
+        cases.setIndustry(industry);
         return newsService.addCasesOnly(cases);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/newsOnly")
-    public News addNewsOnly(@Valid @RequestBody News newsOnly) {
+    @PostMapping("/newsOnly/{id}")
+    public News addNewsOnly(@PathVariable Long id, @Valid @RequestBody News newsOnly) {
+        Industry industry = industryService.getIndustry(id);
+        if (industry == null) {
+            throw new IndustryNotFoundException(id);
+        }
+        newsOnly.setIndustry(industry);
         return newsService.addNewsOnly(newsOnly);
     }
 
     @PutMapping("/news/{id}")
     public News updateNews(@PathVariable Long id, @Valid @RequestBody News newsLatest){
-        News news = newsService.updateNews(id, newsLatest);
-        //if(news == null) throw new NewsNotFoundException(id);
+        News news = newsRepo.findById(id).orElse(null);
+
+        if (news == null) {
+            throw new NewsNotFoundException(id);
+        } 
+        Industry industry = news.getIndustry();
+        news = newsLatest;
+        news.setIndustry(industry);
+        return newsService.updateNews(newsLatest);
         
-        return news;
     }
 
     @DeleteMapping("/news/{id}")
     public void deleteNews(@PathVariable Long id){
-        newsService.deleteNews(id);
-        // try {
-        //     newsService.deleteNews(id);
-        // } catch(EmptyResultDataAccessException e) {
-        //     throw new BookNotFoundException(id);
-        // }
+        //newsService.deleteNews(id);
+        try {
+            newsService.deleteNews(id);
+        } catch(EmptyResultDataAccessException e) {
+            throw new NewsNotFoundException(id);
+        }
     }
 
     

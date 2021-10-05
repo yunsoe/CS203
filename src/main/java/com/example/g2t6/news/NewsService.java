@@ -10,17 +10,17 @@ import java.time.*;
 public interface NewsService {
     
     List<News> getAllNews();
-    List<News> getNewsByIndustry(String industry);
+    // List<News> getNewsByIndustry(Long id);
     List<News> getNewsByDate(LocalDate date);
     List<News> getNewsByCategory(String category);
-    List<News> getNewsByIndustryAndCategory(String industry, String category);
+    List<News> getNewsByIndustryAndCategory(Long id, String category);
     Optional<News> getNewsById(Long id);
 
     News addNews(News news);
     News addNewsOnly(News news);
     News addCasesOnly(News cases);
 
-    News updateNews(Long id, News newsLatest);
+    News updateNews(News newsLatest);
     // News updateCases(Long id, News casesLatest);
 
     void deleteNews(Long id);

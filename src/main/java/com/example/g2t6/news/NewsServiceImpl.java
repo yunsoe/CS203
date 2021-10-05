@@ -3,6 +3,7 @@ package com.example.g2t6.news;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
+import com.example.g2t6.industry.*;
 
 import java.time.*;
 
@@ -10,9 +11,11 @@ import java.time.*;
 public class NewsServiceImpl implements NewsService{
 
     private NewsRepository newsRepo;
+    private IndustryRepository industryRepo;
 
-    public NewsServiceImpl(NewsRepository newsRepo){
+    public NewsServiceImpl(NewsRepository newsRepo, IndustryRepository industryRepo){
         this.newsRepo = newsRepo;
+        this.industryRepo= industryRepo;
     }
 
     @Override
@@ -20,10 +23,11 @@ public class NewsServiceImpl implements NewsService{
         return newsRepo.findAll();
     }
 
-    @Override
-    public List<News> getNewsByIndustry(String industry) {
-        return newsRepo.findByIndustry(industry);
-    }
+    // @Override
+    // public List<News> getNewsByIndustry(Long id) {
+    //     return industry.getNews();
+    //     //return newsRepo.findByIndustry(industry);
+    // }
 
     @Override
     public List<News> getNewsByCategory(String category) {
@@ -36,7 +40,8 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
-    public List<News> getNewsByIndustryAndCategory(String industry, String category) {
+    public List<News> getNewsByIndustryAndCategory(Long id, String category) {
+        Industry industry = industryRepo.findById(id).orElse(null);
         return newsRepo.findByIndustryAndCategory(industry, category);
     }
 
@@ -61,24 +66,9 @@ public class NewsServiceImpl implements NewsService{
     }
 
     @Override
-    public News updateNews(Long id, News newsLatest) {
+    public News updateNews(News newsLatest) {
+        return newsRepo.save(newsLatest);
         
-        News news = newsRepo.findById(id).orElse(null);
-
-        if (news == null) {
-            return null;
-        } else {
-            news.setNews(newsLatest.getNews());
-            news.setDate(newsLatest.getDate());
-            news.setTime(newsLatest.getTime());
-            news.setCasesQuarantined(newsLatest.getCasesQuarantined());
-            news.setCasesHospCritical(newsLatest.getCasesHospCritical());
-            news.setCasesHospNotCritical(newsLatest.getCasesHospNotCritical());
-            news.setDeaths(newsLatest.getDeaths());
-        }
-        
-        newsRepo.save(news);
-        return news;
 
     }
 
