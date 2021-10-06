@@ -1,51 +1,91 @@
-// package com.example.g2t6;
-// import static org.junit.jupiter.api.Assertions.*;
+package com.example.g2t6;
+import static org.junit.jupiter.api.Assertions.*;
 
-// import java.net.URI;
-// import java.util.Optional;
+import java.net.URI;
+import java.util.Optional;
 
-// import org.junit.jupiter.api.AfterEach;
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-// import org.springframework.boot.test.web.client.TestRestTemplate;
-// import org.springframework.boot.web.server.LocalServerPort;
-// import org.springframework.http.HttpEntity;
-// import org.springframework.http.HttpMethod;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.g2t6.company.Company;
+import com.example.g2t6.company.CompanyRepository;
+import com.example.g2t6.user.User;
+import com.example.g2t6.user.UserRepository;
 
-// public class IntegrationTest {
-//     @LocalServerPort
-// 	private int port;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-// 	private final String baseUrl = "http://localhost:";
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+public class IntegrationTest {
+    @LocalServerPort
+	private int port;
 
-// 	@Autowired
-// 	/**
-// 	 * Use TestRestTemplate for testing a real instance of your application as an external actor.
-// 	 * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
-//  	 * It is fault tolerant, and optionally can carry Basic authentication headers.
-// 	 */
-// 	private TestRestTemplate restTemplate;
+	private final String baseUrl = "http://localhost:";
 
-// 	@Autowired
-// 	private BookRepository books;
+	@Autowired
+	/**
+	 * Use TestRestTemplate for testing a real instance of your application as an external actor.
+	 * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
+ 	 * It is fault tolerant, and optionally can carry Basic authentication headers.
+	 */
+	private TestRestTemplate restTemplate;
 
-// 	@Autowired
-// 	private UserRepository users;
+	@Autowired
+	private CompanyRepository companies;
 
-// 	@Autowired
-// 	private BCryptPasswordEncoder encoder;
+	@Autowired
+	private UserRepository users;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
-// 	@AfterEach
-// 	void tearDown(){
-// 		// clear the database after each test
-// 		books.deleteAll();
-// 		users.deleteAll();
-// 	}
+	@AfterEach
+	void tearDown(){
+		// clear the database after each test
+		companies.deleteAll();
+        users.deleteAll();
+	}
+
+	@Test
+	public void getCompanies_Success() throws Exception {
+		URI uri = new URI(baseUrl + port + "/companies");
+
+		// create company object and user object
+		Company company = new Company("Company A");
+		companies.save(company);
+
+		// Need to use array with a ReponseEntity here
+		ResponseEntity<Company[]> result = restTemplate.getForEntity(uri, Company[].class);
+		Company[] companyArray = result.getBody();
+		
+		assertEquals(200, result.getStatusCode().value());
+		assertEquals(1, companyArray.length);
+	}
+
+    // @Test
+    // public void getUsers_Success() throws Exception {
+    //     URI uri = new URI(baseUrl + port + "/users");
+
+	// 	// create company object and user object
+	// 	Company company = new Company("Company A");
+	// 	companies.save(company);
+	// 	User user = new User("abc@gmail.com", "User A", "P@ssw0rd123", "HR", "ROLE_ADMIN");
+	// 	user.setCompany(company);
+	// 	users.save(user);
+
+ 	// 	// Need to use array with a ReponseEntity here
+	// 	ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
+	// 	User[] users = result.getBody();
+		
+	// 	assertEquals(200, result.getStatusCode().value());
+	// 	assertEquals(1, users.length);
+    // }
 
 // 	@Test
 // 	public void getBooks_Success() throws Exception {
@@ -103,4 +143,4 @@
 // class BookIntegrationTest {
 
 	
-// } 
+} 
