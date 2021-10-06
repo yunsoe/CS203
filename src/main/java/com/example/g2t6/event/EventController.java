@@ -4,21 +4,25 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.g2t6.company.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController 
 public class EventController {
 
+    @Autowired
     private EventRepository events;
+
+    @Autowired
     private CompanyRepository companies; 
 
     /**
      * This controller works with the repositories directly, without a service layer
      */
-    public EventController(EventRepository events, CompanyRepository companies){
-        this.events = events;
-        this.companies = companies;
-    }
+    // public EventController(EventRepository events, CompanyRepository companies){
+    //     this.events = events;
+    //     this.companies = companies;
+    // }
 
     @GetMapping("/companies/{companyId}/events")
     public List<Event> getAllEventsByCompanyId(@PathVariable (value = "companyId") Long companyId) {

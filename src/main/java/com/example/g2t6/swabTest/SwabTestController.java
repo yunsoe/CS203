@@ -15,14 +15,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @RestController
 public class SwabTestController {
+
+    @Autowired
     private SwabTestService swabTestService;
+
+    @Autowired
     private UserRepository userRepository;
-    public SwabTestController(SwabTestService s, UserRepository userRepository){
-        this.swabTestService = s;
-        this.userRepository = userRepository;
-    }
+    // public SwabTestController(SwabTestService s, UserRepository userRepository){
+    //     this.swabTestService = s;
+    //     this.userRepository = userRepository;
+    // }
 
     @GetMapping("/swabTests/{userId}")  // this is for admin to see only, how to differenttiate it from the users' seeing their own result
     public List<SwabTest> getSwabTests(@PathVariable (value = "userId")String userId){

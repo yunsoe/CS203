@@ -3,6 +3,7 @@ package com.example.g2t6.company;
 import javax.validation.Valid;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CompanyController {
+
+    @Autowired
     private CompanyService companyService;
 
-    public CompanyController(CompanyService cs){
-        this.companyService = cs;
-    }
+    // public CompanyController(CompanyService cs){
+    //     this.companyService = cs;
+    // }
 
     /**
      * List all companies in the system

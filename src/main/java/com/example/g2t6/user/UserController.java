@@ -7,19 +7,27 @@ import javax.validation.Valid;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.example.g2t6.company.*;
 
 @RestController
 public class UserController {
+
+    @Autowired
     private UserRepository users;
+
+    @Autowired
     private BCryptPasswordEncoder encoder;
+
+    @Autowired
     private CompanyService companies;
 
-    public UserController(UserRepository users, BCryptPasswordEncoder encoder, CompanyService companies){
-        this.users = users;
-        this.encoder = encoder;
-        this.companies = companies;
-    }
+    // public UserController(UserRepository users, BCryptPasswordEncoder encoder, CompanyService companies){
+    //     this.users = users;
+    //     this.encoder = encoder;
+    //     this.companies = companies;
+    // }
 
     @GetMapping("/users")
     public List<User> getUsers() {

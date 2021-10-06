@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class IndustryController {
 
+    @Autowired
     private IndustryService industryService;
 
-    public IndustryController(IndustryService is){
-        this.industryService = is;
-    }
+    // public IndustryController(IndustryService is){
+    //     this.industryService = is;
+    // }
 
     /**
      * List all industries in the system

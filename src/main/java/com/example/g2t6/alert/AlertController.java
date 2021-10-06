@@ -4,6 +4,8 @@ import java.util.*;
 
 import com.example.g2t6.user.UserRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,21 @@ import com.example.g2t6.mail.*;
 
 @RestController
 public class AlertController {
+
+    @Autowired
     private AlertRepository alerts;
+
+    @Autowired
     private UserRepository users;
+
+    @Autowired
     private MailService mailService;
 
-    public AlertController(AlertRepository alerts, UserRepository users, MailService mailService){
-        this.alerts = alerts;
-        this.users = users;
-        this.mailService = mailService;
-    }
+    // public AlertController(AlertRepository alerts, UserRepository users, MailService mailService){
+    //     this.alerts = alerts;
+    //     this.users = users;
+    //     this.mailService = mailService;
+    // }
 
     @GetMapping("/users/{userEmail}/alerts")
     public List<Alert> getAllAlertsByUser(@PathVariable (value = "userEmail") String userEmail) {

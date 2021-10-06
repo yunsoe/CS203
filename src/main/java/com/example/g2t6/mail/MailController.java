@@ -6,16 +6,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.mail.MessagingException;
 
 @RestController
 public class MailController {
+
+    @Autowired
     private MailService mailService;
 
-    public MailController (MailService ms){
-        this.mailService = ms;
-    }
+    // public MailController (MailService ms){
+    //     this.mailService = ms;
+    // }
 
     @PostMapping("/send")
     public ResponseEntity<String> sendMail(@RequestBody Mail mail) {

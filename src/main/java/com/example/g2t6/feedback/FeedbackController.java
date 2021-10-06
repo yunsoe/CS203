@@ -5,22 +5,28 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import com.example.g2t6.user.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.g2t6.mail.*;
 
 @RestController
 public class FeedbackController {
+
+    @Autowired
     private FeedbackRepository feedbacks;
+
+    @Autowired
     private UserRepository users;
+
+    @Autowired
     private MailService mailService;
 
-    public FeedbackController(FeedbackRepository feedbacks, UserRepository users, MailService mailService){
-        this.feedbacks = feedbacks;
-        this.users = users;
-        this.mailService = mailService;
-    }
+    // public FeedbackController(FeedbackRepository feedbacks, UserRepository users, MailService mailService){
+    //     this.feedbacks = feedbacks;
+    //     this.users = users;
+    //     this.mailService = mailService;
+    // }
 
-    // TODO: code for emailing developers
     @PostMapping("/users/{userEmail}/feedbacks")
     public Feedback addfeedback(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Feedback feedback) {
         // using "map" to handle the returned Optional object from "findByEmail(UserEmail)"
