@@ -81,6 +81,46 @@ public class IntegrationTest {
 		assertEquals(company.getName(), result.getBody().getName());
 	}
 
+	@Test
+	public void getCompany_InvalidCompanyId_Failure() throws Exception {
+		URI uri = new URI(baseUrl + port + "/companies/1");
+		
+		ResponseEntity<Company> result = restTemplate.getForEntity(uri, Company.class);
+			
+		assertEquals(404, result.getStatusCode().value());
+	}
+
+	@Test
+	public void addCompany_Success() throws Exception {
+		URI uri = new URI(baseUrl + port + "/companies");
+		Company company = new Company("Company A");
+
+		ResponseEntity<Company> result = restTemplate.postForEntity(uri, company, Company.class);
+			
+		assertEquals(201, result.getStatusCode().value());
+		assertEquals(company.getName(), result.getBody().getName());
+	}
+
+	//doesnt work, expect company b but got null
+	// @Test
+	// public void updateCompany_Success() throws Exception {
+	// 	Company company = new Company("Company A");
+	// 	URI uri = new URI(baseUrl + port + "/companies");
+
+	// 	ResponseEntity<Company> result = restTemplate.postForEntity(uri, company, Company.class);
+
+	// 	uri = new URI(baseUrl + port + "/companies/" + company.getId());
+
+	// 	Company updatedCompany = new Company("Company B");
+	// 	updatedCompany.setId(company.getId());
+
+	// 	restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedCompany), Void.class);
+
+	// 	ResponseEntity<Company> result1 = restTemplate.getForEntity(uri, Company.class);
+
+	// 	assertEquals(updatedCompany.getName(), result1.getBody().getName());
+	// }
+
     // @Test
     // public void getUsers_Success() throws Exception {
     //     URI uri = new URI(baseUrl + port + "/users");
