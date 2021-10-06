@@ -56,9 +56,7 @@ public class IntegrationTest {
 	public void getCompanies_Success() throws Exception {
 		URI uri = new URI(baseUrl + port + "/companies");
 
-		// create company object and user object
-		Company company = new Company("Company A");
-		companies.save(company);
+		companies.save(new Company("Company A"));
 
 		// Need to use array with a ReponseEntity here
 		ResponseEntity<Company[]> result = restTemplate.getForEntity(uri, Company[].class);
@@ -66,6 +64,21 @@ public class IntegrationTest {
 		
 		assertEquals(200, result.getStatusCode().value());
 		assertEquals(1, companyArray.length);
+	}
+	
+	@Test
+	public void getCompany_ValidCompanyId_Success() throws Exception {
+		// create company object and store id
+		Company company = new Company("Company A");
+		Long id = companies.save(company).getId();
+
+		URI uri = new URI(baseUrl + port + "/companies/" + id);
+
+		// Need to use array with a ReponseEntity here
+		ResponseEntity<Company> result = restTemplate.getForEntity(uri, Company.class);
+
+		assertEquals(200, result.getStatusCode().value());
+		assertEquals(company.getName(), result.getBody().getName());
 	}
 
     // @Test
