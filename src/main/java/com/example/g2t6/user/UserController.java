@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import com.example.g2t6.company.*;
 
@@ -50,6 +51,7 @@ public class UserController {
     * @param user
      * @return
      */
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{companyId}")
     public User addUser(@Valid @RequestBody User user, @PathVariable Long companyId){
         user.setPassword(encoder.encode(user.getPassword()));

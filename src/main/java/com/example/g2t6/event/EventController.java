@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.g2t6.company.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
 
 @RestController 
 public class EventController {
@@ -32,7 +32,6 @@ public class EventController {
         return events.findByCompanyId(companyId);
     }
 
-    
     /**
      * 
      * Add a new event given CompanyId
@@ -49,6 +48,7 @@ public class EventController {
      * @return
      */
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/companies/{companyId}/events")
     public Event addEvent (@PathVariable (value = "companyId") Long companyId, @RequestBody Event event) {
         return companies.findById(companyId).map(company -> {

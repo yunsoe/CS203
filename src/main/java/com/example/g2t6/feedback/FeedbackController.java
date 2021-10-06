@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.g2t6.user.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import com.example.g2t6.mail.*;
 
@@ -27,6 +28,7 @@ public class FeedbackController {
     //     this.mailService = mailService;
     // }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userEmail}/feedbacks")
     public Feedback addfeedback(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Feedback feedback) {
         // using "map" to handle the returned Optional object from "findByEmail(UserEmail)"
