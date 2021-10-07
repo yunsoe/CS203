@@ -1,0 +1,140 @@
+# get news
+###
+GET http://localhost:8080/news
+Accept : application/json
+
+# post industries - Finance
+###
+POST http://localhost:8080/industries
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "name": "Finance"
+}
+
+# post industries - Education
+###
+POST http://localhost:8080/industries
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "name": "Education"
+}
+
+
+# post news
+###
+POST http://localhost:8080/newsOnly/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "news": "This is the latest news regarding Covid19",
+    "category": "REG",
+    "date": "2021-11-11",
+    "time": "23:59:59"
+}
+
+# post news
+###
+POST http://localhost:8080/newsOnly/2
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "news": "This is news about the education industry",
+    "category": "SOP",
+    "date": "2021-11-11",
+    "time": "23:01:01"
+}
+
+# post news
+###
+POST http://localhost:8080/news/cases/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+
+    "casesQuarantined": 5,
+    "casesHospCritical": 5,
+    "casesHospNotCritical": 5,
+    "deaths": 2
+}
+
+# update news
+###
+PUT http://localhost:8080/news/3
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "id": 3,
+    "news": "Updating this news with a new piece of information",
+    "category": "SOP",
+    "casesQuarantined": 5,
+    "casesHospCritical": 5,
+    "casesHospNotCritical": 5,
+    "deaths": 2,
+    "date": "2021-11-23",
+    "time": "23:59:59"
+}
+
+# update news that does not exist - NewsNotFoundException
+###
+PUT http://localhost:8080/news/5
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "id": 5,
+    "news": "Updating this news with a new piece of information",
+    "category": "SOP",
+    "industry": "Education",
+    "casesQuarantined": 5,
+    "casesHospCritical": 5,
+    "casesHospNotCritical": 5,
+    "deaths": 2,
+    "date": "2021-11-23",
+    "time": "23:59:59"
+}
+
+# delete news
+###
+DELETE http://localhost:8080/news/2
+
+# delete news that does not exist - NewsNotFoundException
+###
+DELETE http://localhost:8080/news/5
+
+
+# get news - filter by category
+###
+GET http://localhost:8080/news/category/REG
+Accept: application/json
+
+# get news - filter by industry - Finance
+###
+GET http://localhost:8080/news/industries/1
+Accept: application/json
+
+# get news - filter by industry -Education
+###
+GET http://localhost:8080/news/industries/2
+Accept: application/json
+
+# get news - filter by date
+###
+GET http://localhost:8080/news/date/2021-11-11
+Accept: application/json
+
+# get news - filter by industry and category
+###
+GET http://localhost:8080/news/industry/1/category/REG
+Accept: application/json
+
+
+
+
