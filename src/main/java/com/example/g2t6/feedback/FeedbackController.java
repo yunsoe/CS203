@@ -21,13 +21,7 @@ public class FeedbackController {
 
     @Autowired
     private MailService mailService;
-
-    // public FeedbackController(FeedbackRepository feedbacks, UserRepository users, MailService mailService){
-    //     this.feedbacks = feedbacks;
-    //     this.users = users;
-    //     this.mailService = mailService;
-    // }
-
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userEmail}/feedbacks")
     public Feedback addfeedback(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Feedback feedback) {
