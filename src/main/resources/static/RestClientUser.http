@@ -59,7 +59,8 @@ Content-Type: application/json
 Authorization: Basic abc@gmail.com goodpassword
 
 {
-    "password": "abcd123@"
+    "currentPassword": "goodpassword",
+    "newPassword": "abcd123@"
 }
 
 # delete users: by user email and company id

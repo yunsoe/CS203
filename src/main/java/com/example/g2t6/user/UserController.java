@@ -1,6 +1,7 @@
 package com.example.g2t6.user;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -89,7 +90,10 @@ public class UserController {
     }
 
     @PutMapping("users/{companyId}/{userEmail}/changePassword")
-    public User changePassword(@PathVariable(value = "companyId") Long companyId, @PathVariable(value = "userEmail") String userEmail, @RequestBody String newPassword) {
+    public User changePassword(@PathVariable(value = "companyId") Long companyId, @PathVariable(value = "userEmail") String userEmail, @RequestBody Map<String, String> json) {
+        String currentPassword = json.get("currentPassword");
+        String newPassword = json.get("newPassword");
+
         if(companies.getCompany(companyId) == null) {
             throw new CompanyNotFoundException(companyId);
         }
@@ -97,6 +101,10 @@ public class UserController {
         User user = users.findByEmail(userEmail).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException(userEmail);
+        }
+
+        if (!encoder.matches(currentPassword, user.getPassword())) {
+            throw new UserIncorrectPasswordException(userEmail);
         }
 
         Mail mail = new Mail(user.getEmail(), "Change Password", "You have successfully changed your password.");
