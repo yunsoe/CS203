@@ -11,7 +11,9 @@ import com.example.g2t6.user.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class SwabTestDetail {
+
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "email",nullable = false)
     private User user;

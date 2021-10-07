@@ -19,6 +19,11 @@ Content-Type: application/json
 GET http://localhost:8080/companies
 Accept: application/json
 
+# get company by id
+### 
+GET http://localhost:8080/companies/1
+Accept: application/json
+
 #update company
 ###
 PUT http://localhost:8080/companies/1
