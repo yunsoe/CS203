@@ -124,7 +124,7 @@ public class NewsController {
         Industry industry = news.getIndustry();
         news = newsLatest;
         news.setIndustry(industry);
-        return newsService.updateNews(newsLatest);
+        return newsService.updateNews(news);
         
     }
 
