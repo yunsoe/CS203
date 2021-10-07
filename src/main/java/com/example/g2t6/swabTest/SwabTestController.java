@@ -29,6 +29,8 @@ public class SwabTestController {
     //     this.swabTestService = s;
     //     this.userRepository = userRepository;
     // }
+    @Autowired
+    private SwabTestRepository swabTests;
 
     @GetMapping("/swabTests/{userId}")  // this is for admin to see only, how to differenttiate it from the users' seeing their own result
     public List<SwabTest> getSwabTests(@PathVariable (value = "userId")String userId){
@@ -61,9 +63,15 @@ public class SwabTestController {
     public SwabTest updateSwabTest(@PathVariable(value = "userEmail") String userEmail,
                                     @PathVariable(value = "swabId") Long swabId,
                                     @Valid @RequestBody SwabTest newSwabTest){
-        SwabTest swabTest = swabTestService.updateDate(swabId, newSwabTest);
-        if(swabTest == null) throw new SwabTestNotFoundException(swabId);
-        return swabTest;
+
+        return swabTests.findByIdAndUserEmail(swabId, userEmail).map(swabTest -> {
+            return swabTestService.updateDate(swabId, newSwabTest);
+            
+        }).orElseThrow(() -> new SwabTestNotFoundException(swabId));
+
+        // SwabTest swabTest = swabTestService.updateDate(swabId, newSwabTest);
+        // if(swabTest == null) throw new SwabTestNotFoundException(swabId);
+        // return swabTest;
     }
 
 }
