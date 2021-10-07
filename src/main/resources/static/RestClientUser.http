@@ -49,8 +49,7 @@ Accept: application/json
 
 # reset user password
 ###
-PUT http://localhost:8080/users/1/abc@gmail.com/resetPassword
-Authorization: Basic abc@gmail.com goodpassword
+PUT http://localhost:8080/users/abc@gmail.com/resetPassword
 
 # change user password
 ###
