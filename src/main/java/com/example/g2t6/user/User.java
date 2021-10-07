@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.example.g2t6.feedback.Feedback;
 import com.example.g2t6.swabTest.SwabTest;
+import com.example.g2t6.swabTestDetail.SwabTestDetail;
 import com.example.g2t6.company.Company;
 import com.example.g2t6.alert.Alert;
 import com.example.g2t6.event.Event;
@@ -62,6 +63,10 @@ public class User implements UserDetails {
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SwabTest> swabTests;
+
+    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<SwabTestDetail> swabTestDetail;
 
     @NotNull(message = "Role should not be null")
     @Size(min = 2, max = 30, message = "Role should be between 2 and 30 characters")
