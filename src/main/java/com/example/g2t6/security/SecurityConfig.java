@@ -47,7 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET, "/swabTests").hasRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/users/*/feedbacks").hasAnyRole("ADMIN", "USER")
             .antMatchers(HttpMethod.DELETE, "/users/*/*").hasRole("ADMIN")
-            .antMatchers(HttpMethod.PUT, "/users/*/*/resetPassword").hasAnyRole("ADMIN", "USER")
             .antMatchers(HttpMethod.PUT, "/users/*/*/changePassword").hasAnyRole("ADMIN", "USER")
             .and()
         .csrf().disable() // CSRF protection is needed only for browser based attacks

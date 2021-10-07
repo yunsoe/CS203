@@ -67,12 +67,8 @@ public class UserController {
         return users.save(user);
     }
 
-    @PutMapping("users/{companyId}/{userEmail}/resetPassword")
-    public User resetPassword(@PathVariable(value = "companyId") Long companyId, @PathVariable(value = "userEmail") String userEmail) {
-        if(companies.getCompany(companyId) == null) {
-            throw new CompanyNotFoundException(companyId);
-        }
-
+    @PutMapping("users/{userEmail}/resetPassword")
+    public User resetPassword(@PathVariable(value = "userEmail") String userEmail) {
         User user = users.findByEmail(userEmail).orElse(null);
         if (user == null) {
             throw new UsernameNotFoundException(userEmail);
