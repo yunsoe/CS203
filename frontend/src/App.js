@@ -5,6 +5,7 @@ import AuthContext from "./navigation/AuthContext";
 import PrivateRoute from "./navigation/PrivateRoute";
 import "./App.css";
 import Authentication from "./views/Authentication";
+import Home from "./views/Home";
 import Logout from "./views/Logout";
 import RegistrationForm from "./components/Registration/RegistrationForm";
 
@@ -73,6 +74,7 @@ export default class App extends Component {
                 );
               }}
             />
+            <Route path="/home" component={Home} />
             <Route path="/login" component={Authentication} />
             <Route path="/register" component={RegistrationForm} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
