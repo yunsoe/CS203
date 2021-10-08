@@ -10,6 +10,7 @@ import Logout from "./views/Logout";
 import RegistrationForm from "./components/Registration/RegistrationForm";
 import ForgotPasswordForm from "./components/ForgotPassword/ForgotPasswordForm";
 import ChangePasswordForm from "./components/ChangePassword/ChangePasswordForm";
+import FeedbackForm from "./components/Feedback/FeedbackForm";
 
 class AuthProvider extends Component {
   constructor(props) {
@@ -80,6 +81,7 @@ export default class App extends Component {
             <Route path="/changePassword" component={ChangePasswordForm} />
             <Route path="/forgotPassword" component={ForgotPasswordForm} />
             <Route path="/login" component={Authentication} />
+            <Route path="/feedback" component={FeedbackForm} />
             <Route path="/register" component={RegistrationForm} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>

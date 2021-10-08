@@ -20,7 +20,7 @@ export default function ChangePasswordForm() {
 
     const redirectToHome = () => {
         history.push("/home");
-      };
+    };
 
     const changePassword = () => {
         if (state.currentPassword === "") {

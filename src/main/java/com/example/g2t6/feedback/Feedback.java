@@ -23,7 +23,7 @@ public class Feedback {
     private String title;
 
     @NotNull(message = "Feedback details should not be null")
-    @Size(min = 10, max = 200, message = "Feedback details should be at least 10 characters long and less than 200 characters.")
+    @Size(min = 10, max = 500, message = "Feedback details should be at least 10 characters long and less than 200 characters.")
     private String details;
 
     @ManyToOne

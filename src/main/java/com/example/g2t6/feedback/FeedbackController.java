@@ -7,10 +7,12 @@ import com.example.g2t6.user.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.g2t6.mail.*;
 
 @RestController
+@CrossOrigin
 public class FeedbackController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class FeedbackController {
         // using "map" to handle the returned Optional object from "findByEmail(UserEmail)"
         return users.findById(userEmail).map(user ->{
             feedback.setUser(user);
-            Mail mail = new Mail("zxnlee00@gmail.com", feedback.getTitle(), feedback.getDetails());
+            Mail mail = new Mail("zxnlee00@gmail.com", "New Feedback - " + feedback.getTitle(), "Title: " + feedback.getTitle() + "\nDetails: " + feedback.getDetails());
             mailService.sendMail(mail);
             return feedbacks.save(feedback);
         }).orElseThrow(() -> new UsernameNotFoundException("Email '" + userEmail + "' not found"));

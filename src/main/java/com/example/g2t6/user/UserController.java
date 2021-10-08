@@ -71,6 +71,20 @@ public class UserController {
         return users.save(user);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/users/admin/{companyId}")
+    public User addAdminUser(@Valid @RequestBody User user, @PathVariable Long companyId){
+        user.setPassword(encoder.encode(user.getPassword()));
+        Company company = companies.getCompany(companyId);
+
+        if(company == null) {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        user.setCompany(company);
+        return users.save(user);
+    }
+
     @PostMapping("/users/login/{email}/{password}")
     public ResponseEntity<String> login(@PathVariable("email") String email, @PathVariable("password") String password) {
         // checks if the email exists
