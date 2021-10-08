@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.antMatchers(HttpMethod.GET, "/books", "/books/**").permitAll() // Anyone can view books and reviews
             .antMatchers(HttpMethod.GET, "/swabTests/*").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/swabTests").hasRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/users/*/feedbacks").hasAnyRole("ADMIN", "USER")
             .antMatchers(HttpMethod.DELETE, "/users/*/*").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/users/*").hasRole("ADMIN")
             .antMatchers(HttpMethod.PUT, "/users/*/*/changePassword").hasAnyRole("ADMIN", "USER")
             .and()
         .cors().and().csrf().disable() // CSRF protection is needed only for browser based attacks
