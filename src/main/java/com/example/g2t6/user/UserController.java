@@ -106,14 +106,10 @@ public class UserController {
         return user;
     }
 
-    @PutMapping("users/{companyId}/{userEmail}/changePassword")
-    public User changePassword(@PathVariable(value = "companyId") Long companyId, @PathVariable(value = "userEmail") String userEmail, @RequestBody Map<String, String> json) {
+    @PutMapping("users/{userEmail}/changePassword")
+    public User changePassword(@PathVariable(value = "userEmail") String userEmail, @RequestBody Map<String, String> json) {
         String currentPassword = json.get("currentPassword");
         String newPassword = json.get("newPassword");
-
-        if(companies.getCompany(companyId) == null) {
-            throw new CompanyNotFoundException(companyId);
-        }
 
         User user = users.findByEmail(userEmail).orElse(null);
         if (user == null) {
