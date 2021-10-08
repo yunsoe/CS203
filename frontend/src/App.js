@@ -8,6 +8,7 @@ import Authentication from "./views/Authentication";
 import Home from "./views/Home";
 import Logout from "./views/Logout";
 import RegistrationForm from "./components/Registration/RegistrationForm";
+import ForgotPasswordForm from "./components/ForgotPassword/ForgotPasswordForm";
 
 class AuthProvider extends Component {
   constructor(props) {
@@ -75,6 +76,7 @@ export default class App extends Component {
               }}
             />
             <Route path="/home" component={Home} />
+            <Route path="/forgotPassword" component={ForgotPasswordForm} />
             <Route path="/login" component={Authentication} />
             <Route path="/register" component={RegistrationForm} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
