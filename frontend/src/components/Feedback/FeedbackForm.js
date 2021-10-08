@@ -27,7 +27,7 @@ export default function FeedbackForm() {
             if (state.title.length < 2 || state.title.length > 30) {
                 alert("The title should be between 2 to 30 characters.");
             } else if (state.details.length < 10 || state.details.length > 500) {
-                alert("The details of your feedback should be bewteen 10 to 500 characters.");
+                alert("The details of your feedback should be between 10 to 500 characters.");
             } else {
                 fetch(
                     API_BASE_URL + "users/" + localStorage.getItem("email") + "/feedbacks", 
