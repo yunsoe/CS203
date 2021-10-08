@@ -10,7 +10,7 @@ Content-Type: application/json
 {
     "email": "abc@gmail.com",
     "name": "admin a",
-    "password": "goodpassword",
+    "password": "goodpassword123",
     "role": "HR",
     "authorities": "ROLE_ADMIN"
 }
@@ -27,6 +27,10 @@ Content-Type: application/json
     "role": "tester",
     "authorities": "ROLE_USER"
 }
+
+# login
+###
+POST http://localhost:8080/users/login/abc@gmail.com/goodpassword
 
 # add user: employee
 ###

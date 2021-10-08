@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.DELETE, "/users/*/*").hasRole("ADMIN")
             .antMatchers(HttpMethod.PUT, "/users/*/*/changePassword").hasAnyRole("ADMIN", "USER")
             .and()
-        .csrf().disable() // CSRF protection is needed only for browser based attacks
+        .cors().and().csrf().disable() // CSRF protection is needed only for browser based attacks
         //not sure abt this part
         //userdetailsservice uses a username by default but our username is email
         //https://stackoverflow.com/questions/50673400/how-to-log-in-by-email-instead-of-username-in-spring-security
