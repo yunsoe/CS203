@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @RestController
-public class SwabTestDetailContoller {
+public class SwabTestDetailController {
 
     private UserRepository users;
     private SwabTestDetailRepository swabTestDetails;
 
-    public SwabTestDetailContoller(SwabTestDetailRepository swabTestDetails){
+    public SwabTestDetailController(SwabTestDetailRepository swabTestDetails){
         this.swabTestDetails = swabTestDetails;
     }
 
