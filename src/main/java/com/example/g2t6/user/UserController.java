@@ -8,16 +8,20 @@ import javax.validation.Valid;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import jdk.jshell.spi.ExecutionControl.UserException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.g2t6.company.*;
 import com.example.g2t6.mail.*;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -47,7 +51,7 @@ public class UserController {
 
         return company.getUsers();
     }
-
+    
     /**
     * Using BCrypt encoder to encrypt the password for storage 
     * @param user
@@ -67,6 +71,23 @@ public class UserController {
         return users.save(user);
     }
 
+    @PostMapping("/users/login/{email}/{password}")
+    public ResponseEntity<String> login(@PathVariable("email") String email, @PathVariable("password") String password) {
+        // checks if the email exists
+        System.out.println("Email: " + email + ", Password: " + password);
+        User user = users.findByEmail(email).orElse(null);
+
+        if (user != null) {
+            // checks if the password keyed in matches existing password
+            if (encoder.matches(password, user.getPassword())) {
+                System.out.println("valid user");
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+        }
+        System.out.println("invalid user");
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    } 
+
     @PutMapping("users/{userEmail}/resetPassword")
     public User resetPassword(@PathVariable(value = "userEmail") String userEmail) {
         User user = users.findByEmail(userEmail).orElse(null);
@@ -74,9 +95,9 @@ public class UserController {
             throw new UsernameNotFoundException(userEmail);
         }
         String newRandomPassword = RandomStringUtils.random(10, true, true);
-        Mail mail = new Mail(user.getEmail(), "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password");
+        //Mail mail = new Mail(user.getEmail(), "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password");
         //for testing purposes
-        //Mail mail = new Mail("zxnlee00@gmail.com", "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password.");
+        Mail mail = new Mail("zxnlee00@gmail.com", "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password.");
         mailService.sendMail(mail);
 
         user.setPassword(encoder.encode(newRandomPassword));
@@ -103,9 +124,9 @@ public class UserController {
             throw new UserIncorrectPasswordException(userEmail);
         }
 
-        Mail mail = new Mail(user.getEmail(), "Change Password", "You have successfully changed your password.");
+        //Mail mail = new Mail(user.getEmail(), "Change Password", "You have successfully changed your password.");
         //for testing purposes
-        //Mail mail = new Mail("zxnlee00@gmail.com", "Change Password", "You have successfully changed your password.");
+        Mail mail = new Mail("zxnlee00@gmail.com", "Change Password", "You have successfully changed your password.");
         mailService.sendMail(mail);
 
         user.setPassword(encoder.encode(newPassword));
