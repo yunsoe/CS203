@@ -57,9 +57,9 @@ PUT http://localhost:8080/users/abc@gmail.com/resetPassword
 
 # change user password
 ###
-PUT http://localhost:8080/users/1/abc@gmail.com/changePassword
+PUT http://localhost:8080/users/abc@gmail.com/changePassword
 Content-Type: application/json
-Authorization: Basic abc@gmail.com goodpassword
+Authorization: Basic abc@gmail.com goodpassword123
 
 {
     "currentPassword": "goodpassword",

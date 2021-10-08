@@ -23,9 +23,13 @@ export default function LoginForm(props) {
 
   const handleSubmitClick = (e, updateAuth) => {
     e.preventDefault();
-    console.log(state.email + " " + state.password);
-    axios
-      .post(
+    if (state.email === "") {
+      alert("Please enter your email.");
+    } else if (state.password === "") {
+      alert("Please enter your password.");
+    } else {
+      console.log(state.email + " " + state.password);
+      axios.post(
         API_BASE_URL + "users/login/" + state.email + "/" + state.password
       )
       .then(function (response) {
@@ -48,6 +52,7 @@ export default function LoginForm(props) {
             alert("An error occurred. (Please check if the server is running)")
         }
       });
+    }
   };
 
   const redirectToHome = () => {
