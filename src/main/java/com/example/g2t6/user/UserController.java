@@ -85,22 +85,22 @@ public class UserController {
         return users.save(user);
     }
 
-    @PostMapping("/users/login/{email}/{password}")
-    public ResponseEntity<String> login(@PathVariable("email") String email, @PathVariable("password") String password) {
+    @GetMapping("/users/login/{userEmail}/{password}")
+    public User login(@PathVariable("userEmail") String userEmail, @PathVariable("password") String password) {
         // checks if the email exists
-        System.out.println("Email: " + email + ", Password: " + password);
-        User user = users.findByEmail(email).orElse(null);
+        User user = users.findByEmail(userEmail).orElse(null);
 
-        if (user != null) {
-            // checks if the password keyed in matches existing password
-            if (encoder.matches(password, user.getPassword())) {
-                System.out.println("valid user");
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
         }
-        System.out.println("invalid user");
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    } 
+
+        // checks if the password keyed in matches existing password
+        if (!encoder.matches(password, user.getPassword())) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        return user;
+    }
 
     @PutMapping("users/{userEmail}/resetPassword")
     public User resetPassword(@PathVariable(value = "userEmail") String userEmail) {

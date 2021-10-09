@@ -18,10 +18,12 @@ class AuthProvider extends Component {
     if (localStorage.getItem("email") === null) {
       localStorage.setItem("email", this.state.email);
       localStorage.setItem("username", this.state.username);
+      localStorage.setItem("authority", this.state.authority);
     } else {
       if (localStorage.getItem("email").length !== 0) {
         this.state.email = localStorage.getItem("email");
         this.state.username = localStorage.getItem("username");
+        this.state.authority = localStorage.getItem("authority");
         this.state.isAuth = true;
       }
     }
@@ -30,21 +32,24 @@ class AuthProvider extends Component {
     isAuth: false,
     email: "",
     username: "",
-    updateAuth: (isAuth, email, username) => {
+    authority: "",
+    updateAuth: (isAuth, email, username, authority) => {
       this.setState(
         { isAuth: true, email: email, username: username },
         function () {
           localStorage.setItem("email", email);
           localStorage.setItem("username", username);
+          localStorage.setItem("authority", authority);
         }
       );
     },
     logout: () => {
       this.setState(
-        { isAuth: false, email: "", role: "", username: "" },
+        { isAuth: false, email: "", role: "", username: "", authority: "" },
         function () {
           localStorage.setItem("email", this.state.email);
           localStorage.setItem("username", this.state.username);
+          localStorage.setItem("authority", "");
         }
       );
     },
@@ -83,6 +88,8 @@ export default class App extends Component {
             <Route path="/login" component={Authentication} />
             <Route path="/feedback" component={FeedbackForm} />
             <Route path="/register" component={RegistrationForm} />
+            <Route path="/deleteUser" component={FeedbackForm} />
+            <Route path="/createUser" component={FeedbackForm} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>
         </AuthProvider>

@@ -28,30 +28,27 @@ export default function LoginForm(props) {
     } else if (state.password === "") {
       alert("Please enter your password.");
     } else {
-      console.log(state.email + " " + state.password);
-      axios.post(
-        API_BASE_URL + "users/login/" + state.email + "/" + state.password
-      )
-      .then(function (response) {
+      fetch(
+        API_BASE_URL + "users/login/" + state.email + "/" + state.password,
+        {
+            method: "GET",
+        }
+    ).then(function (response) {
         if (response.status === 200) {
-          setState((prevState) => ({
-            ...prevState,
-            successMessage: "Login successful. Redirecting to home page..",
-          }));
-          updateAuth(true, state.email, state.username);
-          redirectToHome();
+          response.json().then(function(data) {
+            setState((prevState) => ({
+              ...prevState,
+              successMessage: "Login successful. Redirecting to home page..",
+            }));
+            updateAuth(true, state.email, state.username, Object.values(data.authorities[0])[0]);
+            redirectToHome();
+          });
+        } else if (response.status == 401) {
+          alert("Wrong email or password");
+        } else {
+          alert("There was an error on our side, please try again later.");
         }
-      })
-      .catch(function (error) {
-        console.log(error);
-        if (error.response) {
-            if (error.response.status === 401) {
-                alert("Wrong email or password");
-            }
-        } else{
-            alert("An error occurred. (Please check if the server is running)")
-        }
-      });
+    });
     }
   };
 

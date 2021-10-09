@@ -31,7 +31,7 @@ Authorization: Basic abc@gmail.com goodpassword123
 
 # login
 ###
-POST http://localhost:8080/users/login/abc@gmail.com/goodpassword123
+GET http://localhost:8080/users/login/abc@gmail.com/goodpassword123
 
 # add user: employee
 ###
