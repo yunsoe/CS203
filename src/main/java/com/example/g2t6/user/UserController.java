@@ -72,17 +72,29 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/users/admin/{companyId}")
-    public User addAdminUser(@Valid @RequestBody User user, @PathVariable Long companyId){
-        user.setPassword(encoder.encode(user.getPassword()));
-        Company company = companies.getCompany(companyId);
+    @PostMapping("/users/admin/registration")
+    public User addAdminUser(@RequestBody Map<String, String> json){
+        String companyName = json.get("companyName");
+        String email = json.get("email");
+        String name = json.get("name");
+        String password = json.get("password");
+        String role = json.get("role");
 
-        if(company == null) {
-            throw new CompanyNotFoundException(companyId);
+        User user = users.findByEmail(email).orElse(null);
+
+        if (user != null) {
+            throw new UserAlreadyExistsException(email);
         }
 
-        user.setCompany(company);
-        return users.save(user);
+        password = encoder.encode(password);
+
+        User adminUser = new User(email, name, password, role, "ROLE_ADMIN");
+
+        Company newCompany = new Company(companyName);
+        companies.addCompany(newCompany);
+
+        adminUser.setCompany(newCompany);
+        return users.save(adminUser);
     }
 
     @GetMapping("/users/login/{userEmail}/{password}")

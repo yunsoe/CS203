@@ -4,15 +4,15 @@ Accept: application/json
 
 # add user: admin
 ###
-POST http://localhost:8080/users/admin/1
+POST http://localhost:8080/users/admin/registration
 Content-Type: application/json
 
 {
+    "companyName": "company ABC",
     "email": "abc@gmail.com",
     "name": "admin a",
     "password": "goodpassword123",
-    "role": "HR",
-    "authorities": "ROLE_ADMIN"
+    "role": "HR"
 }
 
 # add user: employee - company doesnt exist
@@ -58,13 +58,13 @@ PUT http://localhost:8080/users/abc@gmail.com/resetPassword
 
 # change user password
 ###
-PUT http://localhost:8080/users/abc@gmail.com/changePassword
+PUT http://localhost:8080/users/testcompanyadmin1@gmail.com/changePassword
 Content-Type: application/json
-Authorization: Basic abc@gmail.com goodpassword123
+Authorization: Basic testcompanyadmin1@gmail.com goodpassword123
 
 {
     "currentPassword": "goodpassword123",
-    "newPassword": "abcd123@"
+    "newPassword": "abcd1245@"
 }
 
 # delete users: by user email and company id

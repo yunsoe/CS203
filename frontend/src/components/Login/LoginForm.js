@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
+import { Form, Button, FormGroup } from "react-bootstrap";
 import AuthContext from "../../navigation/AuthContext";
 
 export default function LoginForm(props) {
@@ -23,16 +24,11 @@ export default function LoginForm(props) {
 
   const handleSubmitClick = (e, updateAuth) => {
     e.preventDefault();
-    if (state.email === "") {
-      alert("Please enter your email.");
-    } else if (state.password === "") {
-      alert("Please enter your password.");
-    } else {
-      fetch(
-        API_BASE_URL + "users/login/" + state.email + "/" + state.password,
-        {
-            method: "GET",
-        }
+    fetch(
+      API_BASE_URL + "users/login/" + state.email + "/" + state.password,
+      {
+          method: "GET",
+      }
     ).then(function (response) {
         if (response.status === 200) {
           response.json().then(function(data) {
@@ -40,7 +36,7 @@ export default function LoginForm(props) {
               ...prevState,
               successMessage: "Login successful. Redirecting to home page..",
             }));
-            updateAuth(true, state.email, state.username, Object.values(data.authorities[0])[0]);
+            updateAuth(true, state.email, Object.values(data.authorities[0])[0]);
             redirectToHome();
           });
         } else if (response.status == 401) {
@@ -49,7 +45,6 @@ export default function LoginForm(props) {
           alert("There was an error on our side, please try again later.");
         }
     });
-    }
   };
 
   const redirectToHome = () => {
@@ -72,65 +67,30 @@ export default function LoginForm(props) {
       <br />
       <AuthContext.Consumer>
         {({ updateAuth }) => (
-          <form>
-            <div className="form-group text-left">
-              <label htmlFor="exampleInputEmail1">Email address</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                placeholder="Enter email"
-                value={state.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-group text-left">
-              <label htmlFor="exampleInputPassword1">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Password"
-                value={state.password}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="form-check"></div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-              onClick={(e) => handleSubmitClick(e, updateAuth)}
-            >
+          <Form onSubmit={(e) =>  handleSubmitClick(e, updateAuth)}>
+            <Form.Group className="mb-3">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control required type="email" placeholder="Enter email" value={state.email} onChange={handleChange} id="email" />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control required type="password" placeholder="Enter password" value={state.password} onChange={handleChange} id="password" />
+            </Form.Group>
+            <Button variant="primary" type="submit" style={{marginBottom: 10}}>
               Login
-            </button>
-            <button
-              style={{marginLeft: 10}}
-              className="btn btn-primary"
-              onClick={() => redirectToForgotPassword()}
-            >
+            </Button>
+            <Button variant="primary" type="button" onClick={() => redirectToForgotPassword()} style={{marginLeft: 10, marginBottom: 10}}>
               Forgot Password
-            </button>
-          </form>
+            </Button>
+
+            <div className="registerMessage">
+              <div>Is your company not registered yet? Register here now.</div>
+              <div style={{paddingBottom: 10}}/> 
+              <Button className="btn btn-primary" onClick={() => redirectToRegister()}>Register</Button>
+            </div>
+          </Form>
         )}
       </AuthContext.Consumer>
-      <div
-        className="alert alert-success mt-2"
-        style={{ display: state.successMessage ? "block" : "none" }}
-        role="alert"
-      >
-        {state.successMessage}
-      </div>
-      <p></p>
-      <div className="registerMessage">
-        <span>Is your company not registered yet? Register here now.</span>
-        <div style={{paddingBottom: 10}}/> 
-        <button
-              className="btn btn-primary"
-              onClick={() => redirectToRegister()}
-            >
-              Register
-        </button>
-      </div>
     </div>
   );
 }
