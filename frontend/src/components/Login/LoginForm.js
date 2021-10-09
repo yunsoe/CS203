@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
 import { Form, Button, FormGroup } from "react-bootstrap";
