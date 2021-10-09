@@ -11,17 +11,19 @@ import RegistrationForm from "./components/Registration/RegistrationForm";
 import ForgotPasswordForm from "./components/ForgotPassword/ForgotPasswordForm";
 import ChangePasswordForm from "./components/ChangePassword/ChangePasswordForm";
 import FeedbackForm from "./components/Feedback/FeedbackForm";
+import AddEmployeeForm from "./components/Admin/AddEmployeeForm";
+import RemoveEmployeeForm from "./components/Admin/RemoveEmployeeForm";
 
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
     if (localStorage.getItem("email") === null) {
       localStorage.setItem("email", this.state.email);
-      localStorage.setItem("username", this.state.username);
+      localStorage.setItem("authority", this.state.authority);
     } else {
       if (localStorage.getItem("email").length !== 0) {
         this.state.email = localStorage.getItem("email");
-        this.state.username = localStorage.getItem("username");
+        this.state.authority = localStorage.getItem("authority");
         this.state.isAuth = true;
       }
     }
@@ -30,21 +32,22 @@ class AuthProvider extends Component {
     isAuth: false,
     email: "",
     username: "",
-    updateAuth: (isAuth, email, username) => {
+    authority: "",
+    updateAuth: (isAuth, email, authority) => {
       this.setState(
-        { isAuth: true, email: email, username: username },
+        { isAuth: true, email: email, authority: authority },
         function () {
           localStorage.setItem("email", email);
-          localStorage.setItem("username", username);
+          localStorage.setItem("authority", authority);
         }
       );
     },
     logout: () => {
       this.setState(
-        { isAuth: false, email: "", role: "", username: "" },
+        { isAuth: false, email: "", authority: "" },
         function () {
           localStorage.setItem("email", this.state.email);
-          localStorage.setItem("username", this.state.username);
+          localStorage.setItem("authority", "");
         }
       );
     },
@@ -83,6 +86,8 @@ export default class App extends Component {
             <Route path="/login" component={Authentication} />
             <Route path="/feedback" component={FeedbackForm} />
             <Route path="/register" component={RegistrationForm} />
+            <Route path="/deleteUser" component={RemoveEmployeeForm} />
+            <Route path="/createUser" component={AddEmployeeForm} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>
         </AuthProvider>

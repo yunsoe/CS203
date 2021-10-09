@@ -72,35 +72,47 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/users/admin/{companyId}")
-    public User addAdminUser(@Valid @RequestBody User user, @PathVariable Long companyId){
-        user.setPassword(encoder.encode(user.getPassword()));
-        Company company = companies.getCompany(companyId);
+    @PostMapping("/users/admin/registration")
+    public User addAdminUser(@RequestBody Map<String, String> json){
+        String companyName = json.get("companyName");
+        String email = json.get("email");
+        String name = json.get("name");
+        String password = json.get("password");
+        String role = json.get("role");
 
-        if(company == null) {
-            throw new CompanyNotFoundException(companyId);
-        }
-
-        user.setCompany(company);
-        return users.save(user);
-    }
-
-    @PostMapping("/users/login/{email}/{password}")
-    public ResponseEntity<String> login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        // checks if the email exists
-        System.out.println("Email: " + email + ", Password: " + password);
         User user = users.findByEmail(email).orElse(null);
 
         if (user != null) {
-            // checks if the password keyed in matches existing password
-            if (encoder.matches(password, user.getPassword())) {
-                System.out.println("valid user");
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+            throw new UserAlreadyExistsException(email);
         }
-        System.out.println("invalid user");
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-    } 
+
+        password = encoder.encode(password);
+
+        User adminUser = new User(email, name, password, role, "ROLE_ADMIN");
+
+        Company newCompany = new Company(companyName);
+        companies.addCompany(newCompany);
+
+        adminUser.setCompany(newCompany);
+        return users.save(adminUser);
+    }
+
+    @GetMapping("/users/login/{userEmail}/{password}")
+    public User login(@PathVariable("userEmail") String userEmail, @PathVariable("password") String password) {
+        // checks if the email exists
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        // checks if the password keyed in matches existing password
+        if (!encoder.matches(password, user.getPassword())) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        return user;
+    }
 
     @PutMapping("users/{userEmail}/resetPassword")
     public User resetPassword(@PathVariable(value = "userEmail") String userEmail) {

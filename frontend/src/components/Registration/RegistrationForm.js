@@ -1,118 +1,118 @@
-// import React, {useState} from 'react';
-// import axios from "axios";
-// import { API_BASE_URL } from "../../constants/apiConstants";
-// import { useHistory } from "react-router-dom";
-// import AuthContext from "../../navigation/AuthContext";
+import React, {useState} from 'react';
+import { API_BASE_URL } from "../../constants/apiConstants";
+import { useHistory } from "react-router-dom";
+import { Form, Button, FormGroup } from "react-bootstrap";
+import AuthContext from "../../navigation/AuthContext";
 
-// export default function RegistrationForm(props) {
-//     const history = useHistory();
+export default function RegistrationForm(props) {
+    const history = useHistory();
 
-//     const [state , setState] = useState({
-//         email : "",
-//         password : "",
-//         confirmPassword: "",
-//         successMessage: null
-//     });
+    const redirectToHome = () => {
+        history.push("/home");
+    };
 
-//     const handleChange = (e) => {
-//         const {id , value} = e.target   
-//         setState(prevState => ({
-//             ...prevState,
-//             [id] : value
-//         }));
-//     };
+    const [state , setState] = useState({
+        companyName: "",
+        email : "",
+        name: "",
+        password : "",
+        confirmPassword: "",
+        role: "",
+        successMessage: null
+    });
 
-//     const sendDetailsToServer = (updateAuth) => {
-//         if (state.username.length && state.email.length && state.password.length) {
-//           const payload = {
-//             email: state.email,
-//             password: state.password,
-//           };
-    
-//           axios
-//             .post(
-//               API_BASE_URL +
-//                 "/users/" +
-//                 state.username +
-//                 "/" +
-//                 state.email +
-//                 "/" +
-//                 state.password,
-//               payload
-//             )
-//             .then(function (response) {
-//               if (response.status === 200) {
-//                 setState((prevState) => ({
-//                   ...prevState,
-//                   successMessage:
-//                     "Registration successful. Redirecting to home page..",
-//                 }));
-//                 updateAuth(true, state.email, state.username);
-//                 redirectToHome();
-//               }
-//             })
-//             .catch(function (error) {
-//               if (error.response.status === 400) {
-//                 alert("Username or email already exists. Please try again");
-//               } else if (error.response.status === 500) {
-//                 alert("Email already exists. Please try again");
-//               }
-//             });
-//         } else {
-//           props.showError("Please enter valid username and password");
-//         }
-//       };
+    const handleChange = (e) => {
+        const {id , value} = e.target   
+        setState(prevState => ({
+            ...prevState,
+            [id] : value
+        }));
+    };
 
-//     const handleSubmitClick = (e) => {
-//         e.preventDefault();
-//         if(state.password === state.confirmPassword) {
-//             sendDetailsToServer()    
-//         } else {
-//             props.showError('Passwords do not match');
-//         }
-//     }
+    const sendDetailsToServer = (updateAuth) => {
+        fetch(
+            API_BASE_URL + "users/admin/registration",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "companyName": state.companyName,
+                    "email": state.email,
+                    "name": state.name,
+                    "password": state.password,
+                    "role": state.role
+                }),
+            }
+        ).then(function (response) {
+            console.log(response.json);
+            if (response.status === 201) {
+                setState((prevState) => ({
+                    ...prevState,
+                    successMessage:
+                    "Registration successful. Redirecting to home page..",
+                }));
+                updateAuth(true, state.email, "ROLE_ADMIN");
+                redirectToHome();
+            } else if (response.status == 409) {
+                alert("Email is already registered, please check your email and try again.");
+            } else {
+                console.log(response.json);
+                alert("There was an error on our side, please try again later.");
+            }
+        });
+    }
 
-//   return(
-//         <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
-//             <form>
-//                 <div className="form-group text-left">
-//                 <label htmlFor="exampleInputEmail1">Email address</label>
-//                 <input type="email" 
-//                        className="form-control" 
-//                        id="email" 
-//                        aria-describedby="emailHelp" 
-//                        placeholder="Enter email"
-//                        value={state.email}
-//                        onChange={handleChange}
-//                 />
-//                 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-//                 </div>
-//                 <div className="form-group text-left">
-//                     <label htmlFor="exampleInputPassword1">Password</label>
-//                     <input type="password" 
-//                         className="form-control" 
-//                         id="password" 
-//                         placeholder="Password"
-//                         value={state.password}
-//                         onChange={handleChange} 
-//                     />
-//                 </div>
-//                 <div className="form-group text-left">
-//                     <label htmlFor="exampleInputPassword1">Confirm Password</label>
-//                     <input type="password" 
-//                         className="form-control" 
-//                         id="confirmPassword" 
-//                         placeholder="Confirm Password"
-//                     />
-//                 </div>
-//                 <button 
-//                     type="submit" 
-//                     className="btn btn-primary"
-//                     onClick={handleSubmitClick}
-//                 >
-//                     Register
-//                 </button>
-//             </form>
-//         </div>
-//     )
-// }
+    const handleSubmitClick = (e, updateAuth) => {
+        e.preventDefault();
+        console.log(state.email);
+        if(state.password === state.confirmPassword) {
+            sendDetailsToServer(updateAuth)    
+        } else {
+            alert('Passwords do not match');
+        }
+    }
+
+    return(
+        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
+            <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:20}}>
+                <h3>Registration</h3>
+                <br />
+                <AuthContext.Consumer>
+                    {({ updateAuth }) => (
+                        <Form onSubmit={(e) =>  handleSubmitClick(e, updateAuth)}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Company Name:</Form.Label>
+                                <Form.Control required minLength={5} maxLength={200} type="text" placeholder="Enter company name" value={state.companyName} onChange={handleChange} id="companyName" />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Email address:</Form.Label>
+                                <Form.Control required type="email" placeholder="Enter email" value={state.email} onChange={handleChange} id="email" />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Name:</Form.Label>
+                                <Form.Control required minLength={5} maxLength={30} type="text" placeholder="Enter your name" value={state.name} onChange={handleChange} id="name" />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Password:</Form.Label>
+                                <Form.Control required minLength={8} type="password" placeholder="Enter your password" value={state.password} onChange={handleChange} id="password" />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Confirm Password:</Form.Label>
+                                <Form.Control required minLength={8} type="password" placeholder="Enter your password again" value={state.confirmPassword} onChange={handleChange} id="confirmPassword"/>
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Company Role:</Form.Label>
+                                <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter your role" value={state.role} onChange={handleChange} id="role" />
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                    )}
+                </AuthContext.Consumer>
+            </div>
+        </div>
+    )
+}

@@ -72,7 +72,7 @@ public class User implements UserDetails {
     @Size(min = 2, max = 30, message = "Role should be between 2 and 30 characters")
     private String role;
 
-    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Feedback> feedbacks;
 

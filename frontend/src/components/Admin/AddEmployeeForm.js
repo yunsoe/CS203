@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
-export default function Home() {
+export default function AddEmployeeForm() {
     return(
         <div>
-        <div>home page</div>
+        <div>add employee page</div>
         </div>
     );
 }

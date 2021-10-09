@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
-export default function Home() {
+export default function RemoveEmployeeForm() {
     return(
         <div>
-        <div>home page</div>
+        <div>remove employee page</div>
         </div>
     );
 }
