@@ -39,7 +39,7 @@ export default function ForgotPasswordForm() {
                     alert("We have sent you an email with your new password. You will now be redirected to the login page.");
                     redirectToLogin();
                 } else if (response.status === 401) {
-                    alert("You have entered an invalid email. Please try again.");
+                    alert("The email you have entered is not registered with us. Please try again.");
                 }
             });
         }
