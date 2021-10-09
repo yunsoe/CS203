@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { API_BASE_URL } from "../../constants/apiConstants";
-import { useHistory } from "react-router-dom";
 import { Form, Button, FormGroup } from "react-bootstrap";
 
 export default function FeedbackForm() {
-    const history = useHistory();
 
     const [state, setState] = useState({
         title: "",
@@ -20,6 +18,7 @@ export default function FeedbackForm() {
     };
 
     const submitFeedback = (e) => {
+        e.preventDefault();
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/feedbacks", 
             {
@@ -46,6 +45,7 @@ export default function FeedbackForm() {
         <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
             <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
                 <h3>Submit Feedback</h3>
+                <br/>
                 <Form id="feedbackForm" onSubmit = {(e) => submitFeedback(e)}>
                     <Form.Group className="mb-3">
                         <Form.Label>Title:</Form.Label>

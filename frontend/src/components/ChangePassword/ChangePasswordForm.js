@@ -53,6 +53,7 @@ export default function ChangePasswordForm() {
         <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
             <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
                 <h3>Change Password</h3>
+                <br/>
                 <Form onSubmit = {(e) => changePassword(e)}>
                     <Form.Group className="mb-3">
                         <Form.Label>Current Password:</Form.Label>
