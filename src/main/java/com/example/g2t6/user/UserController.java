@@ -92,7 +92,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/admin/registration")
     public User addAdminUser(@RequestBody Map<String, String> json){
-        String companyName = json.get("companyName");
+        Long companyId = Long.valueOf(json.get("companyId")).longValue();
         String email = json.get("email");
         String name = json.get("name");
         String password = json.get("password");
@@ -108,10 +108,9 @@ public class UserController {
 
         User adminUser = new User(email, name, password, role, "ROLE_ADMIN");
 
-        Company newCompany = new Company(companyName);
-        companies.addCompany(newCompany);
+        Company company = companies.getCompany(companyId);
 
-        adminUser.setCompany(newCompany);
+        adminUser.setCompany(company);
         return users.save(adminUser);
     }
 

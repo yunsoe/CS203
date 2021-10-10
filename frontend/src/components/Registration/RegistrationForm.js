@@ -13,6 +13,7 @@ export default function RegistrationForm(props) {
 
     const [state , setState] = useState({
         companyName: "",
+        industryName: "",
         email : "",
         name: "",
         password : "",
@@ -35,7 +36,7 @@ export default function RegistrationForm(props) {
 
     const sendDetailsToServer = (updateAuth) => {
         fetch(
-            API_BASE_URL + "users/admin/registration",
+            API_BASE_URL + "companies/" + state.industryName + "/addCompany",
             {
                 method: "POST",
                 headers: {
@@ -43,31 +44,60 @@ export default function RegistrationForm(props) {
                     "Access-Control-Allow-Origin": "*",
                 },
                 body: JSON.stringify({
-                    "companyName": state.companyName,
-                    "email": state.email,
-                    "name": state.name,
-                    "password": state.password,
-                    "role": state.role
+                    "name": state.companyName
                 }),
             }
         ).then(function (response) {
-            console.log(response.json);
-            if (response.status === 201) {
-                setState((prevState) => ({
-                    ...prevState,
-                    successMessage:
-                    "Registration successful. Redirecting to home page..",
-                }));
-                updateAuth(true, state.email, "ROLE_ADMIN", createBasicAuthToken(state.email, state.password));
-                redirectToHome();
-            } else if (response.status == 409) {
-                alert("Email is already registered, please check your email and try again.");
-            } else {
-                console.log(response.json);
-                alert("There was an error on our side, please try again later.");
-            }
+            response.json().then(function(data) {
+                console.log(data.id);
+                console.log(data.name);
+                fetch(
+                    API_BASE_URL + "users/admin/registration",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                        },
+                        body: JSON.stringify({
+                            "companyId": data.id,
+                            "email": state.email,
+                            "name": state.name,
+                            "password": state.password,
+                            "role": state.role
+                        }),
+                    }
+                ).then(function (response) {
+                    console.log(response.json);
+                    if (response.status === 201) {
+                        setState((prevState) => ({
+                            ...prevState,
+                            successMessage:
+                            "Registration successful. Redirecting to home page..",
+                        }));
+                        updateAuth(true, state.email, "ROLE_ADMIN", createBasicAuthToken(state.email, state.password));
+                        redirectToHome();
+                    } else if (response.status == 409) {
+                        fetch(
+                            API_BASE_URL + "companies/" + data.id,
+                            {
+                                method: "DELETE",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Access-Control-Allow-Origin": "*",
+                                },
+                            }
+                        ).then(function(response) {
+                            alert("Email is already registered, please check your email and try again.");
+                        })
+                    } else {
+                        console.log(response.json);
+                        alert("There was an error on our side, please try again later.");
+                    }
+                });
+            })
         });
-    }
+    };
 
     const handleSubmitClick = (e, updateAuth) => {
         e.preventDefault();
@@ -80,7 +110,7 @@ export default function RegistrationForm(props) {
     }
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 50}}>
             <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:20}}>
                 <h3>Registration</h3>
                 <br />
@@ -90,6 +120,11 @@ export default function RegistrationForm(props) {
                             <Form.Group className="mb-3">
                                 <Form.Label>Company Name:</Form.Label>
                                 <Form.Control required minLength={5} maxLength={200} type="text" placeholder="Enter company name" value={state.companyName} onChange={handleChange} id="companyName" />
+                            </Form.Group>
+                            <p>The textbox implementation of industry is temporary, gonna change it to dropdown or something, but i havent figured out how</p>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Industry:</Form.Label>
+                                <Form.Control required type="text" placeholder="Enter industry name" value={state.industryName} onChange={handleChange} id="industryName" />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Email address:</Form.Label>
