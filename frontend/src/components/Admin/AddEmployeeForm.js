@@ -76,7 +76,7 @@ export default function AddEmployeeForm() {
     function renderPage() {
         if (localStorage.getItem("authority") !== "ROLE_ADMIN") {
             return(
-                <div>You are not authorized to enter this page.</div>
+                <div style={{textAlign: "center"}}>You are not authorized to enter this page.</div>
             );
         } else {
             return(
