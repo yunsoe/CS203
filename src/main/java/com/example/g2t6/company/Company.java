@@ -35,13 +35,9 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)          
     private List<Event> eventList;
 
-    @ManyToMany
-    @JoinTable(
-        name = "company_industries", 
-        joinColumns = @JoinColumn(name = "company_id"), 
-        inverseJoinColumns = @JoinColumn(name = "industry_id"))     
-    @JsonIgnore
-    private Set<Industry> industryList = new HashSet<> ();
+    @ManyToOne
+    @JoinColumn(name = "industry_id", nullable = false)
+    private Industry industry;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <User> users;

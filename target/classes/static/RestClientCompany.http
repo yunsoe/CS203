@@ -1,17 +1,28 @@
 # add company
 ###
-POST http://localhost:8080/companies
+POST http://localhost:8080/companies/industry1/addCompany
 Content-Type: application/json
 
 {
-    "name": "company c"
+    "name": "company a"
 }
+
+# add company to same industry
 ###
-POST http://localhost:8080/companies
+POST http://localhost:8080/companies/industry1/addCompany
 Content-Type: application/json
 
 {
     "name": "company b"
+}
+
+# add company to another industry
+###
+POST http://localhost:8080/companies/industry2/addCompany
+Content-Type: application/json
+
+{
+    "name": "company c"
 }
 
 # get companies
@@ -45,43 +56,31 @@ Content-Type: application/json
     "location": "Dhoby Ghaut"
 }
 
-#add user to company
+# add user: admin
 ###
-POST http://localhost:8080/users/2
+POST http://localhost:8080/users/admin/registration
 Content-Type: application/json
 
 {
-    "email": "hijdfdf@gmail.com",
-    "name": "employee a",
-    "password": "goodpassword",
-    "role": "tester",
-    "authorities": "ROLE_USER"
-}
-
-#add multiple users to the same company (email must be unique)
-###
-POST http://localhost:8080/users/2
-Content-Type: application/json
-
-{
-    "email": "hi@gmail.com",
-    "name": "employee b",
-    "password": "goodpassword",
-    "role": "tester",
-    "authorities": "ROLE_USER"
-}
-
-# add admin to company
-###
-POST http://localhost:8080/users/1
-Content-Type: application/json
-
-{
+    "companyName": "company ABC",
     "email": "abc@gmail.com",
     "name": "admin a",
+    "password": "goodpassword123",
+    "role": "HR"
+}
+
+# add user: employee - company doesnt exist
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword123
+
+{
+    "email": "hij@gmail.com",
+    "name": "employee c",
     "password": "goodpassword",
-    "role": "HR",
-    "authorities": "ROLE_ADMIN"
+    "role": "tester",
+    "authorities": "ROLE_USER"
 }
 
 

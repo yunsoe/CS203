@@ -1,6 +1,7 @@
 package com.example.g2t6.company;
 
 import javax.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.example.g2t6.industry.*;
+
 
 @RestController
+@CrossOrigin
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private IndustryRepository industries;
+
+    @Autowired
+    private IndustryService industryService;
 
     // public CompanyController(CompanyService cs){
     //     this.companyService = cs;
@@ -57,8 +69,17 @@ public class CompanyController {
      * @return list of all companies
      */
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/companies")
-    public Company addCompany(@Valid @RequestBody Company company) {
+    @PostMapping("/companies/{industryName}/addCompany")
+    public Company addCompany(@Valid @RequestBody Company company, @PathVariable String industryName) {
+        Industry industry = industries.findByName(industryName).orElse(null);
+
+        if (industry == null) {
+            Industry newIndustry = industryService.addIndustry(new Industry(industryName));
+            company.setIndustry(newIndustry);
+        } else {
+            company.setIndustry(industry);
+        }
+
         return companyService.addCompany(company);
     }
 

@@ -32,9 +32,10 @@ import lombok.*;
 public class Industry {
 
     private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
-    @ManyToMany(mappedBy = "industryList")
+    
+    @OneToMany (mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set <Company> companyList = new HashSet<>();
+    private List<Company> companies;
 
     @NotNull(message = "Industry name should not be null")
     private String name;
