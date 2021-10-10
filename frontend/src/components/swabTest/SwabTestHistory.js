@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState,useEffect } from "react";
 import { Button,InputGroup,FormControl } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {format} from "date-fns";
 
 
 export default function SwabTestForm() {
@@ -19,15 +21,16 @@ export default function SwabTestForm() {
     }
 
     function loadDate(){
-
+        const today = format(new Date(), 'yyyy-MM-dd')
+        return axios.get('')
     }
 
     return(
         <div>
-        <div>SwabTest</div>
+        <div>View employees swab test history</div>
         <InputGroup className="mb-3">
             <FormControl
-            placeholder="SwabTest History"
+            placeholder="username"
             aria-label="swabTesHitory"
             aria-describedby="basic-addon2"
             />

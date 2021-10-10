@@ -8,6 +8,8 @@ Authorization: Basic abc@gmail.com goodpassword
 ###
 GET http://localhost:8080/swabTests/false/2020-09-09
 //Accept: application/json
+###
+GET http://localhost:8080/swabTests/2020-09-01/date/2020-09-20
 
 # get individual swab results (user)
 ###
@@ -28,5 +30,5 @@ PUT http://localhost:8080/users/def@gmail.com/swabTests/1
 Content-Type: application/json
 
 {
-    "actualSwabDate": "2020-01-01"
+    "actualSwabDate": "2020-09-01"
 }

@@ -48,6 +48,17 @@ public class SwabTestController {
         return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, date);
     }
 
+    @GetMapping("/swabTests/{sDate}/date/{eDate}")
+    public List<SwabTest> getRangeOfSwabTestByDate(@Valid @PathVariable String sDate, @Valid @PathVariable String eDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(sDate, formatter);
+        LocalDate endDate = LocalDate.parse(eDate, formatter);
+        return swabTests.findByActualSwabDateBetween(startDate, endDate);
+
+
+    }
+
+
     @GetMapping("/users/{userEmail}/swabTests")
     public List<SwabTest> getIndividuSwabTests(@PathVariable (value = "userEmail") String userEmail){
         return swabTestService.listSwabHistory(userEmail);
