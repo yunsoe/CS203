@@ -25,6 +25,8 @@ export default function FeedbackForm() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "authorization": localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
                     "title": state.title,

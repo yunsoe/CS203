@@ -21,10 +21,12 @@ class AuthProvider extends Component {
     if (localStorage.getItem("email") === null) {
       localStorage.setItem("email", this.state.email);
       localStorage.setItem("authority", this.state.authority);
+      localStorage.setItem("accessToken", this.state.accessToken);
     } else {
       if (localStorage.getItem("email").length !== 0) {
         this.state.email = localStorage.getItem("email");
         this.state.authority = localStorage.getItem("authority");
+        this.state.accessToken = localStorage.getItem("accessToken");
         this.state.isAuth = true;
       }
     }
@@ -34,21 +36,24 @@ class AuthProvider extends Component {
     email: "",
     username: "",
     authority: "",
-    updateAuth: (isAuth, email, authority) => {
+    accessToken: "",
+    updateAuth: (isAuth, email, authority, accessToken) => {
       this.setState(
-        { isAuth: true, email: email, authority: authority },
+        { isAuth: true, email: email, authority: authority, accessToken: accessToken },
         function () {
           localStorage.setItem("email", email);
           localStorage.setItem("authority", authority);
+          localStorage.setItem("accessToken", accessToken);
         }
       );
     },
     logout: () => {
       this.setState(
-        { isAuth: false, email: "", authority: "" },
+        { isAuth: false, email: "", authority: "", accessToken: "" },
         function () {
           localStorage.setItem("email", this.state.email);
           localStorage.setItem("authority", "");
+          localStorage.setItem("accessToken", "");
         }
       );
     },

@@ -41,6 +41,18 @@ public class UserController {
         return users.findAll();
     }
 
+    @GetMapping("/users/{userEmail}/company")
+    public Long getUserCompanyId(@PathVariable String userEmail) {
+        // checks if the email exists
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+        
+        return user.getCompany().getId();
+    }
+
     @GetMapping("/users/{companyId}")
     public List<User> getUsersByCompanyId(@PathVariable Long companyId) {
         Company company = companies.getCompany(companyId);
@@ -65,6 +77,12 @@ public class UserController {
 
         if(company == null) {
             throw new CompanyNotFoundException(companyId);
+        }
+
+        User checkEmail = users.findByEmail(user.getEmail()).orElse(null);
+
+        if (checkEmail != null) {
+            throw new UserAlreadyExistsException(user.getEmail());
         }
 
         user.setCompany(company);

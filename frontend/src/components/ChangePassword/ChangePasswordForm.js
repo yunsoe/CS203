@@ -31,6 +31,8 @@ export default function ChangePasswordForm() {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "authorization": localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
                     "currentPassword": state.currentPassword,
