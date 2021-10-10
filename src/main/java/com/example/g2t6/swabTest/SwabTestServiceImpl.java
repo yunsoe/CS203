@@ -1,6 +1,6 @@
 package com.example.g2t6.swabTest;
 import java.util.List;
-import java.util.Date;
+import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 @Service
 public class SwabTestServiceImpl implements SwabTestService{
@@ -32,7 +32,7 @@ public class SwabTestServiceImpl implements SwabTestService{
     }
 
     @Override
-    public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,String actualSwabDate){ // for admin to see that whose reult is positive
+    public List<SwabTest> listSwabHistoryByResulTestsAndDate(boolean swabResult,LocalDate actualSwabDate){ // for admin to see that whose reult is positive
         return swabTests.findBySwabResultAndActualSwabDate(swabResult, actualSwabDate);// how to set for a range from curr to that datae?
     }
 

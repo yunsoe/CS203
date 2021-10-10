@@ -13,7 +13,8 @@ import ChangePasswordForm from "./components/ChangePassword/ChangePasswordForm";
 import FeedbackForm from "./components/Feedback/FeedbackForm";
 import AddEmployeeForm from "./components/Admin/AddEmployeeForm";
 import RemoveEmployeeForm from "./components/Admin/RemoveEmployeeForm";
-
+import SwabTestForm from "./components/swabTest/SwabTestForm";
+import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
@@ -88,6 +89,8 @@ export default class App extends Component {
             <Route path="/register" component={RegistrationForm} />
             <Route path="/deleteUser" component={RemoveEmployeeForm} />
             <Route path="/createUser" component={AddEmployeeForm} />
+            <Route path="/swabTestForm" component={SwabTestForm} />
+            <Route path="/swabTestHistory" component={SwabTestHistory} />
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>
         </AuthProvider>

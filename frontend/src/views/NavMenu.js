@@ -18,6 +18,10 @@ export default function NavMenu() {
         }
         <Nav.Link href="/changePassword">Change Password</Nav.Link>
         <Nav.Link href="/feedback">Feedback</Nav.Link>
+        <NavDropdown title="SwabTest" id="swabTest-nav-dropdown">
+            <NavDropdown.Item href="/swabTestForm">swabTestForm</NavDropdown.Item>
+            <NavDropdown.Item href="/swabTestHistory">view swabTest history</NavDropdown.Item>
+          </NavDropdown>
         <Nav.Link href="/logoutConfirm">Logout</Nav.Link>
       </Nav>
     </Navbar>
