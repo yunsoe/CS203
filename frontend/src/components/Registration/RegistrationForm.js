@@ -158,7 +158,6 @@ export default function RegistrationForm(props) {
                                 <Form.Label>Company Name:</Form.Label>
                                 <Form.Control required minLength={5} maxLength={200} type="text" placeholder="Enter company name" value={state.companyName} onChange={handleChange} id="companyName" />
                             </Form.Group>
-                            <p>The textbox implementation of industry is temporary, gonna change it to dropdown or something, but i havent figured out how</p>
                             <Form.Group className="mb-3">
                                 <Form.Label>Industry:</Form.Label>
                                 <br/>
