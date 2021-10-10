@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
-import { Form, Button, FormGroup } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import AuthContext from "../../navigation/AuthContext";
 
 export default function RegistrationForm(props) {
@@ -22,6 +22,28 @@ export default function RegistrationForm(props) {
         successMessage: null
     });
 
+    const[industries, setIndustries] = useState(null);
+
+    useEffect(() => {
+        fetchIndustries();
+
+        async function fetchIndustries() {
+            const response = await fetch(API_BASE_URL + "industries");
+            const data = await response.json();
+
+            if (data.length === 0) {
+                var industryTextField = document.getElementById("industryName");
+                industryTextField.hidden = false;
+                industryTextField.required = true;
+                industryTextField.value = "";
+            } else {
+                state.industryName = data[0].name;
+            }
+
+            setIndustries(data);
+        }
+    }, []);
+
     const handleChange = (e) => {
         const {id , value} = e.target   
         setState(prevState => ({
@@ -35,6 +57,7 @@ export default function RegistrationForm(props) {
     }
 
     const sendDetailsToServer = (updateAuth) => {
+        state.industryName = state.industryName.charAt(0).toUpperCase() + state.industryName.substr(1);
         fetch(
             API_BASE_URL + "companies/" + state.industryName + "/addCompany",
             {
@@ -68,7 +91,6 @@ export default function RegistrationForm(props) {
                         }),
                     }
                 ).then(function (response) {
-                    console.log(response.json);
                     if (response.status === 201) {
                         setState((prevState) => ({
                             ...prevState,
@@ -101,11 +123,26 @@ export default function RegistrationForm(props) {
 
     const handleSubmitClick = (e, updateAuth) => {
         e.preventDefault();
-        console.log(state.email);
         if(state.password === state.confirmPassword) {
             sendDetailsToServer(updateAuth)    
         } else {
             alert('Passwords do not match');
+        }
+    }
+
+    const setSelectedIndustry = () => {
+        var selectedIndustry = document.getElementById("industryDropdownButton").value;
+        var industryTextField = document.getElementById("industryName");
+
+        if (selectedIndustry === "Others") {
+            industryTextField.hidden = false;
+            industryTextField.required = true;
+            industryTextField.value = "";
+        } else {
+            industryTextField.hidden = true;
+            industryTextField.required = false;
+            industryTextField.value = "";
+            state.industryName = document.getElementById("industryDropdownButton").value;
         }
     }
 
@@ -124,7 +161,19 @@ export default function RegistrationForm(props) {
                             <p>The textbox implementation of industry is temporary, gonna change it to dropdown or something, but i havent figured out how</p>
                             <Form.Group className="mb-3">
                                 <Form.Label>Industry:</Form.Label>
-                                <Form.Control required type="text" placeholder="Enter industry name" value={state.industryName} onChange={handleChange} id="industryName" />
+                                <br/>
+                                    {industries && (
+                                        <select name="abc" id="industryDropdownButton" style={{padding:10, backgroundColor: "#007bff", color: "white", borderRadius: 10}} onChange={setSelectedIndustry}>
+                                            {industries.map((industry, i) => (
+                                                <option class="industryOption" key={i} name={industry.name}>
+                                                    {industry.name}
+                                                </option>))}
+                                            <option class="industryOption" name={"Others"}>
+                                                Others
+                                            </option>
+                                        </select>
+                                    )}
+                                    <Form.Control hidden type="text" placeholder="Enter industry name" onChange={handleChange} style={{marginTop: 10}} id="industryName" />
                             </Form.Group>
                             <Form.Group className="mb-3">
                                 <Form.Label>Email address:</Form.Label>
