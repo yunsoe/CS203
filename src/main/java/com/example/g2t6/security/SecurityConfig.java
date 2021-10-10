@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.DELETE, "/users/*/*").hasRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/users/*").hasRole("ADMIN")
             .antMatchers(HttpMethod.PUT, "/users/*/*/changePassword").hasAnyRole("ADMIN", "USER")
+            .antMatchers(HttpMethod.POST, "/users/*/feedbacks").hasAnyRole("ADMIN", "USER")
             .and()
         .cors().and().csrf().disable() // CSRF protection is needed only for browser based attacks
         //not sure abt this part

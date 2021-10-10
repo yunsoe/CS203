@@ -2,6 +2,11 @@
 GET http://localhost:8080/users
 Accept: application/json
 
+# get user's company id
+###
+GET http://localhost:8080/users/abc@gmail.com/company
+Accept: application/json
+
 # add user: admin
 ###
 POST http://localhost:8080/users/admin/registration
