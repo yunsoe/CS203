@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
     "swabResult": "false",
-    "actualSwabDate": "2020-09-09"
+    "actualSwabDate": "2021-10-10"
 }
 ###
 PUT http://localhost:8080/users/def@gmail.com/swabTests/1
