@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.time.LocalDate;
 import com.example.g2t6.swabTest.SwabTest;
 import com.example.g2t6.swabTest.SwabTestRepository;
 import com.example.g2t6.swabTest.SwabTestService;
@@ -43,9 +43,10 @@ public class SwabServiceTest {
     @Test
     void addSwabTest_NewDate_ReturnSavedSwab(){
         // arrange
-        SwabTest swabtest = new SwabTest("2020-08-01");
+        LocalDate date = LocalDate.of(2020,8,1);
+        SwabTest swabtest = new SwabTest(date);
         //act
-        when(swabTests.findByActualSwabDate(any(String.class))).thenReturn(new ArrayList<SwabTest>());
+        when(swabTests.findByActualSwabDate(any(LocalDate.class))).thenReturn(new ArrayList<SwabTest>());
         when(swabTests.save(any(SwabTest.class))).thenReturn(swabtest);
         SwabTest savedSwab = swabService.addSwabHistory(swabtest);
         //assert
@@ -56,10 +57,11 @@ public class SwabServiceTest {
 
     @Test
     void  addSwabTest_SameDate_ReturnNull(){
-        SwabTest swabtest = new SwabTest("2020-08-01");
+        LocalDate date = LocalDate.of(2020,8,1);
+        SwabTest swabtest = new SwabTest(date);
         List<SwabTest> swabs = new ArrayList<>();
         swabs.add(swabtest);
-        when(swabTests.findByActualSwabDate(any(String.class))).thenReturn(swabs);
+        when(swabTests.findByActualSwabDate(any(LocalDate.class))).thenReturn(swabs);
         SwabTest savedSwab = swabService.addSwabHistory(swabtest);
         assertNull(savedSwab);
         verify(swabTests).findByActualSwabDate(swabtest.getActualSwabDate());
@@ -68,7 +70,8 @@ public class SwabServiceTest {
 
     @Test
     void updateSwabDate_NotFound_ReturnNull(){
-        SwabTest swabtest = new SwabTest("2020-08-01");
+        LocalDate date = LocalDate.of(2020,8,1);
+        SwabTest swabtest = new SwabTest(date);
         Long id = 10L;
         when(swabTests.findById(id)).thenReturn(Optional.empty());
         SwabTest updatedSwabTest = swabService.updateDate(id, swabtest);

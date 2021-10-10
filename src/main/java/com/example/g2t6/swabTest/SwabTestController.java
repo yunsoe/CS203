@@ -1,5 +1,7 @@
 package com.example.g2t6.swabTest;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.validation.Valid;
 import com.example.g2t6.user.User;
 import com.example.g2t6.user.UserRepository;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @RestController
 public class SwabTestController {
@@ -39,8 +43,21 @@ public class SwabTestController {
 
     @GetMapping("/swabTests/{swabResult}/{actualSwabDate}")
     public List<SwabTest> getSpecificSwabTests(@Valid @PathVariable boolean swabResult,@Valid @PathVariable String actualSwabDate){
-        return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, actualSwabDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(actualSwabDate, formatter);
+        return swabTestService.listSwabHistoryByResulTestsAndDate(swabResult, date);
     }
+
+    @GetMapping("/swabTests/{sDate}/date/{eDate}")
+    public List<SwabTest> getRangeOfSwabTestByDate(@Valid @PathVariable String sDate, @Valid @PathVariable String eDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(sDate, formatter);
+        LocalDate endDate = LocalDate.parse(eDate, formatter);
+        return swabTests.findByActualSwabDateBetween(startDate, endDate);
+
+
+    }
+
 
     @GetMapping("/users/{userEmail}/swabTests")
     public List<SwabTest> getIndividuSwabTests(@PathVariable (value = "userEmail") String userEmail){

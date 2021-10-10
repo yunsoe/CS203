@@ -13,17 +13,21 @@ import ChangePasswordForm from "./components/ChangePassword/ChangePasswordForm";
 import FeedbackForm from "./components/Feedback/FeedbackForm";
 import AddEmployeeForm from "./components/Admin/AddEmployeeForm";
 import RemoveEmployeeForm from "./components/Admin/RemoveEmployeeForm";
-
+import "./components/Home/home.css"
+// import SwabTestForm from "./components/swabTest/SwabTestForm";
+// import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
     if (localStorage.getItem("email") === null) {
       localStorage.setItem("email", this.state.email);
       localStorage.setItem("authority", this.state.authority);
+      localStorage.setItem("accessToken", this.state.accessToken);
     } else {
       if (localStorage.getItem("email").length !== 0) {
         this.state.email = localStorage.getItem("email");
         this.state.authority = localStorage.getItem("authority");
+        this.state.accessToken = localStorage.getItem("accessToken");
         this.state.isAuth = true;
       }
     }
@@ -33,21 +37,24 @@ class AuthProvider extends Component {
     email: "",
     username: "",
     authority: "",
-    updateAuth: (isAuth, email, authority) => {
+    accessToken: "",
+    updateAuth: (isAuth, email, authority, accessToken) => {
       this.setState(
-        { isAuth: true, email: email, authority: authority },
+        { isAuth: true, email: email, authority: authority, accessToken: accessToken },
         function () {
           localStorage.setItem("email", email);
           localStorage.setItem("authority", authority);
+          localStorage.setItem("accessToken", accessToken);
         }
       );
     },
     logout: () => {
       this.setState(
-        { isAuth: false, email: "", authority: "" },
+        { isAuth: false, email: "", authority: "", accessToken: "" },
         function () {
           localStorage.setItem("email", this.state.email);
           localStorage.setItem("authority", "");
+          localStorage.setItem("accessToken", "");
         }
       );
     },
@@ -88,6 +95,8 @@ export default class App extends Component {
             <Route path="/register" component={RegistrationForm} />
             <Route path="/deleteUser" component={RemoveEmployeeForm} />
             <Route path="/createUser" component={AddEmployeeForm} />
+            {/* <Route path="/swabTestForm" component={SwabTestForm} />
+            <Route path="/swabTestHistory" component={SwabTestHistory} /> */}
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>
         </AuthProvider>
