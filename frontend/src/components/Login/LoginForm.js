@@ -13,6 +13,10 @@ export default function LoginForm(props) {
     successMessage: null,
   });
 
+  function createBasicAuthToken(email, password) {
+    return 'Basic ' + window.btoa(email + ":" + password);
+  }
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setState((prevState) => ({
@@ -27,6 +31,9 @@ export default function LoginForm(props) {
       API_BASE_URL + "users/login/" + state.email + "/" + state.password,
       {
           method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
       }
     ).then(function (response) {
         if (response.status === 200) {
@@ -35,7 +42,8 @@ export default function LoginForm(props) {
               ...prevState,
               successMessage: "Login successful. Redirecting to home page..",
             }));
-            updateAuth(true, state.email, Object.values(data.authorities[0])[0]);
+            var token = createBasicAuthToken(state.email, state.password);
+            updateAuth(true, state.email, Object.values(data.authorities[0])[0], token);
             redirectToHome();
           });
         } else if (response.status == 401) {

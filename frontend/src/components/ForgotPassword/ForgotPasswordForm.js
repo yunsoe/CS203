@@ -31,7 +31,10 @@ export default function ForgotPasswordForm() {
             fetch(
                 API_BASE_URL + "users/" + state.email + "/resetPassword", 
                 {
-                    method: "PUT"
+                    method: "PUT",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                    }
                 }
             ).then(function (response) {
                 console.log(response.json());

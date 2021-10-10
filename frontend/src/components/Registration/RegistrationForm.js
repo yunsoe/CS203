@@ -29,6 +29,10 @@ export default function RegistrationForm(props) {
         }));
     };
 
+    function createBasicAuthToken(email, password) {
+        return 'Basic ' + window.btoa(email + ":" + password);
+    }
+
     const sendDetailsToServer = (updateAuth) => {
         fetch(
             API_BASE_URL + "users/admin/registration",
@@ -36,6 +40,7 @@ export default function RegistrationForm(props) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
                 },
                 body: JSON.stringify({
                     "companyName": state.companyName,
@@ -53,7 +58,7 @@ export default function RegistrationForm(props) {
                     successMessage:
                     "Registration successful. Redirecting to home page..",
                 }));
-                updateAuth(true, state.email, "ROLE_ADMIN");
+                updateAuth(true, state.email, "ROLE_ADMIN", createBasicAuthToken(state.email, state.password));
                 redirectToHome();
             } else if (response.status == 409) {
                 alert("Email is already registered, please check your email and try again.");

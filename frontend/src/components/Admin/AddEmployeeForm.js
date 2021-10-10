@@ -28,13 +28,14 @@ export default function AddEmployeeForm() {
             }
         ).then(function (response) {
             response.json().then(function(companyId) {
-                console.log(companyId);
                 fetch(
                     API_BASE_URL + "users/" + companyId,
                     {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                            "authorization": localStorage.getItem("accessToken"),
                         },
                         body: JSON.stringify({
                             "email": state.email,
