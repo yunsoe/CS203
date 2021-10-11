@@ -162,7 +162,7 @@ export default function RegistrationForm(props) {
                                 <Form.Label>Industry:</Form.Label>
                                 <br/>
                                     {industries && (
-                                        <select name="abc" id="industryDropdownButton" style={{padding:10, backgroundColor: "#007bff", color: "white", borderRadius: 10}} onChange={setSelectedIndustry}>
+                                        <select name="industryDD" id="industryDropdownButton" style={{padding:10, backgroundColor: "#007bff", color: "white", borderRadius: 10}} onChange={setSelectedIndustry}>
                                             {industries.map((industry, i) => (
                                                 <option class="industryOption" key={i} name={industry.name}>
                                                     {industry.name}

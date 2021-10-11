@@ -74,4 +74,5 @@ Authorization: Basic testcompanyadmin1@gmail.com goodpassword123
 
 # delete users: by user email and company id
 ###
-DELETE http://localhost:8080/users/1/def@gmail.com
+DELETE http://localhost:8080/users/1/test5@gmail.com
+Authorization: Basic test1@gmail.com password
