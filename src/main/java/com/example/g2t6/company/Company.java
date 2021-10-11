@@ -27,9 +27,8 @@ import lombok.*;
 public class Company {
     private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     
-    @NotNull(message = "Company name should not be null")
     // null elements are considered valid, so we need a size constraints too
-    @Size(min = 1, max = 200, message = "Comapny's name should be at least 5 characters long")
+    @Size(min = 1, max = 200, message = "Company's name should be at least 5 characters long")
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)          

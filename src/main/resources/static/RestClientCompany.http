@@ -62,7 +62,7 @@ POST http://localhost:8080/users/admin/registration
 Content-Type: application/json
 
 {
-    "companyName": "company ABC",
+    "companyId": "1",
     "email": "abc@gmail.com",
     "name": "admin a",
     "password": "goodpassword123",
