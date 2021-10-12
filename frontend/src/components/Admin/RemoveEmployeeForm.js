@@ -20,7 +20,6 @@ export default function RemoveEmployeeForm() {
             const companyId = await getCompanyId.json();
 
             state.companyId = companyId;
-            console.log(state.companyId);
 
             const response = await fetch(API_BASE_URL + "users/" + companyId);
             const data = await response.json();
@@ -32,7 +31,6 @@ export default function RemoveEmployeeForm() {
 
             if (data.length !== 0) {
                 state.selectedEmployeeToRemove = data[0].email;
-                console.log(state.selectedEmployeeToRemove);
                 setEmployees(data);
             } else {
                 document.getElementById("submitButton").hidden = true;
@@ -41,12 +39,9 @@ export default function RemoveEmployeeForm() {
         }
     }, []);
 
-    //TODO: add feedback, news, events, etc associated with user and make sure it removes all without throwing an error
-
     const setSelectedEmployee = () => {
         var selectedEmployee = document.getElementById("employeeDropdownButton").value;
         state.selectedEmployeeToRemove = selectedEmployee;
-        console.log(selectedEmployee);
     }
 
     const handleSubmitClick = (e) => {
@@ -68,9 +63,7 @@ export default function RemoveEmployeeForm() {
         ).then(function(response) {
             if (response.status === 200) {
                 alert("Employee has been removed successfully.");
-                //need to make sure after rmeoving, the dropdown will update accordingly - if no more employees, show msg, if got more employees, make sure removed employee is not in the dropdown anymore
-                //i think can reload the page?
-                // location.reload();
+                location.reload();
             } else {
                 console.log(response.json);
                 alert("There was an error on our side, please try again later.");
