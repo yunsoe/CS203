@@ -14,6 +14,7 @@ import FeedbackForm from "./components/Feedback/FeedbackForm";
 import AddEmployeeForm from "./components/Admin/AddEmployeeForm";
 import RemoveEmployeeForm from "./components/Admin/RemoveEmployeeForm";
 import "./components/Home/home.css"
+import EventForm from "./components/Events/EventForm";
 // import SwabTestForm from "./components/swabTest/SwabTestForm";
 // import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 class AuthProvider extends Component {
@@ -92,6 +93,7 @@ export default class App extends Component {
             <Route path="/forgotPassword" component={ForgotPasswordForm} />
             <Route path="/login" component={Authentication} />
             <Route path="/feedback" component={FeedbackForm} />
+            <Route path="/event" component={EventForm} />
             <Route path="/register" component={RegistrationForm} />
             <Route path="/deleteUser" component={RemoveEmployeeForm} />
             <Route path="/createUser" component={AddEmployeeForm} />
