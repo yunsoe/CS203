@@ -6,9 +6,9 @@ function Header() {
         <div id='main'>
            <Navbar/>
            <div className='name'>
-               <h1><span>Launch Your App</span> With Confidence and Creativity</h1>
-               <p className='details'> What are you waiting for? Start now! </p>
-               <a href='#' className='cv-btn'>Start</a>
+               <h1><span>Stay Updated about all things Covid-Related in Singapore</span></h1>
+               {/* <p className='details'> What are you waiting for? Start now! </p> */}
+               {/* <a href='#' className='cv-btn'>Start</a> */}
            </div>
         </div>
     )

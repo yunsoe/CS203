@@ -9,7 +9,7 @@ function Featuresbox(props) {
 
             <div className='a-b-text'>
                 <h2> {props.title} </h2>
-                <p> Lorem Ipsum </p>
+                {/* <p> Lorem Ipsum </p> */}
             </div>
         </div>
     )
