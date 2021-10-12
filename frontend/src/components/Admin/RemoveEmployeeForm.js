@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { API_BASE_URL } from "../../constants/apiConstants";
 
+
 export default function RemoveEmployeeForm() {
 
     const [state, setState] = useState({
@@ -69,7 +70,7 @@ export default function RemoveEmployeeForm() {
                 alert("Employee has been removed successfully.");
                 //need to make sure after rmeoving, the dropdown will update accordingly - if no more employees, show msg, if got more employees, make sure removed employee is not in the dropdown anymore
                 //i think can reload the page?
-                location.reload();
+                // location.reload();
             } else {
                 console.log(response.json);
                 alert("There was an error on our side, please try again later.");
