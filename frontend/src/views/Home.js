@@ -14,13 +14,15 @@ import '../components/Home/home.css';
 
 export default function Home() {
     return(
-        <div id = "main">
-        <Header/>
-        <Features/>
-        {/* <About image={aboutimage} title='News' button='Go to News'/>
-        <Presentation/>
-        <About image={aboutimage1} title='Profile' button='Go to Profile'/> */}
-        <Contact/>
+        <div id = "body">
+            <div id = "main">
+            <Header/>
+            {/* <Features/> */}
+            {/* <About image={aboutimage} title='News' button='Go to News'/>
+            <Presentation/>
+            <About image={aboutimage1} title='Profile' button='Go to Profile'/> */}
+            <Contact/>
+            </div>
         </div>
     );
 }
