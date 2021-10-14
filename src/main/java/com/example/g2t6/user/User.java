@@ -30,33 +30,36 @@ import com.example.g2t6.event.Event;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "user", schema = "cs203")
 public class User implements UserDetails {
     
     private static final long serialVersionUID = 1L;
 
     @Email
     @NotNull(message = "Email should not be null")
-    private @Id String email;
+    private @Id @Column(name="user_email") String email;
         
     @NotNull(message = "Name should not be null")
     @Size(min = 5, max = 30, message = "Name should be between 5 and 20 characters")
+    @Column(name="name")
     private String name;
         
     @NotNull(message = "Password should not be null")
     @Size(min = 8, message = "Password should be at least 8 characters")
+    @Column(name="password")
     private String password;
 
     @ManyToOne //composition, since we cant have a user without a company, in company class there should be orphanRemoval = true (refer to week 4 slide 17)
-    @JoinColumn(name = "company_id", nullable = false) //may need to be update depending on company class impl
+    @JoinColumn(name = "company_id", referencedColumnName = "company_id", nullable = false) //may need to be update depending on company class impl
     @JsonIgnore
     private Company company;
 
     @ManyToMany
     @JoinTable(name="user_events",
         joinColumns = 
-            @JoinColumn(name="user_email"),
+            @JoinColumn(name="user_email", referencedColumnName = "user_email"),
         inverseJoinColumns = 
-        @JoinColumn(name="event_id"))
+        @JoinColumn(name="event_id", referencedColumnName = "event_id"))
     @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
@@ -70,6 +73,7 @@ public class User implements UserDetails {
 
     @NotNull(message = "Role should not be null")
     @Size(min = 2, max = 30, message = "Role should be between 2 and 30 characters")
+    @Column(name="role")
     private String role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -82,6 +86,7 @@ public class User implements UserDetails {
 
     @NotNull(message = "Authorities should not be null")
     // We define two roles/authorities: ROLE_USER or ROLE_ADMIN
+    @Column(name="authorities")
     private String authorities;
 
     public User(String email, String name, String password, String role, String authorities){

@@ -10,16 +10,19 @@ import com.example.g2t6.user.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "swab_test_detail", schema = "cs203")
 public class SwabTestDetail {
 
-    private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    private  @Id @Column(name="swab_test_detail_id") @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     
     @ManyToOne
-    @JoinColumn(name = "user", referencedColumnName = "email",nullable = false)
+    @JoinColumn(name = "user_email", referencedColumnName = "user_email", nullable = false)
     private User user;
 
     @NotNull(message = "actual swab date cannot be null")
+    @Column(name="start_date")
     private String startDate;
 
+    @Column(name="period")
     private String period;
 }

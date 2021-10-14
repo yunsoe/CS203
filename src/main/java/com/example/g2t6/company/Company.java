@@ -24,18 +24,20 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "company", schema = "cs203")
 public class Company {
-    private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    private @Id @Column(name = "company_id") @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
     
-    // null elements are considered valid, so we need a size constraints too
+    
     @Size(min = 1, max = 200, message = "Company's name should be at least 5 characters long")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)          
     private List<Event> eventList;
 
     @ManyToOne
-    @JoinColumn(name = "industry_id", nullable = false)
+    @JoinColumn(name = "industry_id", referencedColumnName = "industry_id", nullable = false)
     private Industry industry;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)

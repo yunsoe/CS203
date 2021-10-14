@@ -13,19 +13,23 @@ import com.example.g2t6.user.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "alert", schema = "cs203")
 public class Alert {
-    private  @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    private  @Id @Column(name="alert_id") @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
+    
     @ManyToOne
-    @JoinColumn(name = "userEmail", nullable = false)
+    @JoinColumn(name = "user_email", referencedColumnName = "user_email", nullable = false)
     private User user;
 
     //@NotNull(message = "Status cannot be null.")
     //private Boolean status;
 
     @NotNull(message = "Date cannot be null.")
+    @Column(name="alert_date")
     private String alertDate;
     
     @NotNull(message = "Alert cannot be null.")
+    @Column(name="alert")
     private String alert;
 
     public Alert(String alertDate, String alert) {
