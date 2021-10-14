@@ -4,6 +4,16 @@ import Featuresbox from './Featuresbox';
 import featureimage from './images/feature_1.png';
 import featureimage1 from './images/feature_2.png';
 import featureimage2 from './images/feature_3.png';
+import newspaper from './images/newspaper.png';
+import swabtest from './images/swabtest.png';
+import calendar from './images/calendar.png';
+import profile from './images/profile.png';
+import feedback from './images/feedback.png';
+
+
+
+
+
 
 function Header() {
     return (
@@ -19,11 +29,11 @@ function Header() {
         </div>
          <div id='features'>
          <div className='a-container'>
-             <Featuresbox image={featureimage} title="Company Events" />
-             <Featuresbox image={featureimage1} title="Latest Industry-Relevant News" />
-             <Featuresbox image={featureimage2} title="Submit Feedback" />
-             <Featuresbox image={featureimage1} title="Upcoming SwabTests" />
-             <Featuresbox image={featureimage2} title="Profile Details" />
+             <Featuresbox image={calendar} title="Company Events" />
+             <Featuresbox image={newspaper} title="Latest Industry-Relevant News" />
+             <Featuresbox image={feedback} title="Submit Feedback" />
+             <Featuresbox image={swabtest} title="Upcoming SwabTests" />
+             <Featuresbox image={profile} title="Profile Details" />
          </div>
      </div>
      </div>
