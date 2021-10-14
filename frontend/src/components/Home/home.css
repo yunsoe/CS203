@@ -95,24 +95,28 @@ nav .menu-btn,
 }
 .name{
 font-family: 'Montserrat';
-width: 500px;
+width: 800px;
 position: absolute;
-  left: 22%;
-top: 50%;
+left: 15%;
+top: 30%;
 transform: translate(-22%,-50%);
 }
 .name span{
-  color: #faf5fa;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 70px;
+
 }
 .name .details{
   color: #817e7e;
 }
 .name h1{
 font-family: bahnschrift;
-font-size: 40px;
+font-size: 60px;
 margin:0px;
 letter-spacing: 2px;
-color:#030303;
+color:#ffffff;
+font-weight: lighter;
 }
 .header-btns{
   display: flex;
