@@ -123,4 +123,22 @@ create table `swab_test_detail`
 
 );
 
-
+INSERT INTO cs203.industry (name) values("Construction");
+INSERT INTO cs203.industry (name) values("Education");
+INSERT INTO cs203.industry (name) values("Food & Beverage");
+INSERT INTO cs203.industry (name) values("Pharmaceutical");
+INSERT INTO cs203.industry (name) values("Entertainment");
+INSERT INTO cs203.industry (name) values("Manufacturing");
+INSERT INTO cs203.industry (name) values("Telecommunication");
+INSERT INTO cs203.industry (name) values("Agriculture");
+INSERT INTO cs203.industry (name) values("Transportation");
+INSERT INTO cs203.industry (name) values("Computer & Technology");
+INSERT INTO cs203.industry (name) values("Healthcare");
+INSERT INTO cs203.industry (name) values("Media & News");
+INSERT INTO cs203.industry (name) values("Hospitality");
+INSERT INTO cs203.industry (name) values("Energy");
+INSERT INTO cs203.industry (name) values("Fashion");
+INSERT INTO cs203.industry (name) values("Finance & Economic");
+INSERT INTO cs203.industry (name) values("Advertising & Marketing");
+INSERT INTO cs203.industry (name) values("Mining");
+INSERT INTO cs203.industry (name) values("Aerospace");
