@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.example.g2t6.company.Company;
 import com.example.g2t6.company.CompanyRepository;
+import com.example.g2t6.industry.Industry;
+import com.example.g2t6.industry.IndustryRepository;
 import com.example.g2t6.user.User;
 import com.example.g2t6.user.UserRepository;
 
@@ -43,6 +45,9 @@ public class IntegrationTest {
 	private UserRepository users;
 
 	@Autowired
+	private IndustryRepository industries;
+
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@AfterEach
@@ -69,7 +74,10 @@ public class IntegrationTest {
 	@Test
 	public void getCompany_ValidCompanyId_Success() throws Exception {
 		// create company object and store id
+		Industry industry = new Industry("Industry A");
+		industries.save(industry);
 		Company company = new Company("Company A");
+		company.setIndustry(industry);
 		Long id = companies.save(company).getId();
 
 		URI uri = new URI(baseUrl + port + "/companies/" + id);
@@ -92,7 +100,7 @@ public class IntegrationTest {
 
 	@Test
 	public void addCompany_Success() throws Exception {
-		URI uri = new URI(baseUrl + port + "/companies");
+		URI uri = new URI(baseUrl + port + "/companies/IndustryA/addCompany");
 		Company company = new Company("Company A");
 
 		ResponseEntity<Company> result = restTemplate.postForEntity(uri, company, Company.class);
@@ -139,56 +147,6 @@ public class IntegrationTest {
 	// 	assertEquals(200, result.getStatusCode().value());
 	// 	assertEquals(1, users.length);
     // }
-
-// 	@Test
-// 	public void getBooks_Success() throws Exception {
-// 		URI uri = new URI(baseUrl + port + "/books");
-// 		books.save(new Book("Gone With The Wind"));
-		
-// 		// Need to use array with a ReponseEntity here
-// 		ResponseEntity<Book[]> result = restTemplate.getForEntity(uri, Book[].class);
-// 		Book[] books = result.getBody();
-		
-// 		assertEquals(200, result.getStatusCode().value());
-// 		assertEquals(1, books.length);
-// 	}
-
-// 	@Test
-// 	public void getBook_ValidBookId_Success() throws Exception {
-// 		Book book = new Book("Gone With The Wind");
-// 		Long id = books.save(book).getId();
-// 		URI uri = new URI(baseUrl + port + "/books/" + id);
-		
-// 		ResponseEntity<Book> result = restTemplate.getForEntity(uri, Book.class);
-			
-// 		assertEquals(200, result.getStatusCode().value());
-// 		assertEquals(book.getTitle(), result.getBody().getTitle());
-// 	}
-
-// 	@Test
-// 	public void getBook_InvalidBookId_Failure() throws Exception {
-// 		URI uri = new URI(baseUrl + port + "/books/1");
-		
-// 		ResponseEntity<Book> result = restTemplate.getForEntity(uri, Book.class);
-			
-// 		assertEquals(404, result.getStatusCode().value());
-// 	}
-
-// 	@Test
-// 	public void addBook_Success() throws Exception {
-// 		URI uri = new URI(baseUrl + port + "/books");
-// 		Book book = new Book("A New Hope");
-// 		users.save(new User("admin", encoder.encode("goodpassword"), "ROLE_ADMIN"));
-
-// 		ResponseEntity<Book> result = restTemplate.withBasicAuth("admin", "goodpassword")
-// 										.postForEntity(uri, book, Book.class);
-			
-// 		assertEquals(201, result.getStatusCode().value());
-// 		assertEquals(book.getTitle(), result.getBody().getTitle());
-// 	}
-    
-// }
-
 
 // /** Start an actual HTTP server listening at a random port*/
 // /** 
