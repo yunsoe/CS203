@@ -43,22 +43,36 @@ export default function FeedbackForm() {
         });
     }
 
-    return (
+    function renderPage() {
+        if (localStorage.getItem("authority") === "ROLE_SYSADMIN") {
+            return(
+                <div style={{textAlign: "center"}}>You are not authorized to enter this page.</div>
+            );
+        } else {
+            return(
+                <div>
+                    <h3>Submit Feedback</h3>
+                    <br/>
+                    <Form id="feedbackForm" onSubmit = {(e) => submitFeedback(e)}>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Title:</Form.Label>
+                            <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter feedback title" onChange={handleChange} id="title" />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Details:</Form.Label>
+                            <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter feedback details" onChange={handleChange} id="details" />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Feedback</Button>
+                    </Form>
+                </div>
+            );
+        }
+    }
+
+    return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
             <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
-                <h3>Submit Feedback</h3>
-                <br/>
-                <Form id="feedbackForm" onSubmit = {(e) => submitFeedback(e)}>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Title:</Form.Label>
-                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter feedback title" onChange={handleChange} id="title" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Details:</Form.Label>
-                        <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter feedback details" onChange={handleChange} id="details" />
-                    </Form.Group>
-                    <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Feedback</Button>
-                </Form>
+                {renderPage()}
             </div>
         </div>
     )

@@ -32,7 +32,6 @@ export default function NavMenu() {
         </NavDropdown></>
         : <Nav.Link href="/viewFeedbacks">View Feedbacks</Nav.Link>
         }
-          
         
         <Nav.Link href="/logoutConfirm">Logout</Nav.Link>
       </Nav>
