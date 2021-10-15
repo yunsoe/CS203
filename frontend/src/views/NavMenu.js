@@ -13,8 +13,8 @@ export default function NavMenu() {
         {
           localStorage.getItem("authority") === "ROLE_ADMIN" ? 
           <NavDropdown title="Admin" id="admin-nav-dropdown">
-            <NavDropdown.Item href="/createUser">Create User</NavDropdown.Item>
-            <NavDropdown.Item href="/deleteUser">Delete User</NavDropdown.Item>
+            <NavDropdown.Item href="/addEmployee">Add Employee</NavDropdown.Item>
+            <NavDropdown.Item href="/removeEmployee">Remove Employee</NavDropdown.Item>
           </NavDropdown> :
           console.log("")
         }

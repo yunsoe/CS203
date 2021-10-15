@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Table } from "react-bootstrap";
 import { API_BASE_URL } from "../../constants/apiConstants";
 
 
@@ -30,22 +30,14 @@ export default function RemoveEmployeeForm() {
             console.log(data);
 
             if (data.length !== 0) {
-                state.selectedEmployeeToRemove = data[0].email;
                 setEmployees(data);
-            } else {
-                document.getElementById("submitButton").hidden = true;
-                document.getElementById("submitButton").disabled = true;
             }
         }
     }, []);
 
-    const setSelectedEmployee = () => {
-        var selectedEmployee = document.getElementById("employeeDropdownButton").value;
-        state.selectedEmployeeToRemove = selectedEmployee;
-    }
-
-    const handleSubmitClick = (e) => {
-        e.preventDefault();
+    const removeEmployee = (e) => {
+        var i = e.target.id;
+        state.selectedEmployeeToRemove = employees[i].email;
         sendDetailsToServer();
     }
 
@@ -81,23 +73,42 @@ export default function RemoveEmployeeForm() {
                 <div>
                     <h3>Remove Employee</h3>
                     <br/>
-                    <Form id="removeEmployeeForm" onSubmit={(e) =>  handleSubmitClick(e)}>
+                    <Form id="removeEmployeeForm">
                         {employees ? (
                             <Form.Group className="mb-3">
-                                <Form.Label>Choose employee:</Form.Label>
                                 <div>
-                                    <select name="employeeDD" id="employeeDropdownButton" style={{padding:10, borderRadius: 10}} onChange={setSelectedEmployee}>
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                         {employees.map((employee, i) => (
-                                            <option class="employeeOption" key={i} value={employee.email} name={employee.name}>
-                                                {employee.email}, {employee.name}
-                                            </option>))}
-                                    </select>
+                                            <tr>
+                                                <td key={i} value={employee.name}>
+                                                    {employee.name}
+                                                </td>
+                                                <td key={i} value={employee.email}>
+                                                    {employee.email}
+                                                </td>
+                                                <td key={i} value={employee.role}>
+                                                    {employee.role}
+                                                </td>
+                                                <td>
+                                                    <Button variant="primary" id={i} type="button" onClick={(e) => removeEmployee(e)}>Remove</Button>
+                                                </td>
+                                            </tr>))}
+                                        </tbody>
+                                    </Table>
                                 </div>
                             </Form.Group>
                         ) : (
                             <p>The company has no employees yet.</p>
                         )}
-                        <Button variant="primary" id="submitButton" type="submit">Submit</Button>
                     </Form>
                 </div>
             );
@@ -105,8 +116,8 @@ export default function RemoveEmployeeForm() {
     }
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
-            <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:20}}>
+        <div style={{display: "flex", justifyContent: "center", marginLeft: 200, marginRight: 200, marginTop: 100, marginBottom: 100}}>
+            <div className="card col-12 col-lg-12 login-card mt-2 hv-center" style={{padding:20}}>
                 {renderPage()}
             </div>
         </div>

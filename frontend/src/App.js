@@ -97,8 +97,8 @@ export default class App extends Component {
             <Route path="/feedback" component={FeedbackForm} />
             <Route path="/event" component={EventForm} />
             <Route path="/register" component={RegistrationForm} />
-            <Route path="/deleteUser" component={RemoveEmployeeForm} />
-            <Route path="/createUser" component={AddEmployeeForm} />
+            <Route path="/removeEmployee" component={RemoveEmployeeForm} />
+            <Route path="/addEmployee" component={AddEmployeeForm} />
             <Route path="/swabTestForm" component={SwabTestForm} />
             <Route path="/swabTestHistory" component={SwabTestHistory} /> 
             <Route path="/viewFeedbacks" component={ViewFeedbacks} /> 
