@@ -8,11 +8,13 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 export default function SwabTestForm() {
 
     const [date,setDate] = useState(new Date())
-    const [state, setState] = useState("");
+    const [state, setState] = useState('positive');
+      
 
     const handleChange = (event) =>
-    setState({value: event.target.value});
+    setState(event);
 
+   
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -49,9 +51,9 @@ export default function SwabTestForm() {
         <Form.Label>swab Result:</Form.Label>
         </Col>
          <Col>
-        <select value={state} onChange={handleChange}> 
+        <select value={state} onChange={(e) => handleChange(e.target.value)} > 
             <option value="true">positive</option>
-            <option defaultValue value="false">negative</option>
+            <option  value="false">negative</option>
         </select>
         </Col>
              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -59,7 +61,7 @@ export default function SwabTestForm() {
              <Form.Label>date of swab:</Form.Label>
              </Col>
              <Col>
-             <DatePicker wrapperClassName="datePicker" className="form-control" onChange = {(input) => setDate(input)}/>
+             <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
              </Col>
              <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
             </Form.Group>

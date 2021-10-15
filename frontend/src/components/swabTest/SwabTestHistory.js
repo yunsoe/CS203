@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState,useEffect } from "react";
-import { Button,InputGroup,FormControl, Col, Card,ListGroup } from "react-bootstrap";
+import React, { useState,useEffect ,useCallback} from "react";
+import { Button,InputGroup,FormControl, Row,Container, Card,ListGroup } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
@@ -31,68 +31,83 @@ export default function SwabTestForm() {
        }
 
 
-    const item = (todo) => (
-        <ListGroup.Item key={data.id}>
+    const item = (datas) => (
+        <ListGroup.Item key={datas.id}>
           <Card>
             <Card.Body>
-              <Card.Text>{data.swabResult}</Card.Text>
-              <Card.Subtitle>{data.actaulSwabTestResult}</Card.Subtitle>
+              <Card.Text>{datas.swabResult}</Card.Text>
+              <Card.Subtitle>{datas.actaulSwabDate}</Card.Subtitle>
             </Card.Body>
           </Card>
         </ListGroup.Item>
       );
 
+   
     function loadData2(){
-        const date = format(startDate ,'yyyy-MM-dd')
+      const date = format(startDate ,'yyyy-MM-dd')
         const date2 = format(endDate ,'yyyy-MM-dd')
-        axios.get(`/swabTest/${date}/${date2}`)
-    }
+        axios.get(`http://localhost:8080/swabTests/${date}/date/${date2}`).then(response=>{
+          setData(response.data)
+          console.log(response)
+      }).catch((error) => {
+        console.log(error)
+      })
+    };
 
-    function loadData1(){
-        axios.get(`/user/${userEmail}/swabTests`).then(response=>{
+    function loadData1(){ 
+        axios.get(`http://localhost:8080/swabTests/${userEmail}`).then(response=>{
             setData(response.data)
+        }).catch((error) => {
+          console.log(error)
+          console.log(userEmail)
         })
-    }
+      };
+    
 
-    // useEffect(()=> {
-    //     loadData1();
-    // },[]);
+    useEffect(()=> {
+        loadData1();
+    },[]);
+
+    useEffect(()=> {
+      loadData2();
+  },[]);
 
     return(
         <div>
         <div>View employees swab test history</div>
         <InputGroup className="mb-3">
-        <form onSubmit={handleSubmit1}>
-            <label>Enter your name:
-                <input type="text" value = {userEmail} onChange={e => setUserEmail(e.target.value)} />
-            </label>
-            <Button variant="primary" type="submit" style={{marginBottom: 10}}>Enter</Button>
-        </form>             
+        <InputGroup>
+            <InputGroup.Text>Enter User's Email:</InputGroup.Text>
+            <FormControl type = "text" placeholder="user Email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)} />
+            <Button variant="primary" onClick={handleSubmit1}>Add</Button>
+          </InputGroup>           
 
             {/* <Button variant="outline-secondary" id="button-addon2" onClick={handleSubmit1}>
                 Enter
             </Button> */}
         </InputGroup>
-            <Col>
+        <InputGroup>
+        <InputGroup.Text>Enter date range:</InputGroup.Text>
+
+            
                 <DatePicker wrapperClassName="datePicker" className="form-control" selected={startDate} onChange={handleChange1} 
                 selected={startDate}
                 selectsStart // tells this DatePicker that it is part of a range*
                 endDate={endDate}
                 startDate={startDate}/>
-            </Col>
-            <Col>
+            
                 <DatePicker wrapperClassName="datePicker" className="form-control" selected={endDate} onChange={handleChange2} 
                 selected={endDate}
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}/>
-            </Col>
-            <Col>
-            <Button variant="outline-secondary" id="button-addon2" onClick={handleSubmit2}>
+           
+            <Button variant="primary" id="button-addon2" onClick={handleSubmit2}>
                 Enter
             </Button>
-            </Col>
+            </InputGroup>
+           
             <Card className="to-do-well">
               <Card.Body>
                 <Card.Title><h2>Swab Results</h2></Card.Title>
@@ -101,7 +116,7 @@ export default function SwabTestForm() {
                 </ListGroup>
               </Card.Body>
             </Card>
-            
+           
         </div>
     );
 }
