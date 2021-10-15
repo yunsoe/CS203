@@ -17,6 +17,8 @@ import "./components/Home/home.css"
 import EventForm from "./components/Events/EventForm";
 import SwabTestForm from "./components/swabTest/SwabTestForm";
 import SwabTestHistory from "./components/swabTest/SwabTestHistory";
+import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
+
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
@@ -99,6 +101,7 @@ export default class App extends Component {
             <Route path="/createUser" component={AddEmployeeForm} />
             <Route path="/swabTestForm" component={SwabTestForm} />
             <Route path="/swabTestHistory" component={SwabTestHistory} /> 
+            <Route path="/viewFeedbacks" component={ViewFeedbacks} /> 
             <PrivateRoute path="/logoutConfirm" component={Logout} />
           </Switch>
         </AuthProvider>

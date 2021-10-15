@@ -76,9 +76,8 @@ create table `feedback`
     `feedback_id` int auto_increment primary key,
     `user_email` varchar(255),
     `title` varchar(255),
-    `details` varchar(255),
+    `details` varchar(500),
     foreign key(`user_email`) references `user`(`user_email`)
-
 );
 
 

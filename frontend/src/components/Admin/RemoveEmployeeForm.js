@@ -63,7 +63,7 @@ export default function RemoveEmployeeForm() {
         ).then(function(response) {
             if (response.status === 200) {
                 alert("Employee has been removed successfully.");
-                // location.reload();
+                location.reload();
             } else {
                 console.log(response.json);
                 alert("There was an error on our side, please try again later.");
