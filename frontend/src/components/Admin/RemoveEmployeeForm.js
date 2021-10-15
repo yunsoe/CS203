@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 
 export default function RemoveEmployeeForm() {
@@ -24,30 +28,65 @@ export default function RemoveEmployeeForm() {
             const response = await fetch(API_BASE_URL + "users/" + companyId);
             const data = await response.json();
 
-            //remove current admin logged in from the array - the first item in the array is always the admin
-            data.splice(0, 1);
+            var adminIndex = data.findIndex(x => x.email === localStorage.getItem("email"));
 
-            console.log(data);
+            // remove admin from list of employees
+            data.splice(adminIndex, 1);
 
             if (data.length !== 0) {
-                state.selectedEmployeeToRemove = data[0].email;
+                data.forEach((item, i) => item.id = i);
+                data.forEach((item, i) => item.index = i+1);
                 setEmployees(data);
-            } else {
-                document.getElementById("submitButton").hidden = true;
-                document.getElementById("submitButton").disabled = true;
             }
         }
     }, []);
 
-    const setSelectedEmployee = () => {
-        var selectedEmployee = document.getElementById("employeeDropdownButton").value;
-        state.selectedEmployeeToRemove = selectedEmployee;
-    }
-
-    const handleSubmitClick = (e) => {
-        e.preventDefault();
+    const removeEmployee = (id) => {
+        state.selectedEmployeeToRemove = employees[id].email;
         sendDetailsToServer();
     }
+    
+    const linkRemove = (cell, row, rowIndex, formatExtraData) => {
+        return (
+          <Button
+            onClick={() => {
+                removeEmployee(row.id);
+            }}
+          >
+            Remove
+          </Button>
+        );
+      };
+
+
+    const columns = [
+        {
+          dataField: "index",
+          text: "No.",
+          sort: true
+        },
+        {
+          dataField: "name",
+          text: "Name",
+          sort: true
+        },
+        {
+          dataField: "email",
+          text: "Email",
+          sort: true
+        },
+        {
+            dataField: "role",
+            text: "Role",
+            sort: true
+        },
+        {
+            dataField: "remove",
+            text: "Remove",
+            formatter: linkRemove,
+        }
+    ];
+
 
     const sendDetailsToServer = () => {
         fetch(
@@ -63,7 +102,7 @@ export default function RemoveEmployeeForm() {
         ).then(function(response) {
             if (response.status === 200) {
                 alert("Employee has been removed successfully.");
-                // location.reload();
+                location.reload();
             } else {
                 console.log(response.json);
                 alert("There was an error on our side, please try again later.");
@@ -81,23 +120,18 @@ export default function RemoveEmployeeForm() {
                 <div>
                     <h3>Remove Employee</h3>
                     <br/>
-                    <Form id="removeEmployeeForm" onSubmit={(e) =>  handleSubmitClick(e)}>
+                    <Form id="removeEmployeeForm">
                         {employees ? (
-                            <Form.Group className="mb-3">
-                                <Form.Label>Choose employee:</Form.Label>
-                                <div>
-                                    <select name="employeeDD" id="employeeDropdownButton" style={{padding:10, borderRadius: 10}} onChange={setSelectedEmployee}>
-                                        {employees.map((employee, i) => (
-                                            <option class="employeeOption" key={i} value={employee.email} name={employee.name}>
-                                                {employee.email}, {employee.name}
-                                            </option>))}
-                                    </select>
-                                </div>
-                            </Form.Group>
+                            <BootstrapTable
+                                bootstrap4
+                                keyField="id"
+                                data={employees}
+                                columns={columns}
+                                pagination={paginationFactory({ sizePerPage: 5 })}
+                            />
                         ) : (
                             <p>The company has no employees yet.</p>
                         )}
-                        <Button variant="primary" id="submitButton" type="submit">Submit</Button>
                     </Form>
                 </div>
             );
@@ -105,8 +139,8 @@ export default function RemoveEmployeeForm() {
     }
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
-            <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:20}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
+            <div className="card col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:20}}>
                 {renderPage()}
             </div>
         </div>

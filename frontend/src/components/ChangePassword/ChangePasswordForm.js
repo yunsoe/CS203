@@ -61,23 +61,29 @@ export default function ChangePasswordForm() {
     return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
             <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
-                <h3>Change Password</h3>
-                <br/>
-                <AuthContext.Consumer>
-                    {({ updateAuth }) => (
-                        <Form onSubmit = {(e) => changePassword(e, updateAuth)}>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Current Password:</Form.Label>
-                                <Form.Control required type="password" placeholder="Enter current password" onChange={handleChange} id="currentPassword" />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>New Password:</Form.Label>
-                                <Form.Control required minLength={8} type="password" placeholder="Enter new password" onChange={handleChange} id="newPassword" />
-                            </Form.Group>
-                            <Button variant="primary" type="submit" style={{marginBottom: 10}}>Change Password</Button>
-                        </Form>
-                    )}
-                </AuthContext.Consumer>
+                {localStorage.getItem("authority") === "ROLE_SYSADMIN" ? 
+                    <div style={{textAlign: "center"}}>You are not authorized to enter this page.</div>
+                :
+                    <div>
+                        <h3>Change Password</h3>
+                        <br/>
+                        <AuthContext.Consumer>
+                            {({ updateAuth }) => (
+                                <Form onSubmit = {(e) => changePassword(e, updateAuth)}>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Current Password:</Form.Label>
+                                        <Form.Control required type="password" placeholder="Enter current password" onChange={handleChange} id="currentPassword" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>New Password:</Form.Label>
+                                        <Form.Control required minLength={8} type="password" placeholder="Enter new password" onChange={handleChange} id="newPassword" />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit" style={{marginBottom: 10}}>Change Password</Button>
+                                </Form>
+                            )}
+                        </AuthContext.Consumer>
+                    </div>
+                }
             </div>
         </div>
     );

@@ -1,5 +1,7 @@
 package com.example.g2t6.feedback;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,11 @@ public class FeedbackController {
             mailService.sendMail(mail);
             return feedbacks.save(feedback);
         }).orElseThrow(() -> new UsernameNotFoundException("Email '" + userEmail + "' not found"));
+    }
+
+    @GetMapping("/feedbacks")
+    public List<Feedback> getFeedbacks() {
+        return feedbacks.findAll();    
     }
 
     //removed get, update and delete methods for feedback since we are sending emails directly to developers

@@ -13,28 +13,25 @@ export default function NavMenu() {
         {
           localStorage.getItem("authority") === "ROLE_ADMIN" ? 
           <NavDropdown title="Admin" id="admin-nav-dropdown">
-            <NavDropdown.Item href="/createUser">Create User</NavDropdown.Item>
-            <NavDropdown.Item href="/deleteUser">Delete User</NavDropdown.Item>
+            <NavDropdown.Item href="/addEmployee">Add Employee</NavDropdown.Item>
+            <NavDropdown.Item href="/removeEmployee">Remove Employee</NavDropdown.Item>
           </NavDropdown> :
           console.log("")
         }
-        <Nav.Link href="/changePassword">Change Password</Nav.Link>
+        {localStorage.getItem("authority") === "ROLE_ADMIN" || localStorage.getItem("authority") === "ROLE_USER"? 
+        <><Nav.Link href="/changePassword">Change Password</Nav.Link>
         <Nav.Link href="/feedback">Feedback</Nav.Link>
         <NavDropdown title="Events" id="events-nav-dropdown">
             <NavDropdown.Item href="/eventForm">Event Form</NavDropdown.Item>
             <NavDropdown.Item href="/eventHistory">View Event history</NavDropdown.Item>
           </NavDropdown>
           
-          {/* {
-          localStorage.getItem("authority") === "ROLE_ADMIN" ?  */}
           <NavDropdown title="Swab Test" id="swabTest-nav-dropdown">
           <NavDropdown.Item href="/swabTestForm">Swab Test Form</NavDropdown.Item>
           <NavDropdown.Item href="/swabTestHistory">View Swab Test History</NavDropdown.Item>
-        </NavDropdown> 
-        {/* :
-          console.log("")
-        } */}
-          
+        </NavDropdown></>
+        : <Nav.Link href="/viewFeedbacks">View Feedbacks</Nav.Link>
+        }
         
         <Nav.Link href="/logoutConfirm">Logout</Nav.Link>
       </Nav>
