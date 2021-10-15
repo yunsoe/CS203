@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Table } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 
 export default function RemoveEmployeeForm() {
@@ -24,22 +28,65 @@ export default function RemoveEmployeeForm() {
             const response = await fetch(API_BASE_URL + "users/" + companyId);
             const data = await response.json();
 
-            //remove current admin logged in from the array - the first item in the array is always the admin
-            data.splice(0, 1);
+            var adminIndex = data.findIndex(x => x.email === localStorage.getItem("email"));
 
-            console.log(data);
+            // remove admin from list of employees
+            data.splice(adminIndex, 1);
 
             if (data.length !== 0) {
+                data.forEach((item, i) => item.id = i);
+                data.forEach((item, i) => item.index = i+1);
                 setEmployees(data);
             }
         }
     }, []);
 
-    const removeEmployee = (e) => {
-        var i = e.target.id;
-        state.selectedEmployeeToRemove = employees[i].email;
+    const removeEmployee = (id) => {
+        state.selectedEmployeeToRemove = employees[id].email;
         sendDetailsToServer();
     }
+    
+    const linkRemove = (cell, row, rowIndex, formatExtraData) => {
+        return (
+          <Button
+            onClick={() => {
+                removeEmployee(row.id);
+            }}
+          >
+            Remove
+          </Button>
+        );
+      };
+
+
+    const columns = [
+        {
+          dataField: "index",
+          text: "No.",
+          sort: true
+        },
+        {
+          dataField: "name",
+          text: "Name",
+          sort: true
+        },
+        {
+          dataField: "email",
+          text: "Email",
+          sort: true
+        },
+        {
+            dataField: "role",
+            text: "Role",
+            sort: true
+        },
+        {
+            dataField: "remove",
+            text: "Remove",
+            formatter: linkRemove,
+        }
+    ];
+
 
     const sendDetailsToServer = () => {
         fetch(
@@ -75,37 +122,13 @@ export default function RemoveEmployeeForm() {
                     <br/>
                     <Form id="removeEmployeeForm">
                         {employees ? (
-                            <Form.Group className="mb-3">
-                                <div>
-                                    <Table>
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {employees.map((employee, i) => (
-                                            <tr>
-                                                <td key={i} value={employee.name}>
-                                                    {employee.name}
-                                                </td>
-                                                <td key={i} value={employee.email}>
-                                                    {employee.email}
-                                                </td>
-                                                <td key={i} value={employee.role}>
-                                                    {employee.role}
-                                                </td>
-                                                <td>
-                                                    <Button variant="primary" id={i} type="button" onClick={(e) => removeEmployee(e)}>Remove</Button>
-                                                </td>
-                                            </tr>))}
-                                        </tbody>
-                                    </Table>
-                                </div>
-                            </Form.Group>
+                            <BootstrapTable
+                                bootstrap4
+                                keyField="id"
+                                data={employees}
+                                columns={columns}
+                                pagination={paginationFactory({ sizePerPage: 5 })}
+                            />
                         ) : (
                             <p>The company has no employees yet.</p>
                         )}
@@ -116,8 +139,8 @@ export default function RemoveEmployeeForm() {
     }
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginLeft: 200, marginRight: 200, marginTop: 100, marginBottom: 100}}>
-            <div className="card col-12 col-lg-12 login-card mt-2 hv-center" style={{padding:20}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
+            <div className="card col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:20}}>
                 {renderPage()}
             </div>
         </div>

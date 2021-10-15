@@ -1,7 +1,11 @@
 // only system admin shld see this
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constants/apiConstants";
-import { Table } from "react-bootstrap";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
 
 export default function ViewFeedbacks() {
 
@@ -22,6 +26,34 @@ export default function ViewFeedbacks() {
         }
     }, []);
 
+    const columns = [
+        {
+          dataField: "id",
+          text: "Feedback ID",
+          sort: true
+        },
+        {
+          dataField: "user.name",
+          text: "Name",
+          sort: true
+        },
+        {
+          dataField: "user.email",
+          text: "Email",
+          sort: true
+        },
+        {
+            dataField: "title",
+            text: "Title",
+            sort: true
+        },
+        {
+            dataField: "details",
+            text: "Details",
+            sort: true
+        }
+    ];
+
     function renderPage() {
         if (localStorage.getItem("authority") !== "ROLE_SYSADMIN") {
             return(
@@ -33,38 +65,13 @@ export default function ViewFeedbacks() {
                     <h3>View Feedbacks</h3>
                     <br/>
                     {feedbacks ? 
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Title</th>
-                                    <th>Details</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {feedbacks.map((feedback, i) => (
-                                    <tr>
-                                        <td class="feedbackIndexCol" value = {i}>
-                                            {i}
-                                        </td>
-                                        <td class="feedbackUserNameCol" value = {feedback.user.name}>
-                                            {feedback.user.name}
-                                        </td>
-                                        <td class="feedbackUserEmailCol" value = {feedback.user.email}>
-                                            {feedback.user.email}
-                                        </td>
-                                        <td class="feedbackTitleCol" value = {feedback.title}>
-                                            {feedback.title}
-                                        </td>
-                                        <td class="feedbackDetailsCol" value = {feedback.details}>
-                                            {feedback.details}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                        <BootstrapTable
+                            bootstrap4
+                            keyField="id"
+                            data={feedbacks}
+                            columns={columns}
+                            pagination={paginationFactory({ sizePerPage: 5 })}
+                        />
                     : <p>There are no feedbacks yet.</p>}
                 </div>
             );
