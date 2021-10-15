@@ -123,6 +123,8 @@ create table `swab_test_detail`
 
 );
 
+INSERT INTO cs203.user (user_email, company_id, name, password, role, authorities) values("sysadmin@gmail.com", null, "System Admin", "$2a$10$UtCL3sA3cwDPo96SvLvOEuV.obyqa0R73VqAFhj/tQSZYS8g5VUve", null, "ROLE_SYSADMIN");
+
 INSERT INTO cs203.industry (name) values("Construction");
 INSERT INTO cs203.industry (name) values("Education");
 INSERT INTO cs203.industry (name) values("Food & Beverage");
