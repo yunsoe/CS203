@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import com.example.g2t6.user.*;
 import com.example.g2t6.mail.*;
-//import AlertNotFoundException
-//import Alert Repo
 
 @RestController
 public class AlertController {
@@ -28,11 +25,11 @@ public class AlertController {
     @Autowired
     private MailService mailService;
 
-    // public AlertController(AlertRepository alerts, UserRepository users, MailService mailService){
-    //     this.alerts = alerts;
-    //     this.users = users;
-    //     this.mailService = mailService;
-    // }
+    public AlertController(AlertRepository alerts, UserRepository users, MailService mailService){
+        this.alerts = alerts;
+        this.users = users;
+        this.mailService = mailService;
+    }
 
     @GetMapping("/users/{userEmail}/alerts")
     public List<Alert> getAllAlertsByUser(@PathVariable (value = "userEmail") String userEmail) {
