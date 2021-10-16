@@ -14,6 +14,14 @@ public class G2t6Application {
 		SpringApplication.run(G2t6Application.class, args);
 
 	}
+	/*
+	@Bean
+	public TaskScheduler taskScheduler() {
+		final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setPoolSize(10);
+		return scheduler;
+	}
+	*/
 
 }
 
