@@ -11,14 +11,16 @@ import org.slf4j.LoggerFactory;
 
 @SpringBootApplication
 public class G2t6Application {
+	/*
 	private static final Logger LOGGER = LoggerFactory.getLogger(Week3Application.class);
     private static BookClient client;
+	*/
 
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(G2t6Application.class, args);
+		SpringApplication.run(G2t6Application.class, args);
 
 	}
-
+	/*
 	@Scheduled(fixedRateString = "${someJob.rate}")
 	void getBooks() throws InterruptedException {
         // Our web service endpoint
@@ -29,6 +31,7 @@ public class G2t6Application {
         LOGGER.info("[RestTemplate] GET user: " + user.getEmail());
         
 	}
+	*/
 
 }
 

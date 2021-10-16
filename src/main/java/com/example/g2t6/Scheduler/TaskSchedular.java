@@ -1,5 +1,5 @@
 package com.example.g2t6.Scheduler;
-
+/*
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
@@ -31,4 +31,5 @@ public class TaskSchedular {
         LOGGER.info("[RestTemplate] GET book: " + book.getTitle());
     }
 }
+*/
 
