@@ -4,10 +4,12 @@ import { Button,InputGroup,FormControl, Row,Container, Card,ListGroup } from "re
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
+import { API_BASE_URL } from "../../constants/apiConstants";
 
 
 export default function SwabTestForm() {
 
+    const [state, setState] = useState({});
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [data, setData] = useState([]);
@@ -35,8 +37,10 @@ export default function SwabTestForm() {
         <ListGroup.Item key={datas.id}>
           <Card>
             <Card.Body>
-              <Card.Text>{datas.swabResult}</Card.Text>
-              <Card.Subtitle>{datas.actaulSwabDate}</Card.Subtitle>
+              <Card.Title>{datas.user.name}</Card.Title>
+              <Card.Text>{datas.swabResult == false ? <Card.Subtitle>False</Card.Subtitle> :
+              <Card.Subtitle>True</Card.Subtitle>}</Card.Text>
+              <Card.Subtitle>{datas.actualSwabDate}</Card.Subtitle>
             </Card.Body>
           </Card>
         </ListGroup.Item>
@@ -48,6 +52,8 @@ export default function SwabTestForm() {
         const date2 = format(endDate ,'yyyy-MM-dd')
         axios.get(`http://localhost:8080/swabTests/${date}/date/${date2}`).then(response=>{
           setData(response.data)
+          console.log(response.data);
+          setState(state);
           console.log(response)
       }).catch((error) => {
         console.log(error)
@@ -55,22 +61,23 @@ export default function SwabTestForm() {
     };
 
     function loadData1(){ 
-        axios.get(`http://localhost:8080/swabTests/${userEmail}`).then(response=>{
-            setData(response.data)
-        }).catch((error) => {
-          console.log(error)
-          console.log(userEmail)
-        })
+          console.log(userEmail);
+      fetch(
+        API_BASE_URL + "swabTests/" + userEmail, 
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "authorization": localStorage.getItem("accessToken"),
+            },
+         
+        }
+    ).then((response) => response.json()).then((datas) => setData(datas));
       };
     
 
-    useEffect(()=> {
-        loadData1();
-    },[]);
 
-    useEffect(()=> {
-      loadData2();
-  },[]);
 
     return(
         <div>
@@ -81,10 +88,6 @@ export default function SwabTestForm() {
             <FormControl type = "text" placeholder="user Email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)} />
             <Button variant="primary" onClick={handleSubmit1}>Add</Button>
           </InputGroup>           
-
-            {/* <Button variant="outline-secondary" id="button-addon2" onClick={handleSubmit1}>
-                Enter
-            </Button> */}
         </InputGroup>
         <InputGroup>
         <InputGroup.Text>Enter date range:</InputGroup.Text>

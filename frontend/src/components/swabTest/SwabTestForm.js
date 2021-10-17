@@ -8,7 +8,7 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 export default function SwabTestForm() {
 
     const [date,setDate] = useState(new Date())
-    const [state, setState] = useState('positive');
+    const [state, setState] = useState("");
       
 
     const handleChange = (event) =>
@@ -18,6 +18,8 @@ export default function SwabTestForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(state)
+
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/swabTests", 
             {
@@ -51,9 +53,9 @@ export default function SwabTestForm() {
         <Form.Label>swab Result:</Form.Label>
         </Col>
          <Col>
-        <select value={state} onChange={(e) => handleChange(e.target.value)} > 
+        <select value={state} onChange={(e) => handleChange(e.target.value)} >
+            <option  value="false">negative</option> 
             <option value="true">positive</option>
-            <option  value="false">negative</option>
         </select>
         </Col>
              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">

@@ -30,7 +30,7 @@ export default function RegistrationForm(props) {
         async function fetchIndustries() {
             const response = await fetch(API_BASE_URL + "industries");
             const data = await response.json();
-
+console.log(data);
             if (data.length === 0) {
                 var industryTextField = document.getElementById("industryName");
                 industryTextField.hidden = false;

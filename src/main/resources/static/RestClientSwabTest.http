@@ -1,8 +1,8 @@
 # get swab tests
 ###
-GET http://localhost:8080/swabTests/def@gmail.com
+GET http://localhost:8080/swabTests/regina.chua.2020@smu.edu.sg
 Accept: application/json
-Authorization: Basic abc@gmail.com goodpassword
+Authorization: Basic regina.chua.2020@smu.edu.sg password123
 
 # get specific swab Test according to swabResult and date
 ###
