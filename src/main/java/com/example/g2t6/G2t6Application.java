@@ -29,5 +29,12 @@ public class G2t6Application {
 @EnableScheduling
 @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
 class SchedulingConfiguration {
-
+	/*
+	@Bean
+	public TaskScheduler taskScheduler() {
+		final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+		scheduler.setPoolSize(10);
+		return scheduler;
+	}
+	*/
 }
