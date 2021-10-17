@@ -1,5 +1,5 @@
 package com.example.g2t6.Scheduler;
-
+/*
 import java.util.concurrent.ScheduledFuture;
 
 import org.springframework.scheduling.TaskScheduler;
@@ -19,3 +19,4 @@ public class ScheduleSwabAlert implements Runnable{
 
     }
 }
+*/
