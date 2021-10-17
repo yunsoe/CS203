@@ -95,7 +95,7 @@ export default class App extends Component {
             <Route path="/forgotPassword" component={ForgotPasswordForm} />
             <Route path="/login" component={Authentication} />
             <Route path="/feedback" component={FeedbackForm} />
-            <Route path="/event" component={EventForm} />
+            <Route path="/eventForm" component={EventForm} />
             <Route path="/register" component={RegistrationForm} />
             <Route path="/removeEmployee" component={RemoveEmployeeForm} />
             <Route path="/addEmployee" component={AddEmployeeForm} />
