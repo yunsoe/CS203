@@ -38,9 +38,10 @@ export default function SwabTestForm() {
           <Card>
             <Card.Body>
               <Card.Title>{datas.user.name}</Card.Title>
+              <Card.Subtitle>{datas.user.email}</Card.Subtitle>
+              <Card.Subtitle>{datas.actualSwabDate}</Card.Subtitle>
               <Card.Text>{datas.swabResult == false ? <Card.Subtitle>False</Card.Subtitle> :
               <Card.Subtitle>True</Card.Subtitle>}</Card.Text>
-              <Card.Subtitle>{datas.actualSwabDate}</Card.Subtitle>
             </Card.Body>
           </Card>
         </ListGroup.Item>

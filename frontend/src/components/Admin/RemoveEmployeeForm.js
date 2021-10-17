@@ -27,7 +27,7 @@ export default function RemoveEmployeeForm() {
 
             const response = await fetch(API_BASE_URL + "users/" + companyId);
             const data = await response.json();
-
+            console.log(data);
             var adminIndex = data.findIndex(x => x.email === localStorage.getItem("email"));
 
             // remove admin from list of employees
