@@ -7,7 +7,7 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
 
 
-export default function update() {
+export default function Update() {
     const history = useHistory();
 
     const [date,setDate] = useState(new Date())
