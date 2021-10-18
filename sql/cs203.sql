@@ -86,7 +86,9 @@ create table `news`
 (
     `news_id` int auto_increment primary key,
     `industry_id` int,
-    `news` varchar(255),
+    `title` varchar(255),
+    `link` varchar(255),
+    `image` varchar(2083),
     `category` varchar(255),
     `cases_quarantined` int,
     `cases_hosp_critical` int,
