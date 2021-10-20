@@ -19,7 +19,7 @@ import SwabTestForm from "./components/swabTest/SwabTestForm";
 import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
-import update from "./components/swabTest/Update";
+import update from "./components/swabTest/update";
 import News from "./views/News";
 
 class AuthProvider extends Component {
