@@ -17,6 +17,7 @@ com/example/g2t6/user/UserIncorrectPasswordException.class
 com/example/g2t6/alert/AlertNotFoundException.class
 com/example/g2t6/news/News.class
 com/example/g2t6/company/CompanyRepository.class
+com/example/g2t6/event/EventDto.class
 com/example/g2t6/swabTest/SwabTest.class
 com/example/g2t6/user/UserController.class
 com/example/g2t6/swabTest/SwabTestExistsException.class
@@ -49,6 +50,7 @@ com/example/g2t6/G2t6Application.class
 com/example/g2t6/news/NewsService.class
 com/example/g2t6/industry/Industry.class
 com/example/g2t6/swabTest/SwabTestController.class
+com/example/g2t6/event/EventService.class
 com/example/g2t6/mail/MailController.class
 com/example/g2t6/news/NewsController.class
 com/example/g2t6/news/NewsRepository.class

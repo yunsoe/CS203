@@ -31,6 +31,16 @@ public class Event {
     @ManyToMany(mappedBy = "events")
     private Set<User> users = new HashSet<>();
 
+    public void addUser (User user){
+        this.users.add(user);
+        user.getEvents().add(this);
+    }
+
+    public void removeUser(User user){
+        this.getUsers().remove(user);
+        user.getEvents().remove(this);
+    }
+
     // @NotNull(message = "Event Name should not be null")
     @Column(name="event")
     private String event;

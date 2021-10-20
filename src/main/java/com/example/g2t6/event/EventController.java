@@ -4,8 +4,13 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.g2t6.company.*;
+import com.example.g2t6.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import javax.validation.Valid;
+
+
+
 
 @RestController 
 public class EventController {
@@ -15,6 +20,9 @@ public class EventController {
 
     @Autowired
     private CompanyRepository companies; 
+
+    @Autowired
+    private UserRepository users;
 
     /**
      * This controller works with the repositories directly, without a service layer
