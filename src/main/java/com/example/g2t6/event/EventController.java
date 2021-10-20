@@ -135,6 +135,32 @@ public class EventController {
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new EventNotFoundException(eventId));
     }
+
+    @PutMapping("/events/{companyId}/{eventId}/users")
+    public Event deleteEventUser(@PathVariable (value = "companyId") Long companyId,
+                              @PathVariable (value = "eventId") Long eventId,  @RequestBody Map<String, String> json) {
+        
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        String userEmail = json.get("email");
+
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            Set <User> userList = event.getUsers();
+            userList.remove(user);
+            Set <Event> eventList = user.getEvents();
+            eventList.remove(event);
+            users.save(user);
+            return events.save(event);
+        }).orElseThrow(() -> new EventNotFoundException(eventId));
+    }
 }
     
 

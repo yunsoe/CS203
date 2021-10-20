@@ -6,7 +6,7 @@ GET http://localhost:8080/companies/1/events
 #get event users 
 ###
 
-GET http://localhost:8080/users/1/1
+GET http://localhost:8080/users/2/2
 
 #add event
 ###
@@ -28,6 +28,15 @@ Content-Type: application/json
     "email": "def@gmail.com"
 }
 
+#delete users from the event 
+###
+
+PUT http://localhost:8080/events/2/2/users
+Content-Type: application/json  
+
+{
+    "email": "def@gmail.com"
+}
 
 #update event 
 ###
