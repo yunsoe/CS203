@@ -14,6 +14,16 @@ Content-Type: application/json
     "location": "Dhoby Ghaut"
 }
 
+#add users to the event
+###
+POST http://localhost:8080/companies/1/events/1/localhost:8080/companies/1/events/1/def@gmail.com
+Content-Type: application/json  
+
+{
+    
+}
+
+
 #update event 
 ###
 PUT http://localhost:8080/companies/1/events/1
@@ -25,7 +35,7 @@ Content-Type: application/json
 
 #delete event 
 ###
-DELETE http://localhost:8080/companies/1/events/1
+DELETE http://localhost:8080/companies/1/events/4
 
 
 

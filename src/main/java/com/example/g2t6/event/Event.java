@@ -32,7 +32,7 @@ public class Event {
     private Set<User> users = new HashSet<>();
 
     public void addUser (User user){
-        this.users.add(user);
+        this.getUsers().add(user);
         user.getEvents().add(this);
     }
 
@@ -52,5 +52,11 @@ public class Event {
     // @NotNull(message = "Location should not be null")
     @Column(name="location")
     private String location;
+
+    public Event (String event, String eventDate, String location){
+        this.event = event;
+        this.eventDate = eventDate;
+        this.location = location;
+    }
 
 }

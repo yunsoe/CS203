@@ -3,6 +3,7 @@ package com.example.g2t6.event;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.example.g2t6.company.*;
 import com.example.g2t6.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,24 @@ public class EventController {
             event.setCompany(company);
             return events.save(event);
         }).orElseThrow(() -> new CompanyNotFoundException(companyId));
+        }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/companies/{companyId}/events/{eventId}/{userEmail}")
+    public Event addEventUsers (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId,
+     @PathVariable String userEmail) {
+        
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            event.addUser(user);
+            users.save(user);
+            return events.save(event);
+        }).orElseThrow(() -> new EventNotFoundException(eventId));
         }
     
     @PutMapping("/companies/{companyId}/events/{eventId}")

@@ -63,6 +63,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
+
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SwabTest> swabTests;
@@ -96,6 +97,8 @@ public class User implements UserDetails {
         this.role = role;
         this.authorities = authorities;
     }
+
+    
 
     /* Return a collection of authorities (roles) granted to the user.
     */
