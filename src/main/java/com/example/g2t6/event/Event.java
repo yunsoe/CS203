@@ -17,7 +17,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "users")
 @Table(name = "event", schema = "cs203")
 public class Event {
 
@@ -29,17 +29,18 @@ public class Event {
     private Company company;
 
     @ManyToMany(mappedBy = "events")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
-    public void addUser (User user){
-        this.getUsers().add(user);
-        user.getEvents().add(this);
-    }
+    // public void addUser (User user){
+    //     this.getUsers().add(user);
+    //     user.getEvents().add(this);
+    // }
 
-    public void removeUser(User user){
-        this.getUsers().remove(user);
-        user.getEvents().remove(this);
-    }
+    // public void removeUser(User user){
+    //     this.getUsers().remove(user);
+    //     user.getEvents().remove(this);
+    // }
 
     // @NotNull(message = "Event Name should not be null")
     @Column(name="event")

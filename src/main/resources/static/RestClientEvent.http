@@ -5,28 +5,28 @@ GET http://localhost:8080/companies/1/events
 
 #add event
 ###
-POST http://localhost:8080/companies/1/events
+POST http://localhost:8080/companies/2/events
 Content-Type: application/json
 
 {
-    "event": "Company Dinner",
-    "eventDate": "12-10-21",
-    "location": "Dhoby Ghaut"
+    "event": "Company Dinner a",
+    "eventDate": "13-10-21",
+    "location": "Dhob Ghaut"
 }
 
 #add users to the event
 ###
-POST http://localhost:8080/companies/1/events/1/localhost:8080/companies/1/events/1/def@gmail.com
+PUT http://localhost:8080/companies/2/events/2/users
 Content-Type: application/json  
 
 {
-    
+    "email": "def@gmail.com"
 }
 
 
 #update event 
 ###
-PUT http://localhost:8080/companies/1/events/1
+PUT http://localhost:8080/companies/1/events/5
 Content-Type: application/json
 
 {
