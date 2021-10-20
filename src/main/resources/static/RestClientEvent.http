@@ -3,6 +3,11 @@
 ###
 GET http://localhost:8080/companies/1/events
 
+#get event users 
+###
+
+GET http://localhost:8080/users/1/1
+
 #add event
 ###
 POST http://localhost:8080/companies/2/events

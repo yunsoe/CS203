@@ -29,18 +29,8 @@ public class Event {
     private Company company;
 
     @ManyToMany(mappedBy = "events")
-    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
-    // public void addUser (User user){
-    //     this.getUsers().add(user);
-    //     user.getEvents().add(this);
-    // }
-
-    // public void removeUser(User user){
-    //     this.getUsers().remove(user);
-    //     user.getEvents().remove(this);
-    // }
 
     // @NotNull(message = "Event Name should not be null")
     @Column(name="event")

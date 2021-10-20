@@ -44,6 +44,20 @@ public class EventController {
         return events.findByCompanyId(companyId);
     }
 
+    
+    @GetMapping("users/{companyId}/{eventId}")
+    public Set<User> getAllUsersByEventIdAndCompanyId(@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        } 
+        
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            Set <User> userList = event.getUsers();
+            return userList;
+        }).orElseThrow(() -> new EventNotFoundException(eventId));
+        }
+
+
     /**
      * 
      * Add a new event given CompanyId
