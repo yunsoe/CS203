@@ -34,4 +34,7 @@ public class SwabTestDetail {
 
     @Column(name="alert_time")
     private String alertTime; // format --> HH:MM
+
+    @Column(name="SwabTestMessageReminder")
+    private String message;
 }

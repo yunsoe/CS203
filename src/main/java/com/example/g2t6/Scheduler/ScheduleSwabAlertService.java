@@ -71,7 +71,7 @@
 //     @Override
 //     public void run() {
 //         LocalDateTime now = LocalDateTime.now();
-//         String message = "Reminder: Swab test on " + this.swabTestDetail.getStartDate();
+//         String message = "Reminder: Swab test on " + this.swabTestDetail.getMessage();
 //         //Mail mail = new Mail("waddyrocks@gmail.com", now.toString(), message);
 //         //mailService.sendMail(mail);
 //         //System.out.println("Mail sent");
