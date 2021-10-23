@@ -1,4 +1,4 @@
-package com.example.g2t6;
+/*package com.example.g2t6;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URI;
@@ -31,11 +31,6 @@ public class IntegrationTest {
 	private final String baseUrl = "http://localhost:";
 
 	@Autowired
-	/**
-	 * Use TestRestTemplate for testing a real instance of your application as an external actor.
-	 * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
- 	 * It is fault tolerant, and optionally can carry Basic authentication headers.
-	 */
 	private TestRestTemplate restTemplate;
 
 	@Autowired
@@ -151,7 +146,4 @@ public class IntegrationTest {
 // /** Start an actual HTTP server listening at a random port*/
 // /** 
 // @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-// class BookIntegrationTest {
-
-	
-} 
+// class BookIntegrationTest {}
