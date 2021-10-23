@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.ScheduledFuture;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import com.example.g2t6.alert.Alert;
 import com.example.g2t6.alert.AlertController;
@@ -13,15 +14,19 @@ import com.example.g2t6.swabTestDetail.SwabTestDetail;
 import com.example.g2t6.user.User;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.SchedulingException;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-@Component
-public class ScheduleSwabAlert implements Runnable {
+@Service
+public class ScheduleSwabAlertService implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleSwabAlertService.class);
     
     @SuppressWarnings("rawtypes")
     ScheduledFuture scheduledFuture;
@@ -33,16 +38,13 @@ public class ScheduleSwabAlert implements Runnable {
     @Autowired
     private User user;
 
-    //@Autowired
-    //private Alert alert;
-
     @Autowired
     private SwabTestDetail swabTestDetail;
 
     //@Autowired
     //private MailService mailService;
 
-    public ScheduleSwabAlert(AlertController a, User u, SwabTestDetail s) {
+    public ScheduleSwabAlertService(AlertController a, User u, SwabTestDetail s) {
         this.alertController = a;
         this.user = u;
         this.swabTestDetail = s;
@@ -79,7 +81,11 @@ public class ScheduleSwabAlert implements Runnable {
     @PostConstruct
     public void initializeScheduler() {
         //this.user = new User("waddyrocks@gmail.com", "Yun", "abc12345678", "testUser", "None");
-        this.reSchedule(getSendAlertRate());
+        try {
+            this.reSchedule(getSendAlertRate());
+        } catch (SchedulingException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
 }
 
