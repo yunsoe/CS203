@@ -18,6 +18,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 @Component
 public class ScheduleSwabAlert implements Runnable {
@@ -45,11 +46,10 @@ public class ScheduleSwabAlert implements Runnable {
         this.alertController = a;
         this.user = u;
         this.swabTestDetail = s;
-
     }
 
     public String getSendAlertRate() {
-        String alertRate = swabTestDetail.getSendAlertTime();
+        String alertRate = this.swabTestDetail.getSendAlertTime();
         return alertRate;
         //return "0/5 * * * * *";
     }
@@ -73,7 +73,7 @@ public class ScheduleSwabAlert implements Runnable {
         //System.out.println("Mail sent");
         
         Alert newAlert = new Alert(now.toString(), message);
-        alertController.addAlert(this.user.getEmail(), newAlert);
+        this.alertController.addAlert(this.user.getEmail(), newAlert);
     }
 
     @PostConstruct
