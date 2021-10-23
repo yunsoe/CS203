@@ -51,7 +51,9 @@ public class ScheduleSwabAlertService implements Runnable {
     }
 
     public String getSendAlertRate() {
-        String alertRate = this.swabTestDetail.getSendAlertTime();
+        String alertDay = this.swabTestDetail.getAlertDay();
+        String alertTime = this.swabTestDetail.getAlertTime();
+        String alertRate = "* " + alertTime.substring(3) + " " + alertTime.substring(0, 2) + " ? * " + alertDay;
         return alertRate;
         //return "0/5 * * * * *";
     }
