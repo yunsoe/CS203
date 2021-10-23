@@ -22,7 +22,8 @@ import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
 import update from "./components/swabTest/update";
 import News from "./views/News";
-
+import SwabTestDetailForm from "./components/swabTestDetail/SwabTestDetailForm";
+import SwabTestDetail from "./components/swabTestDetail/SwabTestDetail";
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
@@ -107,6 +108,8 @@ export default class App extends Component {
             <Route path="/swabTestForm" component={SwabTestForm} />
             <Route path="/swabTestHistory" component={SwabTestHistory} /> 
             <Route path="/swabTestUserView" component={SwabTestUserView} /> 
+            <Route path="/swabTestDetailForm" component={SwabTestDetailForm} /> 
+            <Route path="/swabTestDetail" component={SwabTestDetail} />             
             <Route path="/update" component={update} />
             <Route path="/viewFeedbacks" component={ViewFeedbacks} /> 
             <Route path="/news" component={News} />
