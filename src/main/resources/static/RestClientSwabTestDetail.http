@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/swabTestDetails/sysadmin@gmail.com
+Content-Type: application/json
+
+{
+    "alert_day": "monday",
+    "alert_time": "11:22",
+    "message": "hshshsh"
+}

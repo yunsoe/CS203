@@ -51,7 +51,7 @@ export default function SwabTestForm() {
              <h3>Submit Swab Result</h3>
 
         <br/>
-        <Form id="feedbackForm" onSubmit = {(e) => handleSubmit(e)}> 
+        <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
         <Col>
         <Form.Label>swab Result:</Form.Label>
         </Col>

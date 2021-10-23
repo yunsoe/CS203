@@ -6,8 +6,11 @@ import com.example.g2t6.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 @RestController
+@CrossOrigin
 public class SwabTestDetailController {
 
     private UserRepository users;
@@ -23,7 +26,7 @@ public class SwabTestDetailController {
     }
 
     @PostMapping("swabTestDetails/{userEmail}")
-    public SwabTestDetail addswabTestDetail(@PathVariable (value = "userEamil")String userEmail,SwabTestDetail newSwabTestDetail){
+    public SwabTestDetail addswabTestDetail(@PathVariable (value = "userEmail")String userEmail,SwabTestDetail newSwabTestDetail){
         return users.findByEmail(userEmail).map(user ->{
             newSwabTestDetail.setUser(user);
             return swabTestDetails.save(newSwabTestDetail);

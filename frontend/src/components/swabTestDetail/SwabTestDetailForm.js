@@ -7,8 +7,10 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 
 export default function SwabTestDetailForm() {
 
-    const [date,setDate] = useState(new Date())
+    const [time,setTime] = useState("");
     const [state, setState] = useState("");
+    const [msg,setMessage] = useState("");
+
       
 
     const handleChange = (event) =>
@@ -21,7 +23,7 @@ export default function SwabTestDetailForm() {
         console.log(state)
 
         fetch(
-            API_BASE_URL + "users/" + localStorage.getItem("email") + "/swabTests", 
+            API_BASE_URL + "swabTestDetails/" + localStorage.getItem("email"), 
             {
                 method: "POST",
                 headers: {
@@ -30,14 +32,14 @@ export default function SwabTestDetailForm() {
                     "authorization": localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
-                    "swabResult": state,
-                    "actualSwabDate": format(date, 'yyyy-MM-dd')
+                    "alert_day": state,
+                    //"alert_time": time,
+                    //"message" : msg,
                 }),
             }
         ).then(function (response) {
             if (response.status === 201) {
                 alert("Submission successful.");
-                //document.getElementById("feedbackForm").reset();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
@@ -51,23 +53,31 @@ export default function SwabTestDetailForm() {
              <h3>Submit Swab Result</h3>
 
         <br/>
-        <Form id="feedbackForm" onSubmit = {(e) => handleSubmit(e)}> 
+        <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
         <Col>
         <Form.Label>swab Result:</Form.Label>
         </Col>
          <Col>
         <select value={state} onChange={(e) => handleChange(e.target.value)} >
-            <option  value="false">negative</option> 
-            <option value="true">positive</option>
+            <option  value="monday">Mon</option> 
+            <option value="tuesday">Tue</option>
+            <option value="wednesday">Wed</option>
+            <option value="thursday">Thurs</option>
+            <option value="friday">Friday</option>
+            <option value="saturday">Sat</option>
+            <option value="sunday">Sun</option>
         </select>
         </Col>
              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-             <Col>
-             <Form.Label>date of swab:</Form.Label>
-             </Col>
-             <Col>
-             <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
-             </Col>
+            
+             <Form.Group className="mb-3">
+                            <Form.Label>Title:</Form.Label>
+                            <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {(input) => setTime(input)} id="timeInput" />
+                        </Form.Group>
+             <Form.Group className="mb-3">
+                    <Form.Label>Details:</Form.Label>
+                            <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={(input) => setMessage(input)} id="details" />
+                </Form.Group>
              <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
             </Form.Group>
         </Form>
