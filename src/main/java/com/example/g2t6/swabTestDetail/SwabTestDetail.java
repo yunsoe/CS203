@@ -19,15 +19,15 @@ public class SwabTestDetail {
     @JoinColumn(name = "user_email", referencedColumnName = "user_email", nullable = false)
     private User user;
 
-    @NotNull(message = "actual swab date cannot be null")
-    @Column(name="start_date")
-    private String startDate;
+    //@NotNull(message = "actual swab date cannot be null")
+    //@Column(name="start_date")
+    //private String startDate;
 
     //@NotNull(message = "Alert day (of the week) cannot be null")
     //private String sendAlertTime = "* 0/1 * ? * *";
 	
-	@Column(name = "period")
-	private String period;
+	//@Column(name = "period")
+	//private String period;
 
     @Column(name="alert_day")
     private String alertDay; // MON-SUN, give options
