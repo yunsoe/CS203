@@ -30,7 +30,7 @@ public class SwabTestDetail {
 	private String period;
 
     @Column(name="alert_day")
-    private String alertDay; // MON-FRI, give options
+    private String alertDay; // MON-SUN, give options
 
     @Column(name="alert_time")
     private String alertTime; // format --> HH:MM
