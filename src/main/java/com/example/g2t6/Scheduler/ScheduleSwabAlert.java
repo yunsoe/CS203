@@ -6,7 +6,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScheduleSwabAlert implements Runnable{
+public class ScheduleSwabAlert implements Runnable {
     
     @SuppressWarnings("rawtypes")
     ScheduledFuture scheduledFuture;
