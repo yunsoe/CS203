@@ -14,8 +14,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 
 @SpringBootApplication
-@EnableScheduling
-@ComponentScan({"com.example.g2t6.user.User"})
+//@EnableScheduling
+//@ComponentScan({"com.example.g2t6.user.User","com.example.g2t6.security.SecurityConfig"})
 public class G2t6Application {
 
 	public static void main(String[] args) {
@@ -25,12 +25,12 @@ public class G2t6Application {
 
 	}
 	
-	@Bean
-	public TaskScheduler taskScheduler() {
-		final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-		scheduler.setPoolSize(10);
-		return scheduler;
-	}
+	// @Bean
+	// public TaskScheduler taskScheduler() {
+	// 	final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+	// 	scheduler.setPoolSize(10);
+	// 	return scheduler;
+	// }
 
 }
 /*

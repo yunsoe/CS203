@@ -34,9 +34,18 @@ public class News {
     private @Id @Column(name="news_id") @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
 
     //@NotNull(message = "News should not be null");
-    @Size(min = 5, message = "News should have a minimum of 5 characters")
-    @Column(name="news")
-    private String news;
+    // @Size(min = 5, message = "News should have a minimum of 5 characters")
+    // @Column(name="news")
+    // private String news;
+
+    @Column(name="title")
+    private String title;
+
+    @Column(name="image")
+    private String image;
+
+    @Column(name="link")
+    private String link;
 
     //@NotNull(message = "News should not be null");
     @Size(min = 3, max = 3, message = "Category should have a minimum of 3 characters")
@@ -70,20 +79,19 @@ public class News {
     @Column(name="time")
     private LocalTime time;
 
-    public News(String news, String category, Industry industry, LocalDate date, LocalTime time) {
-        this.news = news;
+    public News(String title, String link, String image, String category, LocalDate date, LocalTime time) {
+        this.title = title;
+        this.link = link;
+        this.image = image;
         this.category = category;
-        this.industry = industry;
         this.date = date;
         this.time = time;
     }
 
-    public News(Industry industry, int casesQuarantined, int casesHospCritical, int casesHospNotCritical, int deaths) {
-        this.industry = industry;
+    public News(int casesQuarantined, int casesHospCritical, int casesHospNotCritical, int deaths) {
         this.casesQuarantined = casesQuarantined;
         this.casesHospCritical = casesHospCritical;
         this.casesHospNotCritical = casesHospNotCritical;
         this.deaths = deaths;
     }
-
 }

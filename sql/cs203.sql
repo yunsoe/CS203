@@ -119,7 +119,9 @@ create table `swab_test_detail`
         `user_email` varchar(255),
         `start_date` varchar(255),
         -- start_date datetime,
-        `period` varchar(255),
+		`period` varchar(255),
+        `alert_day` varchar(255),
+		`alert_time` varchar(255),
         foreign key(`user_email`) references `user`(`user_email`)
 
 );
