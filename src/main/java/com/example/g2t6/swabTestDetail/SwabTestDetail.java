@@ -24,7 +24,7 @@ public class SwabTestDetail {
     private String startDate;
 
     //@NotNull(message = "Alert day (of the week) cannot be null")
-    private String sendAlertTime = "* 0/1 * ? * *";
+    private String sendAlertTime = "* * * ? * MON";
 
     @Column(name="period")
     private String period;
