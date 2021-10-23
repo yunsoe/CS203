@@ -34,7 +34,9 @@ public class SwabTestDetailController {
     @PutMapping("users/{userEmail}/swabTestDetails/{swabId}")
     public SwabTestDetail updateSwabTestDetail(@PathVariable (value = "userEamil")String userEmail,@PathVariable (value = "swabId")Long id,@Valid @RequestBody SwabTestDetail newSwabTestDetail){
         return swabTestDetails.findByIdAndUserEmail(id,userEmail).map(swabTestDetail -> {
-            swabTestDetail.setPeriod(newSwabTestDetail.getPeriod());
+            swabTestDetail.setAlertDay(newSwabTestDetail.getAlertDay());
+            swabTestDetail.setAlertTime(newSwabTestDetail.getAlertDay());
+            swabTestDetail.setMessage(newSwabTestDetail.getMessage());
             return swabTestDetails.save(swabTestDetail);
         }).orElseThrow(() -> new SwabTestDetailNotFoundException(id));
 

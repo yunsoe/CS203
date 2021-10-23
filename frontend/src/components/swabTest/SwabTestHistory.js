@@ -14,6 +14,32 @@ export default function SwabTestForm() {
     const [endDate, setEndDate] = useState(new Date());
     const [data, setData] = useState([]);
     const [userEmail, setUserEmail] = useState("");
+    const[employees, setEmployees] = useState(null);
+    const [userExist,setUserExist] = useState(false);
+
+    useEffect(() => {
+        fetchEmployeesFromCompany();
+
+        async function fetchEmployeesFromCompany() {
+            const getCompanyId = await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company");
+            const companyId = await getCompanyId.json();
+
+            state.companyId = companyId;
+
+            const response = await fetch(API_BASE_URL + "users/" + companyId);
+            const employeeData = await response.json();
+            console.log(employeeData);
+            var adminIndex = employeeData.findIndex(x => x.email === localStorage.getItem("email"));
+            // remove admin from list of employees
+            employeeData.splice(adminIndex, 1);
+
+            if (employeeData.length !== 0) {
+              employeeData.forEach((thing, i) => thing.id = i);
+              employeeData.forEach((thing, i) => thing.index = i+1);
+                setEmployees(employeeData);
+            }
+        }
+    }, []);
 
 
     const handleChange1 = (date) => {
@@ -62,19 +88,35 @@ export default function SwabTestForm() {
     };
 
     function loadData1(){ 
-          console.log(userEmail);
-      fetch(
-        API_BASE_URL + "swabTests/" + userEmail, 
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "authorization": localStorage.getItem("accessToken"),
-            },
-         
+        if(employees != null){
+             //console.log(userEmail);
+          employees.forEach((thing,index) => {
+            if(thing.email == userEmail){
+              setUserExist(true);
+              console.log(thing.email);
+            }
+          })
+          
+          
+          if(userExist){
+            fetch(
+              API_BASE_URL + "swabTests/" + userEmail, 
+              {
+                  method: "GET",
+                  headers: {
+                      "Content-Type": "application/json",
+                      "Access-Control-Allow-Origin": "*",
+                      "authorization": localStorage.getItem("accessToken"),
+                  },
+               
+              }
+          ).then((response) => response.json()).then((datas) => setData(datas));
+          console.log(data)
+          }
         }
-    ).then((response) => response.json()).then((datas) => setData(datas));
+
+       
+    
       };
     
 
@@ -87,7 +129,7 @@ export default function SwabTestForm() {
         <InputGroup>
             <InputGroup.Text>Enter User's Email:</InputGroup.Text>
             <FormControl type = "text" placeholder="user Email" value={userEmail} onChange={ (e) => setUserEmail(e.target.value)} />
-            <Button variant="primary" onClick={handleSubmit1}>Add</Button>
+            <Button variant="primary" onClick={handleSubmit1}>Enter</Button>
           </InputGroup>           
         </InputGroup>
         <InputGroup>
@@ -115,9 +157,14 @@ export default function SwabTestForm() {
             <Card className="to-do-well">
               <Card.Body>
                 <Card.Title><h2>Swab Results</h2></Card.Title>
+                {employees ? (
                 <ListGroup>
                   { data.map(n => item(n)) }
                 </ListGroup>
+                ):(
+                  <p>The company has no employees yet.</p>
+                )}
+                
               </Card.Body>
             </Card>
            
