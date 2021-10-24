@@ -86,9 +86,7 @@ create table `news`
 (
     `news_id` int auto_increment primary key,
     `industry_id` int,
-    `title` varchar(255),
-    `link` varchar(255),
-    `image` varchar(2083),
+    `news` varchar(255),
     `category` varchar(255),
     `cases_quarantined` int,
     `cases_hosp_critical` int,
@@ -117,13 +115,10 @@ create table `swab_test_detail`
 (
         `swab_test_detail_id` int auto_increment primary key,
         `user_email` varchar(255),
-        -- `start_date` varchar(255),
-        -- start_date datetime,
-		-- `period` varchar(255),
         `alert_day` varchar(255),
-		`alert_time` varchar(255),
-		`message` varchar(255),
-
+        -- start_date datetime,
+        `alert_time` varchar(255),
+        `message` varchar(255),        
         foreign key(`user_email`) references `user`(`user_email`)
 
 );
@@ -138,7 +133,7 @@ INSERT INTO cs203.industry (name) values("Entertainment");
 INSERT INTO cs203.industry (name) values("Manufacturing");
 INSERT INTO cs203.industry (name) values("Telecommunication");
 INSERT INTO cs203.industry (name) values("Agriculture");
-INSERT INTO cs203.industry (name) values("Trcompanyindustryindustryansportation");
+INSERT INTO cs203.industry (name) values("Transportation");
 INSERT INTO cs203.industry (name) values("Computer & Technology");
 INSERT INTO cs203.industry (name) values("Healthcare");
 INSERT INTO cs203.industry (name) values("Media & News");
@@ -149,3 +144,4 @@ INSERT INTO cs203.industry (name) values("Finance & Economic");
 INSERT INTO cs203.industry (name) values("Advertising & Marketing");
 INSERT INTO cs203.industry (name) values("Mining");
 INSERT INTO cs203.industry (name) values("Aerospace");
+select * from swabTest

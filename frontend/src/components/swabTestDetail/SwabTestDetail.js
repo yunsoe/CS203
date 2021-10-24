@@ -5,18 +5,23 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
+import { API_BASE_URL } from "../../constants/apiConstants";
 
 
 export default function SwabTestDetail() {
     const history = useHistory();
 
-    const[state,setState] = useState({});
+    const[state,setState] = useState({
+        email: "",
+        Id: ""
+    });
     const [data, setData] = useState(null);
+    const[removeSwab,setRemoveSwab] = useState("");
+    const[swabId,setSwabId] = useState();
 
     const redirectToUpdtae = (id) => {
-        localStorage.setItem("swabDate",data[id].actualSwabDate);
-        localStorage.setItem("swabId",id);        
-        history.push("/update");
+        localStorage.setItem("swabDetailId",id);        
+        history.push("/updateSwabtestDetail");
       };
 
 
@@ -33,7 +38,11 @@ export default function SwabTestDetail() {
       };
 
       const removeEmployee = (id) => {
-        state.selectedEmployeeToRemove = employees[id].email;
+        state.email = data[id].user.email;
+        //setRemoveSwab(data[id].user.email);
+        console.log(id)
+        state.Id = id;
+        //setSwabId(id);
         sendDetailsToServer();
     }
     
@@ -66,6 +75,11 @@ export default function SwabTestDetail() {
           sort: true
         },
         {
+            dataField: "message",
+            text: "Message",
+            sort: true
+          },
+        {
             dataField: "Update",
             text: "Update",
             formatter: updateInfo,
@@ -80,7 +94,7 @@ export default function SwabTestDetail() {
 
     const sendDetailsToServer = () => {
         fetch(
-            API_BASE_URL + "users/" + state.companyId + "/" + state.selectedEmployeeToRemove,
+            API_BASE_URL + "users/" + state.email + "/swabTestDetails/" + state.Id,
             {
                 method: "DELETE",
                 headers: {
@@ -106,7 +120,7 @@ export default function SwabTestDetail() {
             setData(response.data)
             console.log(localStorage.getItem("email"));
             console.log(response.data);
-            setState(state);
+            //setState(state);
             console.log(response)
         }).catch((error) => {
           console.log(error)
@@ -117,7 +131,7 @@ export default function SwabTestDetail() {
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}> 
             <div className="card col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:20}}>
                 <div>
-                    <h3>Individual Swab Results</h3>
+                    <h3>Individual Swab Alert Configuration</h3>
                     <br/>
                     <Form id="swabResult">
                         {data ? (

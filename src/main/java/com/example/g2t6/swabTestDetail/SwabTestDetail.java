@@ -36,7 +36,12 @@ public class SwabTestDetail {
     @Column(name="alert_time")
     private String alertTime; // format --> HH:MM
 
-    // @NotNull(message = "message cannot be null")
+    @NotNull(message = "message cannot be null")
     @Column(name="message")
     private String message;
+
+    public SwabTestDetail(String alertTime,String msg){
+        this.alertTime = alertTime;
+        this.message = msg;
+    }
 }

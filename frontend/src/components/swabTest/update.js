@@ -29,7 +29,7 @@ export default function Update() {
             }
         ).then(function (response) {
             if (response.status === 200) {
-                alert("Thank you for your feedback.");
+                alert("Thank you for your submission.");
                 history.push("/swabTestUserView");
 
             } else {

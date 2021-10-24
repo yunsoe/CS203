@@ -8,10 +8,10 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 export default function SwabTestDetailForm() {
 
     // const [time,setTime] = useState("");
-     const [date, setDate] = useState("");
+     const [date, setDate] = useState("MON");
     // const [msg,setMessage] = useState("");
     const [state, setState] = useState({
-        date: "",
+        
         time: "",
         message : ""
     });
@@ -44,15 +44,14 @@ export default function SwabTestDetailForm() {
                     "authorization": localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
-                    //"alert_day": date,
-                    "alert_time": state.time,
+                    "alertDay": date,
+                    "alertTime": state.time,
                     "message" : state.message,
                 }),
             }
         ).then(function (response) {
             if (response.status === 200) {
                 alert("Submission successful.");
-                document.getElementById("swabTestDetailForm").reset();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
@@ -71,7 +70,7 @@ export default function SwabTestDetailForm() {
         <Form.Label>swab Result:</Form.Label>
         </Col>
          <Col>
-        <select value={date} onChange={handleChange2}  >
+        <select value={date} onChange={(e) => handleChange2(e.target.value)}  >
             <option  value="MON">Mon</option> 
             <option value="TUE">Tue</option>
             <option value="WED">Wed</option>
