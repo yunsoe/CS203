@@ -7,26 +7,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController
 @CrossOrigin
 public class SwabTestDetailController {
-
+    
     private UserRepository users;
+   
     private SwabTestDetailRepository swabTestDetails;
-
-    public SwabTestDetailController(SwabTestDetailRepository swabTestDetails){
+    @Autowired
+    public SwabTestDetailController(SwabTestDetailRepository swabTestDetails, UserRepository users){
         this.swabTestDetails = swabTestDetails;
+        this.users = users;
     }
 
-    @GetMapping("swabTestDetails/{userId}")
+    @GetMapping("/swabTestDetails/{userId}")
     public List<SwabTestDetail> getAllSwabDetails(@PathVariable (value = "userId") String userId){
         return swabTestDetails.findByuserEmail(userId);
     }
 
-    @PostMapping("swabTestDetails/{userEmail}")
-    public SwabTestDetail addswabTestDetail(@PathVariable (value = "userEmail")String userEmail,SwabTestDetail newSwabTestDetail){
+    @PostMapping("/swabTestDetails/{userEmail}")
+    public SwabTestDetail addswabTestDetail(@PathVariable (value = "userEmail")String userEmail,@Valid @RequestBody SwabTestDetail newSwabTestDetail){
         return users.findByEmail(userEmail).map(user ->{
             newSwabTestDetail.setUser(user);
             return swabTestDetails.save(newSwabTestDetail);
@@ -45,7 +48,7 @@ public class SwabTestDetailController {
 
     }
 
-    @DeleteMapping("users/{userEmail}/swabTestDetails/{swabId}")
+    @DeleteMapping("/users/{userEmail}/swabTestDetails/{swabId}")
     public ResponseEntity<?> deleteSwabTestDetial(@PathVariable (value = "swabId") Long id,
                               @PathVariable (value = "userEmail") String userEmail) {
 

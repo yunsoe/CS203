@@ -28,13 +28,15 @@ public class SwabTestDetail {
 	
 	//@Column(name = "period")
 	//private String period;
-
+    @NotNull(message = "alert swab date cannot be null")
     @Column(name="alert_day")
     private String alertDay; // MON-SUN, give options
 
+    @NotNull(message = "alert time cannot be null")
     @Column(name="alert_time")
     private String alertTime; // format --> HH:MM
 
-    @Column(name="SwabTestMessageReminder")
+    // @NotNull(message = "message cannot be null")
+    @Column(name="message")
     private String message;
 }

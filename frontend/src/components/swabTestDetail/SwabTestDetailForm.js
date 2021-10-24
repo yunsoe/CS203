@@ -7,20 +7,32 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 
 export default function SwabTestDetailForm() {
 
-    const [time,setTime] = useState("");
-    const [state, setState] = useState("");
-    const [msg,setMessage] = useState("");
+    // const [time,setTime] = useState("");
+     const [date, setDate] = useState("");
+    // const [msg,setMessage] = useState("");
+    const [state, setState] = useState({
+        date: "",
+        time: "",
+        message : ""
+    });
 
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setState((prevState) => ({
+            ...prevState,
+            [id]: value,
+        }));
+    };
       
 
-    const handleChange = (event) =>
-    setState(event);
+    const handleChange2 = (event) =>
+    setDate(event);
 
    
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state)
+        console.log(date)
 
         fetch(
             API_BASE_URL + "swabTestDetails/" + localStorage.getItem("email"), 
@@ -32,14 +44,15 @@ export default function SwabTestDetailForm() {
                     "authorization": localStorage.getItem("accessToken"),
                 },
                 body: JSON.stringify({
-                    "alert_day": state,
-                    //"alert_time": time,
-                    //"message" : msg,
+                    //"alert_day": date,
+                    "alert_time": state.time,
+                    "message" : state.message,
                 }),
             }
         ).then(function (response) {
-            if (response.status === 201) {
+            if (response.status === 200) {
                 alert("Submission successful.");
+                document.getElementById("swabTestDetailForm").reset();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
@@ -58,25 +71,25 @@ export default function SwabTestDetailForm() {
         <Form.Label>swab Result:</Form.Label>
         </Col>
          <Col>
-        <select value={state} onChange={(e) => handleChange(e.target.value)} >
-            <option  value="monday">Mon</option> 
-            <option value="tuesday">Tue</option>
-            <option value="wednesday">Wed</option>
-            <option value="thursday">Thurs</option>
-            <option value="friday">Friday</option>
-            <option value="saturday">Sat</option>
-            <option value="sunday">Sun</option>
+        <select value={date} onChange={handleChange2}  >
+            <option  value="MON">Mon</option> 
+            <option value="TUE">Tue</option>
+            <option value="WED">Wed</option>
+            <option value="THURS">Thurs</option>
+            <option value="FRI">Friday</option>
+            <option value="SAT">Sat</option>
+            <option value="SUN">Sun</option>
         </select>
         </Col>
              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             
              <Form.Group className="mb-3">
                             <Form.Label>Title:</Form.Label>
-                            <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {(input) => setTime(input)} id="timeInput" />
+                            <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {handleChange} id="time" />
                         </Form.Group>
              <Form.Group className="mb-3">
                     <Form.Label>Details:</Form.Label>
-                            <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={(input) => setMessage(input)} id="details" />
+                            <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={handleChange} id="message" />
                 </Form.Group>
              <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
             </Form.Group>
