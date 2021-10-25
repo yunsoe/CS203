@@ -7,7 +7,7 @@ export default function Authentication() {
   return (
     <div
       style={{
-        backgroundColor: "#3094ff",
+        backgroundColor: "#001833",
         height: "100vh",
         display: "flex",
         alignItems: "center",

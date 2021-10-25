@@ -7,7 +7,7 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
 
 
-export default function updateSwabTestDetail() {
+export default function UpdateSwabTestDetail() {
     const history = useHistory();
 
 
