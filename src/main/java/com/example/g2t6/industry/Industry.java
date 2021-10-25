@@ -45,8 +45,8 @@ public class Industry {
     @Column(name="name")
     private String name;
 
-    // @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private List<News> news;
+    @OneToMany(mappedBy = "industry", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<News> news;
 
     public Industry(String name){
         this.name = name;
