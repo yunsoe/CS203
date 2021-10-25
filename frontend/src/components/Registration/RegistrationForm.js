@@ -148,7 +148,7 @@ console.log(data);
 
     return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 50, marginBottom: 50}}>
-            <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:20}}>
+            <div className="col-12 col-lg-4 login-card mt-2 hv-center" style={{padding:30, paddingTop:40, paddingBottom:50, backgroundColor: 'white', borderRadius:10}}>
                 <h3>Registration</h3>
                 <br />
                 <AuthContext.Consumer>

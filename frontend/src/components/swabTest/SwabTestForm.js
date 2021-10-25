@@ -46,8 +46,8 @@ export default function SwabTestForm() {
     
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
-            <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
+            <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
              <h3>Submit Swab Result</h3>
 
         <br/>

@@ -12,7 +12,6 @@ export default function Logout() {
     return(
         <div
             style={{
-                backgroundColor: "white",
                 height: "20vh",
                 display: "flex",
                 alignItems: "center",

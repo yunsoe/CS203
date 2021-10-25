@@ -59,8 +59,8 @@ export default function EventForm() {
 
 
     return (
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
-            <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom: 100}}>
+            <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 50, backgroundColor: 'white', borderRadius: 10}}>
                 <h3>Add New Event</h3>
                 <br/>
                 <Form id="eventForm" onSubmit = {(e) => submitEvent(e)}>

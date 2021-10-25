@@ -43,5 +43,5 @@ public class FeedbackController {
         return feedbacks.findAll();    
     }
 
-    //removed get, update and delete methods for feedback since we are sending emails directly to developers
+    //removed update and delete methods for feedback since we are sending emails directly to developers
 }

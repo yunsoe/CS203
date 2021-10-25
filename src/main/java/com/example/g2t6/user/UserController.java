@@ -138,9 +138,9 @@ public class UserController {
             throw new UsernameNotFoundException(userEmail);
         }
         String newRandomPassword = RandomStringUtils.random(10, true, true);
-        //Mail mail = new Mail(user.getEmail(), "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password");
+        Mail mail = new Mail(user.getEmail(), "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password");
         //for testing purposes
-        Mail mail = new Mail("zxnlee00@gmail.com", "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password.");
+        //Mail mail = new Mail("zxnlee00@gmail.com", "Reset Password", "Your new password is " + newRandomPassword + ". Please log in using the new password and change your password.");
         mailService.sendMail(mail);
 
         user.setPassword(encoder.encode(newRandomPassword));
@@ -163,9 +163,9 @@ public class UserController {
             throw new UserIncorrectPasswordException(userEmail);
         }
 
-        //Mail mail = new Mail(user.getEmail(), "Change Password", "You have successfully changed your password.");
+        Mail mail = new Mail(user.getEmail(), "Change Password", "You have successfully changed your password.");
         //for testing purposes
-        Mail mail = new Mail("zxnlee00@gmail.com", "Change Password", "You have successfully changed your password.");
+        //Mail mail = new Mail("zxnlee00@gmail.com", "Change Password", "You have successfully changed your password.");
         mailService.sendMail(mail);
 
         user.setPassword(encoder.encode(newPassword));

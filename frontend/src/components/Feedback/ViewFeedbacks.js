@@ -80,7 +80,7 @@ export default function ViewFeedbacks() {
 
     return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
-            <div className="card col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:20}}>
+            <div className="col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 50, backgroundColor: 'white', borderRadius: 10}}>
                 {renderPage()}
             </div>
         </div>

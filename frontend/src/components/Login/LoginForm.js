@@ -69,7 +69,7 @@ export default function LoginForm(props) {
   };
 
   return (
-    <div className="card col-4 login-card mt-2 hv-center" style={{padding: 20}}>
+    <div className="col-4 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
       <h3>Login</h3>
       <br />
       <AuthContext.Consumer>

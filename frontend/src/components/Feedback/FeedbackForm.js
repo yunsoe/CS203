@@ -71,7 +71,7 @@ export default function FeedbackForm() {
 
     return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
-            <div className="card col-5 login-card mt-2 hv-center" style={{padding: 20}}>
+            <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
                 {renderPage()}
             </div>
         </div>
