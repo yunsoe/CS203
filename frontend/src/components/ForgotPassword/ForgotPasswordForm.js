@@ -49,7 +49,7 @@ export default function ForgotPasswordForm() {
     }
 
     return(
-        <div style={{display: "flex", justifyContent: "center", marginTop: 200}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom: 100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
                 <h3>Forgot Password</h3>
                 <p style={{fontSize: 11, color: "blue"}}>We will send you an email with your new password. <br/>Use the new password to login and change your password upon logging in.</p>
