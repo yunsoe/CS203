@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 
 
-
+@CrossOrigin
 @RestController 
 public class EventController {
 

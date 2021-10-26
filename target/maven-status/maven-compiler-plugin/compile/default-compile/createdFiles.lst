@@ -54,4 +54,3 @@ com/example/g2t6/news/NewsController.class
 com/example/g2t6/news/NewsRepository.class
 com/example/g2t6/user/UserAlreadyExistsException.class
 com/example/g2t6/alert/AlertController.class
-com/example/g2t6/SchedulingConfiguration.class

@@ -5,8 +5,8 @@ import { Form, Button, FormGroup } from "react-bootstrap";
 export default function EventForm() {
 
     const [state , setState] = useState({
-        name: "",
-        date : "",
+        event: "",
+        eventDate : "",
         location: ""
     });
 
@@ -19,6 +19,7 @@ export default function EventForm() {
     };
 
     const submitEvent = (e) => {
+        e.preventDefault();
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
             {
@@ -36,8 +37,8 @@ export default function EventForm() {
                             "authorization": localStorage.getItem("accessToken"),
                         },
                         body: JSON.stringify({
-                            "name": state.event,
-                            "date": state.eventDate,
+                            "event": state.event,
+                            "eventDate": state.eventDate,
                             "location": state.location,
                         }),
                     }
@@ -66,15 +67,15 @@ export default function EventForm() {
                 <Form id="eventForm" onSubmit = {(e) => submitEvent(e)}>
                     <Form.Group className="mb-3">
                         <Form.Label>Name:</Form.Label>
-                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Event Name" onChange={handleChange} id="name" />
+                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Event Name" onChange={handleChange} id="event" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Date:</Form.Label>
-                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Date" onChange={handleChange} id="name" />
+                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Date" onChange={handleChange} id="eventDate" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Location:</Form.Label>
-                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Location" onChange={handleChange} id="name" />
+                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Location" onChange={handleChange} id="location" />
                     </Form.Group>
                     <Button variant="primary" type="submit" style={{marginBottom: 10}}>Add Event</Button>
                 </Form>
