@@ -10,7 +10,9 @@ export default function NavMenu() {
       <Navbar.Brand href="/"></Navbar.Brand>
       <Nav className="ml-auto">
         <Nav.Link href="/home">Home</Nav.Link>
-        <Nav.Link href="/news">News</Nav.Link>
+        <Nav.Link href="/regulations">Covid Regulations</Nav.Link>
+        <Nav.Link href="/news">Top-Headlines</Nav.Link>
+
         {
           localStorage.getItem("authority") === "ROLE_ADMIN" ? 
           <NavDropdown title="Admin" id="admin-nav-dropdown">

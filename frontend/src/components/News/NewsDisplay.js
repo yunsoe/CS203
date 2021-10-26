@@ -48,11 +48,11 @@ export default class NewsDisplay extends Component {
         } else {
             return (
                 <div className='news'>
-                        {News.slice(0, 7).map(News => (
+                        {News.slice(0, 10).map(News => (
                             <div className='container fluid d-flex justify-content-center' key={News.id}> 
                             <div className='row'>
                                 <div className='col-md-4'>
-                                    <Cards url={News.urlToImage} title={News.title} des={News.publishedAt} link={News.url} />
+                                    <Cards url={News.urlToImage} title={News.title} link={News.url} />
                                 </div>
                             </div>
                         </div>
