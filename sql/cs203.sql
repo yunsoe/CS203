@@ -146,4 +146,3 @@ INSERT INTO cs203.industry (name) values("Finance & Economic");
 INSERT INTO cs203.industry (name) values("Advertising & Marketing");
 INSERT INTO cs203.industry (name) values("Mining");
 INSERT INTO cs203.industry (name) values("Aerospace");
-select * from swabTest

@@ -30,7 +30,7 @@ export default function RegistrationForm(props) {
         async function fetchIndustries() {
             const response = await fetch(API_BASE_URL + "industries");
             const data = await response.json();
-console.log(data);
+            
             if (data.length === 0) {
                 var industryTextField = document.getElementById("industryName");
                 industryTextField.hidden = false;
@@ -38,6 +38,7 @@ console.log(data);
                 industryTextField.value = "";
             } else {
                 state.industryName = data[0].name;
+                console.log(state.industryName);
             }
 
             setIndustries(data);
@@ -57,7 +58,12 @@ console.log(data);
     }
 
     const sendDetailsToServer = (updateAuth) => {
+        if (state.industryName == "") {
+            state.industryName = "Construction";
+        }
+        
         state.industryName = state.industryName.charAt(0).toUpperCase() + state.industryName.substr(1);
+        
         fetch(
             API_BASE_URL + "companies/" + state.industryName + "/addCompany",
             {

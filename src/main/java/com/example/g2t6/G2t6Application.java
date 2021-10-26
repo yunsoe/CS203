@@ -1,6 +1,8 @@
 package com.example.g2t6;
 
 
+import java.util.Arrays;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 
 @SpringBootApplication
@@ -31,6 +35,15 @@ public class G2t6Application {
 	// 	scheduler.setPoolSize(10);
 	// 	return scheduler;
 	// }
+
+	@Bean
+    public HttpFirewall allowUrlSemicolonHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+		firewall.setAllowSemicolon(true);
+        firewall.setAllowBackSlash(true);
+		firewall.setAllowedHttpMethods(Arrays.asList("GET","POST","DELETE", "PUT", "OPTIONS"));
+        return firewall;
+    }
 
 }
 /*
