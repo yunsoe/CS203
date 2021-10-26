@@ -21,10 +21,11 @@ import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
 import update from "./components/swabTest/update";
-import updateSwabTestDetail from "./components/swabTestDetail/UpdateSwabTestDetail";
+import updateSwabTestDetail from "./components/swabTestDetail/updateSwabTestDetail";
 import News from "./views/News";
 import SwabTestDetailForm from "./components/swabTestDetail/SwabTestDetailForm";
 import SwabTestDetail from "./components/swabTestDetail/SwabTestDetail";
+
 class AuthProvider extends Component {
   constructor(props) {
     super(props);
