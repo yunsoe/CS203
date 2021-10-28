@@ -117,7 +117,7 @@ export default function ViewEvents() {
         ).then(function (response) {
             response.json().then(function(companyId) {
                 fetch(
-                    API_BASE_URL + "events/" + companyId + "/" + localStorage.getItem("eventId") + "/users/" + localStorage.getItem("email"),
+                    API_BASE_URL + "events/" + companyId + "/" + state.id + "/users/" + localStorage.getItem("email"),
                     {
                     method: "PUT",
                     headers: {
