@@ -64,20 +64,36 @@ export default function UpdateEvent() {
         });
     }
 
+    const handleSubmitClick = (e) => {
+        e.preventDefault();
+        
+        var today = new Date();
+        const dateEvent = state.eventDate.split("/");
+        var dateOfEvent = new Date(dateEvent[2] + "-" + dateEvent[1] + "-" + dateEvent[0]);
+        var isAfterToday = (dateOfEvent > today);
+
+        if(isAfterToday) {
+            updateForm();   
+        } else {
+            alert('Please enter a date after today.');
+        }
+    }
+
+
 
     return (
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom: 100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 50, backgroundColor: 'white', borderRadius: 10}}>
                 <h3>Edit Event</h3>
                 <br/>
-                <Form id="eventForm" onSubmit = {(e) => updateForm(e)}>
+                <Form id="eventForm" onSubmit = {(e) => handleSubmitClick(e)}>
                     <Form.Group className="mb-3">
                         <Form.Label>Name:</Form.Label>
                         <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Event Name" onChange={handleChange} id="event" />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Date:</Form.Label>
-                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Date" onChange={handleChange} id="eventDate" />
+                        <Form.Control required placeholder="DD/MM/YYYY" pattern="^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))" minLength={2} maxLength={30} type="text" onChange={handleChange} id="eventDate"  />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Location:</Form.Label>

@@ -75,13 +75,28 @@ export default function EventForm() {
     //     return result;
     //   }
 
+    const handleSubmitClick = (e) => {
+        e.preventDefault();
+        
+        var today = new Date();
+        const dateEvent = state.eventDate.split("/");
+        var dateOfEvent = new Date(dateEvent[2] + "-" + dateEvent[1] + "-" + dateEvent[0]);
+        var isAfterToday = (dateOfEvent > today);
+
+        if(isAfterToday) {
+            submitEvent();   
+        } else {
+            alert('Please enter a date after today.');
+        }
+    }
+
 
     return (
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom: 100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 50, backgroundColor: 'white', borderRadius: 10}}>
                 <h3>Add New Event</h3>
                 <br/>
-                <Form id="eventForm" onSubmit = {(e) => submitEvent(e)}>
+                <Form id="eventForm" onSubmit = {(e) => handleSubmitClick(e)}>
                     <Form.Group className="mb-3">
                         <Form.Label>Name:</Form.Label>
                         <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Event Name" onChange={handleChange} id="event" />
