@@ -12,34 +12,22 @@ export default function ViewEvents() {
 
     useEffect(() => {
         fetchEvents();
-
+        
         async function fetchEvents() {
-            fetch(
-                API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
-                {
-                    method: "GET",
-                }
-            ).then(function (response) {
-                response.json().then(function(companyId) {
-                    fetch(
-                        API_BASE_URL + "companies/" + companyId + "/events",
-                        {
-                            method: "GET",
+            
 
-                        }
-                    ).then(function (response) {
-                        
-                        const data = response.json();
-                        console.log(data);
+            const companyId = await (await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company")).json();
+            const response = await fetch(API_BASE_URL + "companies/" + companyId + "/events");
+            const data = await response.json();
 
-                        if (data.length !== 0) {
-                            setEvents(data);
-                        }
-                    }
-                    );
-                });
-            });
+            console.log(data);
+
+            if (data.length !== 0) {
+                setEvents(data);
+            }
         }
+    
+
     }, []);
 
     const columns = [
@@ -54,7 +42,7 @@ export default function ViewEvents() {
           sort: true
         },
         {
-          dataField: "event_date",
+          dataField: "eventDate",
           text: "Event Date",
           sort: true
         },
@@ -92,3 +80,34 @@ export default function ViewEvents() {
         </div>
     )
 }
+
+
+        // async function fetchEvents() {
+        //     fetch(
+        //         API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
+        //         {
+        //             method: "GET",
+        //         }
+        //     ).then(function (response) {
+        //         response.json().then(function(companyId) {
+        //             fetch(
+        //                 API_BASE_URL + "companies/" + companyId + "/events",
+        //                 {
+        //                     method: "GET",
+
+        //                 }
+        //             ).then(function (response) {
+                        
+        //                 const data = response.json;
+        //                 console.log(data);
+
+        //                 if (data.length !== 0) {
+        //                     setEvents(data);
+        //                 }
+        //             }
+        //             );
+
+                   
+        //         });
+        //     });
+        // }
