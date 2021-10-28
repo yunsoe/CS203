@@ -10,46 +10,45 @@ GET http://localhost:8080/users/2/2
 
 #add event
 ###
-POST http://localhost:8080/users/def@gmail.com/companies/2/events
+POST http://localhost:8080/users/test1@gmail.com/companies/1/events
 Content-Type: application/json
 
 {
     "event": "Company Dinner a",
     "eventDate": "13-10-21",
-    "location": "Dhoby Ghaut"
+    "location": "Dhob Ghaut"
 }
 
 #add users to the event
 ###
-PUT http://localhost:8080/companies/2/events/2/users
+PUT http://localhost:8080/companies/1/events/1/users
 Content-Type: application/json  
 
 {
-    "email": "def@gmail.com"
+    "email": "test2@gmail.com"
 }
 
 #delete users from the event 
 ###
 
-PUT http://localhost:8080/events/2/2/users
+PUT http://localhost:8080/events/1/1/users
 Content-Type: application/json  
 
 {
-    "email": "def@gmail.com"
+    "email": "test2@gmail.com"
 }
 
 #update event 
 ###
-PUT http://localhost:8080/companies/1/events/5
+PUT http://localhost:8080/companies/1/events/1
 Content-Type: application/json
 
 {
-    "event": "Project Meeting"
+    "event": "Project Meeting",
+    "eventDate": "30-12-21",
+    "location": "Jurong East"
 }
 
 #delete event 
 ###
-DELETE http://localhost:8080/companies/1/events/4
-
-
-
+DELETE http://localhost:8080/companies/1/events/1
