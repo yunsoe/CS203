@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import {Button,Form} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 
-export default function ViewEvents() {
-
-    const history = useHistory();
+export default function ViewAllCompanyEvents() {
 
     const[state,setState] = useState({
         id:""
@@ -20,55 +17,23 @@ export default function ViewEvents() {
     // const[removeEvent,setRemoveEvent] = useState("");
     // const[eventId,setEventId] = useState();
 
-    const redirectToUpdate = (id) => {
-        localStorage.setItem("eventId",id);
-        history.push("/updateEvent");
-    }
-
-    const updateInfo = (cell, row, rowIndex, formatExtraData) => {
-        return (
-            <Button
-              onClick={() => {
-                  redirectToUpdate(row.id);
-              }}
-            >
-              Update
-            </Button>
-          );
-    }
     
-    const removeEvent = (id) => {
+   
+    const addUserToEvent = (id) => {
         console.log(id)
         state.id = id;
         sendDetailsToServer();
     }
 
-    const removeUserFromEvent = (id) => {
-        console.log(id)
-        state.id = id;
-        sendRemoveDetailsToServer();
-    }
 
-    const linkRemove = (cell, row, rowIndex, formatExtraData) => {
+    const addEvent = (cell, row, rowIndex, formatExtraData) => {
         return (
             <Button
               onClick={() => {
-                  removeEvent(row.id);
+                  addUserToEvent(row.id);
               }}
             >
-              Remove
-            </Button>
-          );
-    }
-
-    const leaveEvent = (cell, row, rowIndex, formatExtraData) => {
-        return (
-            <Button
-              onClick={() => {
-                  removeUserFromEvent(row.id);
-              }}
-            >
-              Leave
+              Add
             </Button>
         );
 
@@ -83,41 +48,7 @@ export default function ViewEvents() {
         ).then(function (response) {
             response.json().then(function(companyId) {
                 fetch(
-                    API_BASE_URL + "companies/" + companyId + "/events/" + state.id,
-                    {
-                    method: "DELETE",
-                    headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "authorization": localStorage.getItem("accessToken"),
-                },
-                    }
-                ).then(function (response) {
-                    if (response.status === 200) {
-                        setState((prevState) => ({
-                            ...prevState
-                        }));
-                        alert("Event has been deleted successfully.");
-                        window.location.reload();
-                    } else {
-                        console.log(response.json);
-                        alert("There was an error on our side, please try again later.");
-                    }
-                });
-            });
-        });
-    }
-
-    const sendRemoveDetailsToServer = () => {
-        fetch(
-            API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
-            {
-                method: "GET",
-            }
-        ).then(function (response) {
-            response.json().then(function(companyId) {
-                fetch(
-                    API_BASE_URL + "events/" + companyId + "/" + state.id + "/users/" + localStorage.getItem("email"),
+                    API_BASE_URL + "companies/" + companyId + "/events/" + state.id + "/users/" + localStorage.getItem("email"),
                     {
                     method: "PUT",
                     headers: {
@@ -131,7 +62,7 @@ export default function ViewEvents() {
                         setState((prevState) => ({
                             ...prevState
                         }));
-                        alert("User has been unregistered from event successfully.");
+                        alert("You have registered for the event successfully.");
                         window.location.reload();
                     } else {
                         console.log(response.json);
@@ -142,13 +73,15 @@ export default function ViewEvents() {
         });
     }
 
-
+   
     useEffect(() => {
         fetchEvents();
         
         async function fetchEvents() {
             
-            const response = await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/events");
+
+            const companyId = await (await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company")).json();
+            const response = await fetch(API_BASE_URL + "companies/" + companyId + "/events");
             const data = await response.json();
 
             console.log(data);
@@ -183,26 +116,16 @@ export default function ViewEvents() {
             sort: true
         },
         {
-            dataField: "Update",
-            text: "Edit",
-            formatter: updateInfo
-        },
-        {
-            dataField: "remove",
-            text: "Remove",
-            formatter: linkRemove
-        },
-        {
-            dataField: "leave",
-            text: "Leave",
-            formatter: leaveEvent
+            dataField: "register",
+            text: "Register",
+            formatter: addEvent
         }
     ];
 
     function renderPage() {
             return(
                 <div>
-                    <h3>View Events</h3>
+                    <h3>View All Company Events</h3>
                     <br/>
                     {events ? 
                         <BootstrapTable
@@ -212,7 +135,7 @@ export default function ViewEvents() {
                             columns={columns}
                             pagination={paginationFactory({ sizePerPage: 5 })}
                         />
-                    : <p>You have not signed up for any events yet.</p>}
+                    : <p>There are no company events yet.</p>}
                 </div>
             );
         

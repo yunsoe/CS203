@@ -8,6 +8,13 @@ GET http://localhost:8080/companies/1/events
 
 GET http://localhost:8080/users/1/5
 
+
+#get user events 
+###
+
+GET http://localhost:8080/users/test1@gmail.com/events
+
+
 #add event
 ###
 POST http://localhost:8080/users/test1@gmail.com/companies/1/events

@@ -44,6 +44,16 @@ public class EventController {
         return events.findByCompanyId(companyId);
     }
 
+    @GetMapping("/users/{userEmail}/events")
+    public Set<Event> getAllUserEvents(@PathVariable (value = "userEmail") String userEmail) {
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+        return user.getEvents();
+    }
+
     
     @GetMapping("users/{companyId}/{eventId}")
     public Set<User> getAllUsersByEventIdAndCompanyId(@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
