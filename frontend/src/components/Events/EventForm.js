@@ -29,7 +29,7 @@ export default function EventForm() {
         ).then(function (response) {
             response.json().then(function(companyId) {
                 fetch(
-                    API_BASE_URL + "companies/" + companyId + "/events",
+                    API_BASE_URL + "users/" + localStorage.getItem("email") + "/companies/" + companyId + "/events",
                     {
                         method: "POST",
                         headers: {

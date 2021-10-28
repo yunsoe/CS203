@@ -33,7 +33,7 @@ export default function UpdateEvent() {
         ).then(function (response) {
             response.json().then(function(companyId) {
                 fetch(
-                    API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
+                    API_BASE_URL + "users/" + localStorage.getItem("email") + "/companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
                     {
                         method: "PUT",
                         headers: {
