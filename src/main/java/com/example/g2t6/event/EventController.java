@@ -144,7 +144,13 @@ public class EventController {
             throw new CompanyNotFoundException(companyId);
         }
 
+        
+
         return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            Set <User> userList = event.getUsers();
+            for (User user : userList){
+                user.getEvents().remove(event);
+            }
             events.delete(event);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new EventNotFoundException(eventId));
