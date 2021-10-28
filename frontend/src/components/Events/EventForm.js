@@ -7,7 +7,8 @@ export default function EventForm() {
     const [state , setState] = useState({
         event: "",
         eventDate : "",
-        location: ""
+        location: "",
+        users:""
     });
 
     const handleChange = (e) => {
@@ -40,6 +41,7 @@ export default function EventForm() {
                             "event": state.event,
                             "eventDate": state.eventDate,
                             "location": state.location,
+                            "users":state.users,
                         }),
                     }
                 ).then(function (response) {
@@ -57,6 +59,21 @@ export default function EventForm() {
             });
         });
     }
+
+    function getSelectValues(select) {
+        var result = [];
+        var options = select && select.options;
+        var opt;
+      
+        for (var i=0, iLen=options.length; i<iLen; i++) {
+          opt = options[i];
+      
+          if (opt.selected) {
+            result.push(opt.value || opt.text);
+          }
+        }
+        return result;
+      }
 
 
     return (
@@ -77,6 +94,19 @@ export default function EventForm() {
                         <Form.Label>Location:</Form.Label>
                         <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Location" onChange={handleChange} id="location" />
                     </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Users:</Form.Label>
+                        <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Add Users" onChange={handleChange} id="users" />
+                    </Form.Group>
+                    {/* <select multiple>
+                        <option>opt 1 text</option>
+                        <option value="opt 2 value">opt 2 text</option>
+                        </select>
+                        <button onclick="
+                        var el = document.getElementsByTagName('select')[0];
+                        alert(getSelectValues(el));
+                        "></button> */}
+                    
                     <Button variant="primary" type="submit" style={{marginBottom: 10}}>Add Event</Button>
                 </Form>
             </div>
