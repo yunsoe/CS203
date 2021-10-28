@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import {Button,Form} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -8,7 +10,75 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function ViewEvents() {
 
+    const history = useHistory();
+
+    const[state,setState] = useState({
+        id:""
+    });
+
     const[events, setEvents] = useState(null);
+    // const[removeEvent,setRemoveEvent] = useState("");
+    const[eventId,setEventId] = useState();
+
+    const redirectToUpdate = (id) => {
+        localStorage.setItem("eventId",id);
+        history.push("/UpdateEvent");
+    }
+
+    const updateInfo = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  redirectToUpdate(row.id);
+              }}
+            >
+              Update
+            </Button>
+          );
+    }
+    
+    const removeEvent = (id) => {
+        console.log(id)
+        state.id = id;
+        sendDetailsToServer();
+    }
+
+    const linkRemove = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  removeEvent(row.id);
+              }}
+            >
+              Remove
+            </Button>
+          );
+    }
+
+    const sendDetailsToServer = () => {
+        const companyId =  fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company").json();
+
+        fetch(
+            API_BASE_URL + "companies/" + companyId + "/events/" + state.id,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "authorization": localStorage.getItem("accessToken"),
+                },
+            }
+        ).then(function(response) {
+            if (response.status === 200) {
+                alert("Event has been deleted successfully.");
+                window.location.reload();
+            } else {
+                console.log(response.json);
+                alert("There was an error on our side, please try again later.");
+            }
+        })
+    }
+
 
     useEffect(() => {
         fetchEvents();
@@ -50,6 +120,16 @@ export default function ViewEvents() {
             dataField: "location",
             text: "Location",
             sort: true
+        },
+        {
+            dataField: "Update",
+            text: "Edit",
+            formatter: updateInfo
+        },
+        {
+            dataField: "location",
+            text: "Remove",
+            formatter: linkRemove
         }
     ];
 
