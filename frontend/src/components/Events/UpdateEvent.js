@@ -23,8 +23,7 @@ export default function UpdateEvent() {
         }));
     };
 
-    const updateForm = (e) => {
-        e.preventDefault();
+    const updateForm = () => {
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
             {

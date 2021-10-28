@@ -19,8 +19,7 @@ export default function EventForm() {
         }));
     };
 
-    const submitEvent = (e) => {
-        e.preventDefault();
+    const submitEvent = () => {
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
             {
