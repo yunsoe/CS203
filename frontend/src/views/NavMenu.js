@@ -26,7 +26,7 @@ export default function NavMenu() {
         <Nav.Link href="/feedback">Feedback</Nav.Link>
         <NavDropdown title="Events" id="events-nav-dropdown">
             <NavDropdown.Item href="/eventForm">Event Form</NavDropdown.Item>
-            <NavDropdown.Item href="/eventHistory">View Event history</NavDropdown.Item>
+            <NavDropdown.Item href="/viewEvents">View Events</NavDropdown.Item>
           </NavDropdown>
           
           <NavDropdown title="Swab Test" id="swabTest-nav-dropdown">
