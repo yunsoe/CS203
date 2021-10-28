@@ -86,6 +86,7 @@ public class EventController {
         
         return companies.findById(companyId).map(company -> {
             event.setCompany(company);
+            events.save(event);
             Set <User> userList = event.getUsers();
             userList.add(user);
             Set <Event> eventList = user.getEvents();

@@ -10,13 +10,13 @@ GET http://localhost:8080/users/2/2
 
 #add event
 ###
-POST http://localhost:8080/companies/2/events
+POST http://localhost:8080/users/def@gmail.com/companies/2/events
 Content-Type: application/json
 
 {
     "event": "Company Dinner a",
     "eventDate": "13-10-21",
-    "location": "Dhob Ghaut"
+    "location": "Dhoby Ghaut"
 }
 
 #add users to the event
