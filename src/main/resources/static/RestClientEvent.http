@@ -6,7 +6,7 @@ GET http://localhost:8080/companies/1/events
 #get event users 
 ###
 
-GET http://localhost:8080/users/2/2
+GET http://localhost:8080/users/1/5
 
 #add event
 ###
@@ -21,22 +21,14 @@ Content-Type: application/json
 
 #add users to the event
 ###
-PUT http://localhost:8080/companies/1/events/1/users
-Content-Type: application/json  
+PUT http://localhost:8080/companies/1/events/10/users/test2@gmail.com
 
-{
-    "email": "test2@gmail.com"
-}
 
 #delete users from the event 
 ###
 
-PUT http://localhost:8080/events/1/1/users
-Content-Type: application/json  
+PUT http://localhost:8080/events/1/10/users/test2@gmail.com
 
-{
-    "email": "test2@gmail.com"
-}
 
 #update event 
 ###
@@ -51,4 +43,4 @@ Content-Type: application/json
 
 #delete event 
 ###
-DELETE http://localhost:8080/companies/1/events/1
+DELETE http://localhost:8080/companies/1/events/5

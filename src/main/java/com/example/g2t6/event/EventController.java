@@ -97,11 +97,9 @@ public class EventController {
         }
 
     
-    @PutMapping("companies/{companyId}/events/{eventId}/users")
+    @PutMapping("companies/{companyId}/events/{eventId}/users/{userEmail}")
     public Event addEventUsers (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId,
-    @RequestBody Map<String, String> json) {
-
-        String userEmail = json.get("email");
+    @PathVariable (value = "userEmail") String userEmail) {
         
         User user = users.findByEmail(userEmail).orElse(null);
 
@@ -157,15 +155,13 @@ public class EventController {
         }).orElseThrow(() -> new EventNotFoundException(eventId));
     }
 
-    @PutMapping("/events/{companyId}/{eventId}/users")
+    @PutMapping("/events/{companyId}/{eventId}/users/{userEmail}")
     public Event deleteEventUser(@PathVariable (value = "companyId") Long companyId,
-                              @PathVariable (value = "eventId") Long eventId,  @RequestBody Map<String, String> json) {
+                              @PathVariable (value = "eventId") Long eventId,  @PathVariable (value = "userEmail") String userEmail) {
         
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         }
-
-        String userEmail = json.get("email");
 
         User user = users.findByEmail(userEmail).orElse(null);
 

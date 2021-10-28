@@ -39,8 +39,14 @@ export default function ViewEvents() {
     
     const removeEvent = (id) => {
         console.log(id)
-        state.id = id;
+        localStorage.setItem("eventId",id);
         sendDetailsToServer();
+    }
+
+    const removeUserFromEvent = (id) => {
+        console.log(id)
+        localStorage.setItem("eventId",id);
+        sendRemoveDetailsToServer();
     }
 
     const linkRemove = (cell, row, rowIndex, formatExtraData) => {
@@ -55,11 +61,48 @@ export default function ViewEvents() {
           );
     }
 
+    const leaveEvent = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  removeUserFromEvent(row.id);
+              }}
+            >
+              Leave
+            </Button>
+        );
+
+    }
+
     const sendDetailsToServer = () => {
         const companyId =  fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company").json();
 
         fetch(
-            API_BASE_URL + "companies/" + companyId + "/events/" + state.id,
+            API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "authorization": localStorage.getItem("accessToken"),
+                },
+            }
+        ).then(function(response) {
+            if (response.status === 200) {
+                alert("Event has been deleted successfully.");
+                window.location.reload();
+            } else {
+                console.log(response.json);
+                alert("There was an error on our side, please try again later.");
+            }
+        })
+    }
+
+    const sendRemoveDetailsToServer = () => {
+        const companyId =  fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company").json();
+
+        fetch(
+            API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
             {
                 method: "DELETE",
                 headers: {
@@ -127,9 +170,14 @@ export default function ViewEvents() {
             formatter: updateInfo
         },
         {
-            dataField: "location",
+            dataField: "remove",
             text: "Remove",
             formatter: linkRemove
+        },
+        {
+            dataField: "leave",
+            text: "Leave",
+            formatter: leaveEvent
         }
     ];
 
