@@ -16,6 +16,7 @@ import RemoveEmployeeForm from "./components/Admin/RemoveEmployeeForm";
 import "./components/Home/home.css"
 import EventForm from "./components/Events/EventForm";
 import ViewEvents from "./components/Events/ViewEvents";
+import UpdateEvent from "./components/Events/UpdateEvent";
 import SwabTestForm from "./components/swabTest/SwabTestForm";
 import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
@@ -105,6 +106,7 @@ export default class App extends Component {
             <Route path="/feedback" component={FeedbackForm} />
             <Route path="/eventForm" component={EventForm} />
             <Route path="/viewEvents" component={ViewEvents} />
+            <Route path="/updateEvent" component={UpdateEvent} />
             <Route path="/register" component={RegistrationForm} />
             <Route path="/removeEmployee" component={RemoveEmployeeForm} />
             <Route path="/addEmployee" component={AddEmployeeForm} />

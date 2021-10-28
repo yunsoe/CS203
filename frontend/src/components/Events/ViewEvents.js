@@ -22,7 +22,7 @@ export default function ViewEvents() {
 
     const redirectToUpdate = (id) => {
         localStorage.setItem("eventId",id);
-        history.push("/UpdateEvent");
+        history.push("/updateEvent");
     }
 
     const updateInfo = (cell, row, rowIndex, formatExtraData) => {

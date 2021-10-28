@@ -75,10 +75,22 @@ public class EventController {
      */
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/companies/{companyId}/events")
-    public Event addEvent (@PathVariable (value = "companyId") Long companyId, @RequestBody Event event) {
+    @PostMapping("/users/{userEmail}/companies/{companyId}/events")
+    public Event addEvent (@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId, @RequestBody Event event) {
+        
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+        
         return companies.findById(companyId).map(company -> {
             event.setCompany(company);
+            Set <User> userList = event.getUsers();
+            userList.add(user);
+            Set <Event> eventList = user.getEvents();
+            eventList.add(event);
+            users.save(user);
             return events.save(event);
         }).orElseThrow(() -> new CompanyNotFoundException(companyId));
         }
@@ -115,6 +127,8 @@ public class EventController {
         }
         return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
             event.setEvent(newEvent.getEvent());
+            event.setEventDate(newEvent.getEventDate());
+            event.setLocation(newEvent.getLocation());
             return events.save(event);
         }).orElseThrow(() -> new EventNotFoundException(eventId));
     }

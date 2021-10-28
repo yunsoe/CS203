@@ -28,7 +28,7 @@ public class Event {
     @JsonIgnore
     private Company company;
 
-    @ManyToMany(mappedBy = "events")
+    @ManyToMany(mappedBy = "events", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet<>();
 
 
