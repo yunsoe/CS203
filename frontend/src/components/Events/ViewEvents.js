@@ -18,7 +18,7 @@ export default function ViewEvents() {
 
     const[events, setEvents] = useState(null);
     // const[removeEvent,setRemoveEvent] = useState("");
-    const[eventId,setEventId] = useState();
+    // const[eventId,setEventId] = useState();
 
     const redirectToUpdate = (id) => {
         localStorage.setItem("eventId",id);
@@ -39,13 +39,13 @@ export default function ViewEvents() {
     
     const removeEvent = (id) => {
         console.log(id)
-        localStorage.setItem("eventId",id);
+        state.id = id;
         sendDetailsToServer();
     }
 
     const removeUserFromEvent = (id) => {
         console.log(id)
-        localStorage.setItem("eventId",id);
+        state.id = id;
         sendRemoveDetailsToServer();
     }
 
@@ -75,51 +75,71 @@ export default function ViewEvents() {
     }
 
     const sendDetailsToServer = () => {
-        const companyId =  fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company").json();
-
         fetch(
-            API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
+            API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
             {
-                method: "DELETE",
-                headers: {
+                method: "GET",
+            }
+        ).then(function (response) {
+            response.json().then(function(companyId) {
+                fetch(
+                    API_BASE_URL + "companies/" + companyId + "/events/" + state.id,
+                    {
+                    method: "DELETE",
+                    headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                     "authorization": localStorage.getItem("accessToken"),
                 },
-            }
-        ).then(function(response) {
-            if (response.status === 200) {
-                alert("Event has been deleted successfully.");
-                window.location.reload();
-            } else {
-                console.log(response.json);
-                alert("There was an error on our side, please try again later.");
-            }
-        })
+                    }
+                ).then(function (response) {
+                    if (response.status === 200) {
+                        setState((prevState) => ({
+                            ...prevState
+                        }));
+                        alert("Event has been deleted successfully.");
+                        window.location.reload();
+                    } else {
+                        console.log(response.json);
+                        alert("There was an error on our side, please try again later.");
+                    }
+                });
+            });
+        });
     }
 
     const sendRemoveDetailsToServer = () => {
-        const companyId =  fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company").json();
-
         fetch(
-            API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("eventId"),
+            API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
             {
-                method: "DELETE",
-                headers: {
+                method: "GET",
+            }
+        ).then(function (response) {
+            response.json().then(function(companyId) {
+                fetch(
+                    API_BASE_URL + "events/" + companyId + "/" + localStorage.getItem("eventId") + "/users/" + localStorage.getItem("email"),
+                    {
+                    method: "PUT",
+                    headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*",
                     "authorization": localStorage.getItem("accessToken"),
                 },
-            }
-        ).then(function(response) {
-            if (response.status === 200) {
-                alert("Event has been deleted successfully.");
-                window.location.reload();
-            } else {
-                console.log(response.json);
-                alert("There was an error on our side, please try again later.");
-            }
-        })
+                    }
+                ).then(function (response) {
+                    if (response.status === 200) {
+                        setState((prevState) => ({
+                            ...prevState
+                        }));
+                        alert("User has been unregistered from event successfully.");
+                        window.location.reload();
+                    } else {
+                        console.log(response.json);
+                        alert("There was an error on our side, please try again later.");
+                    }
+                });
+            });
+        });
     }
 
 
