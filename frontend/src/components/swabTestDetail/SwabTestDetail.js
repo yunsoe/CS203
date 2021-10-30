@@ -15,7 +15,11 @@ export default function SwabTestDetail() {
         email: "",
         Id: ""
     });
-    const [data, setData] = useState(null);
+    const[data, setData] = useState();
+    const [combo, setCombo] = useState([{
+        info: "",
+        index: ""
+    }]);
     const[removeSwab,setRemoveSwab] = useState("");
     const[swabId,setSwabId] = useState();
 
@@ -37,10 +41,11 @@ export default function SwabTestDetail() {
         );
       };
 
-      const removeEmployee = (id) => {
-        state.email = data[id].user.email;
-        //setRemoveSwab(data[id].user.email);
+      const removeEmployee = (index,id) => {
         console.log(id)
+        
+        state.email = data[index -1].user.email;
+        //setRemoveSwab(data[id].user.email);
         state.Id = id;
         //setSwabId(id);
         sendDetailsToServer();
@@ -50,7 +55,7 @@ export default function SwabTestDetail() {
         return (
           <Button
             onClick={() => {
-                removeEmployee(row.id);
+                removeEmployee(row.index, row.id);
             }}
           >
             Remove
@@ -60,7 +65,7 @@ export default function SwabTestDetail() {
 
     const columns = [
         {
-          dataField: "id",
+          dataField: "index",
           text: "No.",
           sort: true
         },
@@ -117,11 +122,16 @@ export default function SwabTestDetail() {
 
     useEffect(() => {
         axios.get(`http://localhost:8080/swabTestDetails/${localStorage.getItem("email")}`).then(response=>{
-            setData(response.data)
-            console.log(localStorage.getItem("email"));
             console.log(response.data);
             //setState(state);
-            console.log(response)
+  
+
+           //data.forEach((item,i) => setCombo({info : item, index : i +1}))
+           //console.log(combo)
+           response.data.forEach((item,i) => {response.data[i].index = i +1 } )
+           setData(response.data)
+           //response.data.forEach((item,i) => {console.log(item.index)} )
+           console.log(response.data);
         }).catch((error) => {
           console.log(error)
         })

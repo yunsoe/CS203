@@ -13,8 +13,9 @@ export default function SwabTestUserView() {
     const[state,setState] = useState({});
     const [data, setData] = useState(null);
 
-    const redirectToUpdtae = (id) => {
-        localStorage.setItem("swabDate",data[id].actualSwabDate);
+    const redirectToUpdtae = (index,id) => {
+        console.log(data[index-1])
+        localStorage.setItem("swabDate",data[index - 1].actualSwabDate);
         localStorage.setItem("swabId",id);        
         history.push("/update");
       };
@@ -24,7 +25,7 @@ export default function SwabTestUserView() {
         return (
           <Button
             onClick={() => {
-                redirectToUpdtae(row.id);
+                redirectToUpdtae(row.index,row.id);
             }}
           >
             Update
@@ -34,7 +35,7 @@ export default function SwabTestUserView() {
 
     const columns = [
         {
-          dataField: "id",
+          dataField: "index",
           text: "No.",
           sort: true
         },
@@ -58,6 +59,7 @@ export default function SwabTestUserView() {
 
     useEffect(() => {
         axios.get(`http://localhost:8080/users/${localStorage.getItem("email")}/swabTests`).then(response=>{
+          response.data.forEach((item,i) => {response.data[i].index = i +1 } )
             setData(response.data)
             console.log(localStorage.getItem("email"));
             console.log(response.data);
