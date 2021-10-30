@@ -10,6 +10,7 @@ import com.example.g2t6.user.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 @Component
 public class RunnableTask implements Runnable {
