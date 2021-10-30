@@ -7,7 +7,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
 
-export default function ViewAllCompanyEvents() {
+export default function ViewOtherCompanyEvents() {
 
     const[state,setState] = useState({
         id:""
@@ -81,7 +81,7 @@ export default function ViewAllCompanyEvents() {
             
 
             const companyId = await (await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company")).json();
-            const response = await fetch(API_BASE_URL + "companies/" + companyId + "/events");
+            const response = await fetch(API_BASE_URL + "companies/" + companyId + "/events/" + localStorage.getItem("email"));
             const data = await response.json();
 
             console.log(data);
@@ -125,7 +125,7 @@ export default function ViewAllCompanyEvents() {
     function renderPage() {
             return(
                 <div>
-                    <h3>View All Company Events</h3>
+                    <h3>View Other Company Events</h3>
                     <br/>
                     {events ? 
                         <BootstrapTable
