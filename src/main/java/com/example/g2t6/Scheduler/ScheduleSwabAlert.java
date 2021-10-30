@@ -1,5 +1,6 @@
 // package com.example.g2t6.Scheduler;
 
+// import java.util.ArrayList;
 // import java.util.List;
 // import java.util.concurrent.ScheduledFuture;
 
@@ -17,6 +18,7 @@
 // import org.springframework.scheduling.TaskScheduler;
 // import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 // import org.springframework.scheduling.support.CronTrigger;
+// import org.springframework.stereotype.Service;
 
 // @Service
 // public class ScheduleSwabAlert {
@@ -34,13 +36,16 @@
 
 //     @SuppressWarnings("rawtypes")
 //     public void Schedule() {
-//         if(taskScheduler== null){
+//         if(taskScheduler == null){
 //             this.taskScheduler = new ConcurrentTaskScheduler();
 //         }
 //         if (this.scheduledFuture != null) {
 //             for (ScheduledFuture s:scheduledFuture) {
 //                 s.cancel(true);
 //             }
+//             scheduledFuture = new ArrayList<>();
+//         } else {
+//             scheduledFuture = new ArrayList<>();
 //         }
 //         List<User> users = userRepository.findAll();
 //         for (User u:users) {

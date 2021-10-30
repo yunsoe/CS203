@@ -1,37 +1,39 @@
-package com.example.g2t6.Scheduler;
+// package com.example.g2t6.Scheduler;
 
-import java.time.LocalDateTime;
+// import java.time.LocalDateTime;
 
-import com.example.g2t6.alert.Alert;
-import com.example.g2t6.alert.AlertServiceImpl;
-import com.example.g2t6.mail.MailService;
-import com.example.g2t6.swabTestDetail.SwabTestDetail;
-import com.example.g2t6.user.User;
+// import com.example.g2t6.alert.Alert;
+// import com.example.g2t6.alert.AlertServiceImpl;
+// import com.example.g2t6.mail.MailService;
+// import com.example.g2t6.swabTestDetail.SwabTestDetail;
+// import com.example.g2t6.user.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.core.userdetails.UsernameNotFoundException;
+// import org.springframework.stereotype.Component;
 
-@Component
-public class RunnableTask implements Runnable {
-    private User user;
+// //@Component
+// public class RunnableTask implements Runnable {
 
-    private SwabTestDetail swabTestDetail;
+//     private User user;
 
-    @Autowired
-    private AlertServiceImpl alertServiceImpl;
+//     private SwabTestDetail swabTestDetail;
 
-    // @Autowired
-    // private MailService mailService;
+//     @Autowired
+//     private AlertServiceImpl alertServiceImpl;
 
-    public RunnableTask(User user, SwabTestDetail swabTestDetail) {
-        this.user = user;
-        this.swabTestDetail = swabTestDetail;
-    }   
+//     // @Autowired
+//     // private MailService mailService;
+
     
-    @Override
-    public void run() {
-        LocalDateTime now = LocalDateTime.now();
-        alertServiceImpl.addAlert(user.getEmail(), new Alert(now.toString(), swabTestDetail.getMessage()));
-    }
-}
+//     public RunnableTask(User user, SwabTestDetail swabTestDetail) {
+//         this.user = user;
+//         this.swabTestDetail = swabTestDetail;
+//     }   
+    
+//     @Override
+//     public void run() {
+//         LocalDateTime now = LocalDateTime.now();
+//         alertServiceImpl.addAlert(user.getEmail(), new Alert(now.toString(), swabTestDetail.getMessage()));
+//     }
+// }
