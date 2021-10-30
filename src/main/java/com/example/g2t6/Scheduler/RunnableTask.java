@@ -36,6 +36,6 @@ public class RunnableTask implements Runnable {
     public void run() {
         LocalDateTime now = LocalDateTime.now();
         this.alertServiceImpl.addAlert(this.user.getEmail(), new Alert(now.toString(), this.swabTestDetail.getMessage()));
-        System.out.println("It runs!!!");
+        System.out.println("Swab test alert configured.");
     }
 }

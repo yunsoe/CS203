@@ -68,7 +68,7 @@ public class ScheduleSwabAlert {
     public void initializeScheduler() {
         try {
             this.Schedule();
-            System.out.println("Hi");
+            System.out.println("Scheduler re-initialized.");
         } catch (SchedulingException e) {
             LOGGER.error(e.getMessage(), e);
         }
