@@ -46,7 +46,7 @@ public class EventController {
     }
 
     @GetMapping("/companies/{companyId}/events/{userEmail}")
-    public Set<Event> getAllOtherEventsByCompanyId(@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "companyId") String userEmail) {
+    public Set<Event> getAllOtherEventsByCompanyId(@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "userEmail") String userEmail) {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         }
