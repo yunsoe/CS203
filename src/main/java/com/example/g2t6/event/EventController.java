@@ -3,6 +3,7 @@ package com.example.g2t6.event;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.HashSet;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,8 +45,28 @@ public class EventController {
         return events.findByCompanyId(companyId);
     }
 
+    @GetMapping("/companies/{companyId}/events/{userEmail}")
+    public Set<Event> getAllOtherEventsByCompanyId(@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "companyId") String userEmail) {
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+
+        Set <Event> unregisteredEvents = new HashSet <Event> (events.findByCompanyId(companyId));
+
+
+        unregisteredEvents.removeAll(user.getEvents());
+
+        return unregisteredEvents;
+    }
+
     @GetMapping("/users/{userEmail}/events")
-    public Set<Event> getAllUserEvents(@PathVariable (value = "userEmail") String userEmail) {
+    public Set<Event> getAllEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) {
         User user = users.findByEmail(userEmail).orElse(null);
 
         if (user == null) {
