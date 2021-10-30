@@ -28,6 +28,7 @@ export default function NavMenu() {
             <NavDropdown.Item href="/eventForm">Event Form</NavDropdown.Item>
             <NavDropdown.Item href="/viewEvents">View Events</NavDropdown.Item>
             <NavDropdown.Item href="/viewOtherCompanyEvents">View Other Company Events</NavDropdown.Item>
+            <NavDropdown.Item href="/viewCovidEvents">View Covid Events</NavDropdown.Item>
 
           </NavDropdown>
           

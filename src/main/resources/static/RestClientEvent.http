@@ -19,6 +19,11 @@ GET http://localhost:8080/users/test1@gmail.com/events
 
 GET http://localhost:8080/companies/1/events/test1@gmail.com
 
+#get events with users who tested positive 
+###
+
+GET http://localhost:8080/swabTests/events/1
+
 
 #add event
 ###
