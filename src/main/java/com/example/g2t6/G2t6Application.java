@@ -46,7 +46,7 @@ public class G2t6Application {
     }
 
 }
-/*
+
 @Configuration
 @EnableScheduling
 @ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
@@ -60,4 +60,4 @@ class SchedulingConfiguration {
 	}
 	
 }
-*/
+

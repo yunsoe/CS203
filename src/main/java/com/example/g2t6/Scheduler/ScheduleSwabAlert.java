@@ -1,0 +1,64 @@
+// package com.example.g2t6.Scheduler;
+
+// import java.util.List;
+// import java.util.concurrent.ScheduledFuture;
+
+// import javax.annotation.PostConstruct;
+
+// import com.example.g2t6.swabTestDetail.SwabTestDetail;
+// import com.example.g2t6.swabTestDetail.SwabTestDetailRepository;
+// import com.example.g2t6.user.User;
+// import com.example.g2t6.user.UserRepository;
+
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.scheduling.SchedulingException;
+// import org.springframework.scheduling.TaskScheduler;
+// import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
+// import org.springframework.scheduling.support.CronTrigger;
+
+// @Service
+// public class ScheduleSwabAlert {
+//     private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleSwabAlert.class);
+
+//     @SuppressWarnings("rawtypes")
+//     List<ScheduledFuture> scheduledFuture;
+//     TaskScheduler taskScheduler;
+
+//     @Autowired
+//     private SwabTestDetailRepository swabTestDetailRepository;
+
+//     @Autowired
+//     private UserRepository userRepository;
+
+//     @SuppressWarnings("rawtypes")
+//     public void Schedule() {
+//         if(taskScheduler== null){
+//             this.taskScheduler = new ConcurrentTaskScheduler();
+//         }
+//         if (this.scheduledFuture != null) {
+//             for (ScheduledFuture s:scheduledFuture) {
+//                 s.cancel(true);
+//             }
+//         }
+//         List<User> users = userRepository.findAll();
+//         for (User u:users) {
+//             List<SwabTestDetail> swabTestDetails = swabTestDetailRepository.findByuserEmail(u.getEmail());
+//             for (SwabTestDetail s:swabTestDetails) {
+//                 String cronExpressionStr = "* " + s.getAlertTime().substring(3) + " " + s.getAlertTime().substring(0, 2) + " * * " + s.getAlertDay();
+//                 this.scheduledFuture.add(this.taskScheduler.schedule(new RunnableTask(u, s), new CronTrigger(cronExpressionStr)));
+//             }
+//         }
+//     }
+
+//     @PostConstruct
+//     public void initializeScheduler() {
+//         try {
+//             this.Schedule();
+//         } catch (SchedulingException e) {
+//             LOGGER.error(e.getMessage(), e);
+//         }
+//     }
+
+// }

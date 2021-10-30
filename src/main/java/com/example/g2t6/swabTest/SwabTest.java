@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 import lombok.*;
 import com.example.g2t6.user.*;
 import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter

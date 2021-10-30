@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.Optional;
 public interface SwabTestDetailRepository extends JpaRepository<SwabTestDetail, Long>{
 
-    List<SwabTestDetail> findByuserEmail(String userEmai);
+    List<SwabTestDetail> findByuserEmail(String userEmail);
     Optional<SwabTestDetail> findByIdAndUserEmail(Long id,String userEmail);
 }

@@ -12,6 +12,7 @@ import javax.validation.constraints.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -89,6 +90,7 @@ public class User implements UserDetails {
     // We define two roles/authorities: ROLE_USER or ROLE_ADMIN
     @Column(name="authorities")
     private String authorities;
+
 
     public User(String email, String name, String password, String role, String authorities){
         this.email = email;
