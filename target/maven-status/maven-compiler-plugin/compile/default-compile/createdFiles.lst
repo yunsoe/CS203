@@ -5,7 +5,6 @@ com/example/g2t6/company/Company.class
 com/example/g2t6/user/UserRepository.class
 com/example/g2t6/feedback/FeedbackNotFoundException.class
 com/example/g2t6/user/CustomUserDetailsService.class
-com/example/g2t6/Scheduler/ScheduleEventAlert.class
 com/example/g2t6/news/NewsNotFoundException.class
 com/example/g2t6/industry/IndustryService.class
 com/example/g2t6/mail/Mail.class

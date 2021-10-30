@@ -62,7 +62,7 @@ export default function SwabTestDetailForm() {
     return(
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
-             <h3>Submit Swab Result</h3>
+             <h3>Submit Swab Test Alert Details</h3>
 
         <br/>
         <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
@@ -90,7 +90,7 @@ export default function SwabTestDetailForm() {
                     <Form.Label>Details:</Form.Label>
                             <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={handleChange} id="message" />
                 </Form.Group>
-             <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
+             <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit</Button>
             </Form.Group>
         </Form>
         </div>
