@@ -4,15 +4,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.ArrayList;
+
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.example.g2t6.company.*;
+import com.example.g2t6.swabTest.*;
 import com.example.g2t6.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import javax.validation.Valid;
+
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDate;  
 
 
 
@@ -28,6 +34,14 @@ public class EventController {
 
     @Autowired
     private UserRepository users;
+
+    @Autowired
+    private SwabTestService swabTestService;
+
+    @Autowired
+    private SwabTestRepository swabTests;
+
+
 
     /**
      * This controller works with the repositories directly, without a service layer
@@ -86,6 +100,39 @@ public class EventController {
             Set <User> userList = event.getUsers();
             return userList;
         }).orElseThrow(() -> new EventNotFoundException(eventId));
+        }
+
+    @GetMapping("swabTests/events/{companyId}")
+    public Set<Event> getAllEventsBySwabTestResultsAndCompanyId(@PathVariable (value = "companyId") Long companyId) {
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        } 
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate date = LocalDate.now();  
+
+        List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
+
+        
+        for (int i = 0; i < 14; i++) {
+            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, date.minusDays(i)));
+        }
+        Set <User>  positiveUsers = new HashSet <User> ();
+        Set <Event> positiveEvents = new HashSet <Event> ();
+
+        for (SwabTest swabTest : positiveSwabTests){
+            positiveUsers.add(swabTest.getUser());
+        }
+
+        for (User user : positiveUsers){
+            positiveEvents.addAll(user.getEvents());
+        }
+
+
+        positiveEvents.retainAll(events.findByCompanyId(companyId));
+
+        
+        return positiveEvents;        
         }
 
 
