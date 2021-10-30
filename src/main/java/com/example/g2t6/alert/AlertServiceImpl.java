@@ -24,10 +24,14 @@ public class AlertServiceImpl implements AlertService {
     @Autowired
     private MailService mailService;
 
-    public AlertServiceImpl(AlertRepository alertRepository, UserRepository userRepository) {
-        this.alertRepository = alertRepository;
-        this.userRepository = userRepository;
-    }
+    // public AlertServiceImpl() {
+
+    // }
+
+    // public AlertServiceImpl(AlertRepository alertRepository, UserRepository userRepository) {
+    //     this.alertRepository = alertRepository;
+    //     this.userRepository = userRepository;
+    // }
 
     @Override
     public List<Alert> getAllAlertsByUser(String userEmail) {
