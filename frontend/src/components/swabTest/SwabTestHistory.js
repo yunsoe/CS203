@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState,useEffect } from "react";
-import { Button,InputGroup,FormControl, Card,ListGroup } from "react-bootstrap";
+import { Button,InputGroup,FormControl, Card,ListGroup, Form} from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 
 export default function SwabTestForm() {
@@ -59,29 +62,55 @@ export default function SwabTestForm() {
        }
 
 
-    const item = (datas) => (
-        <ListGroup.Item key={datas.id}>
-          <Card>
-            <Card.Body>
-              <Card.Title>{datas.user.name}</Card.Title>
-              <Card.Subtitle>{datas.user.email}</Card.Subtitle>
-              <Card.Subtitle>{datas.actualSwabDate}</Card.Subtitle>
-              <Card.Text>{datas.swabResult == false ? <Card.Subtitle>False</Card.Subtitle> :
-              <Card.Subtitle>True</Card.Subtitle>}</Card.Text>
-            </Card.Body>
-          </Card>
-        </ListGroup.Item>
-      );
+    // const item = (datas) => (
+    //     <ListGroup.Item key={datas.id}>
+    //       <Card>
+    //         <Card.Body>
+    //           <Card.Title>{datas.user.name}</Card.Title>
+    //           <Card.Subtitle>{datas.user.email}</Card.Subtitle>
+    //           <Card.Subtitle>{datas.actualSwabDate}</Card.Subtitle>
+    //           <Card.Text>{datas.swabResult == false ? <Card.Subtitle>False</Card.Subtitle> :
+    //           <Card.Subtitle>True</Card.Subtitle>}</Card.Text>
+    //         </Card.Body>
+    //       </Card>
+    //     </ListGroup.Item>
+    //   );
+
+      const columns = [
+     
+        {
+          dataField: "user.name",
+          text: "User",
+          sort: true,
+          style: { background: "white" }
+
+        },
+        {
+          dataField: "user.email",
+          text: "email",
+          sort: true
+        },
+        {
+          dataField: "swabResult",
+          text: "Result",
+          sort: true
+        },
+        {
+            dataField: "actualSwabDate",
+            text: "Date",
+            sort: true
+          }
+    ];
 
    
     function loadData2(){
       const date = format(startDate ,'yyyy-MM-dd')
         const date2 = format(endDate ,'yyyy-MM-dd')
         axios.get(`${API_BASE_URL}swabTests/${date}/date/${date2}`).then(response=>{
-          setData(response.data)
+          setData(response.data);
           console.log(response.data);
           setState(state);
-          console.log(response)
+          console.log(data)
       }).catch((error) => {
         console.log(error)
       })
@@ -94,6 +123,7 @@ export default function SwabTestForm() {
             if(thing.email == userEmail){
               setUserExist(true);
               console.log(thing.email);
+              console.log(data);
             }
           })
           
@@ -154,7 +184,7 @@ export default function SwabTestForm() {
             </Button>
             </InputGroup>
            
-            <Card className="to-do-well">
+            {/* <Card className="to-do-well">
               <Card.Body>
                 <Card.Title><h2>Swab Results</h2></Card.Title>
                 {employees ? (
@@ -166,8 +196,28 @@ export default function SwabTestForm() {
                 )}
                 
               </Card.Body>
-            </Card>
-           
+            </Card> */}
+            
+            <div className="col-12 col-lg-10 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
+
+            <div >
+                    <h3>Employees Swab Results</h3>
+                    <br/>
+                    <Form id="swabTestHistory">
+                        {employees ? (
+                            <BootstrapTable
+                                bootstrap4
+                                keyField="id"
+                                data={data}
+                                columns={columns}
+                                pagination={paginationFactory({ sizePerPage: 5 })}
+                            />
+                        ) : (
+                            <p>The company has no employees yet.</p>
+                        )}
+                    </Form>
+                </div>
+           </div>
         </div>
     );
 }

@@ -38,12 +38,13 @@ export default function SwabTestUserView() {
         {
           dataField: "index",
           text: "No.",
-          sort: true
+          sort: true,
         },
         {
           dataField: "actualSwabDate",
           text: "Date",
-          sort: true
+          sort: true,
+
         },
         {
           dataField: "swabResult",

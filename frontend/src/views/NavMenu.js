@@ -33,9 +33,10 @@ export default function NavMenu() {
           </NavDropdown>
           
           <NavDropdown title="Swab Test" id="swabTest-nav-dropdown">
-          <NavDropdown.Item href="/swabTestForm">Swab Test Form</NavDropdown.Item>
           {localStorage.getItem("authority") === "ROLE_ADMIN"? <NavDropdown.Item href="/swabTestHistory">View Swab Test History</NavDropdown.Item>:
-          <NavDropdown.Item href="/swabTestUserView">View Individual Swab Test</NavDropdown.Item>  
+          <><NavDropdown.Item href="/swabTestUserView">View Individual Swab Test</NavDropdown.Item>
+          <NavDropdown.Item href="/swabTestForm">Swab Test Form</NavDropdown.Item>
+          </>
           }
         </NavDropdown>
         <NavDropdown title="Swab Test Alert" id="SwabTestDetail-nav-dropdown">
