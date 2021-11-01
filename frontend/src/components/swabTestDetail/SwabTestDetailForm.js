@@ -67,7 +67,7 @@ export default function SwabTestDetailForm() {
         <br/>
         <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
         <Col>
-        <Form.Label>swab Result:</Form.Label>
+        <Form.Label>Date:</Form.Label>
         </Col>
          <Col>
         <select value={date} onChange={(e) => handleChange2(e.target.value)}  >

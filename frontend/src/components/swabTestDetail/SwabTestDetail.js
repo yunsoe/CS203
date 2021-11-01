@@ -16,12 +16,7 @@ export default function SwabTestDetail() {
         Id: ""
     });
     const[data, setData] = useState();
-    const [combo, setCombo] = useState([{
-        info: "",
-        index: ""
-    }]);
-    const[removeSwab,setRemoveSwab] = useState("");
-    const[swabId,setSwabId] = useState();
+
 
     const redirectToUpdtae = (id) => {
         localStorage.setItem("swabDetailId",id);        
@@ -121,7 +116,7 @@ export default function SwabTestDetail() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/swabTestDetails/${localStorage.getItem("email")}`).then(response=>{
+        axios.get(`${API_BASE_URL}swabTestDetails/${localStorage.getItem("email")}`).then(response=>{
             console.log(response.data);
             //setState(state);
   

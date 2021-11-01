@@ -77,7 +77,7 @@ export default function SwabTestForm() {
     function loadData2(){
       const date = format(startDate ,'yyyy-MM-dd')
         const date2 = format(endDate ,'yyyy-MM-dd')
-        axios.get(`http://localhost:8080/swabTests/${date}/date/${date2}`).then(response=>{
+        axios.get(`${API_BASE_URL}swabTests/${date}/date/${date2}`).then(response=>{
           setData(response.data)
           console.log(response.data);
           setState(state);

@@ -5,6 +5,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
+import { API_BASE_URL } from "../../constants/apiConstants";
 
 
 export default function SwabTestUserView() {
@@ -58,7 +59,7 @@ export default function SwabTestUserView() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/users/${localStorage.getItem("email")}/swabTests`).then(response=>{
+        axios.get(`${API_BASE_URL}users/${localStorage.getItem("email")}/swabTests`).then(response=>{
           response.data.forEach((item,i) => {response.data[i].index = i +1 } )
             setData(response.data)
             console.log(localStorage.getItem("email"));
