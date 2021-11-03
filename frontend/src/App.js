@@ -17,6 +17,7 @@ import "./components/Home/home.css"
 import EventForm from "./components/Events/EventForm";
 import ViewEvents from "./components/Events/ViewEvents";
 import UpdateEvent from "./components/Events/UpdateEvent";
+import ViewAttendees from "./components/Events/ViewAttendees";
 import ViewOtherCompanyEvents from "./components/Events/ViewOtherCompanyEvents";
 import ViewCovidEvents from "./components/Events/ViewCovidEvents";
 import SwabTestForm from "./components/swabTest/SwabTestForm";
@@ -111,6 +112,7 @@ export default class App extends Component {
             <Route path="/viewOtherCompanyEvents" component={ViewOtherCompanyEvents} />
             <Route path="/viewCovidEvents" component={ViewCovidEvents} />
             <Route path="/updateEvent" component={UpdateEvent} />
+            <Route path="/viewAttendees" component={ViewAttendees} />
             <Route path="/register" component={RegistrationForm} />
             <Route path="/removeEmployee" component={RemoveEmployeeForm} />
             <Route path="/addEmployee" component={AddEmployeeForm} />

@@ -25,6 +25,11 @@ export default function ViewEvents() {
         history.push("/updateEvent");
     }
 
+    const redirectToView = (id) => {
+        localStorage.setItem("eventId",id);
+        history.push("/viewAttendees");
+    }
+
     const updateInfo = (cell, row, rowIndex, formatExtraData) => {
         return (
             <Button
@@ -33,6 +38,18 @@ export default function ViewEvents() {
               }}
             >
               Update
+            </Button>
+          );
+    }
+
+    const viewAttendees = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  redirectToView(row.id);
+              }}
+            >
+              View Attendees 
             </Button>
           );
     }
@@ -181,6 +198,11 @@ export default function ViewEvents() {
             dataField: "location",
             text: "Location",
             sort: true
+        },
+        {
+            dataField: "View Attendees",
+            text: "View Attendees",
+            formatter: viewAttendees
         },
         {
             dataField: "Update",
