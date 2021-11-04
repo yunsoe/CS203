@@ -101,32 +101,3 @@ export default function SwabTestDetailForm() {
     );
 }
 
-
-
-
-/**import { TimePicker } from 'antd';
-import moment from 'moment';
-
-const format = 'HH:mm';
-import React, { useState } from 'react';
-import { TimePicker } from 'antd';
-
-const Demo = () => {
-  const [value, setValue] = useState(null);
-
-  const onChange = time => {
-    setValue(time);
-  };
-
-  return <TimePicker value={value} onChange={onChange} />;
-};
-
-ReactDOM.render(<Demo />, mountNode);
-); 
-
-import { TimePicker } from 'antd';
-import moment from 'moment';
-
-const format = 'HH:mm';
-
-ReactDOM.render(<TimePicker defaultValue={moment('12:08', format)} format={format} />, mountNode);*/
