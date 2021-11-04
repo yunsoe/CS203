@@ -111,7 +111,7 @@ export default class App extends Component {
             <Route path="/eventForm" component={EventForm} />
             <Route path="/viewEvents" component={ViewEvents} />
             <Route path="/viewOtherCompanyEvents" component={ViewOtherCompanyEvents} />
-            <Route path="/viewCovidEvents" component={ViewCovidEvents} />
+            {/* <Route path="/viewCovidEvents" component={ViewCovidEvents} /> */}
             <Route path="/updateEvent" component={UpdateEvent} />
             <Route path="/viewAttendees" component={ViewAttendees} />
             <Route path="/viewEventHistory" component={ViewEventHistory} />

@@ -37,7 +37,7 @@ export default function ViewEvents() {
                   redirectToUpdate(row.id);
               }}
             >
-              Update
+              Edit
             </Button>
           );
     }
@@ -205,7 +205,7 @@ export default function ViewEvents() {
             formatter: viewAttendees
         },
         {
-            dataField: "Update",
+            dataField: "Edit",
             text: "Edit",
             formatter: updateInfo
         },
