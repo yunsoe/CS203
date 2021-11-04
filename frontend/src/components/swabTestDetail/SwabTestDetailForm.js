@@ -74,7 +74,7 @@ export default function SwabTestDetailForm() {
             <option  value="MON">Mon</option> 
             <option value="TUE">Tue</option>
             <option value="WED">Wed</option>
-            <option value="THURS">Thurs</option>
+            <option value="THU">Thurs</option>
             <option value="FRI">Friday</option>
             <option value="SAT">Sat</option>
             <option value="SUN">Sun</option>

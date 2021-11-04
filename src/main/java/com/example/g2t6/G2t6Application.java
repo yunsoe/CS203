@@ -2,6 +2,10 @@ package com.example.g2t6;
 
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,6 +49,13 @@ public class G2t6Application {
         return firewall;
     }
 
+	@PostConstruct
+    public void init() {
+
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
+
+        System.out.println("Date in UTC: " + new Date().toString());
+    }
 }
 
 @Configuration
