@@ -105,7 +105,7 @@ export default function SwabTestDetail() {
             }
         ).then(function(response) {
             if (response.status === 200) {
-                alert("Employee has been removed successfully.");
+                alert("Swab Test Alert has been removed successfully.");
                 window.location.reload();
             } else {
                 console.log(response.json);
