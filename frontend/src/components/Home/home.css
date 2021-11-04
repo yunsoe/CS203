@@ -245,6 +245,7 @@ width: 600px;
   height: 450px;
   margin: 20px;
   border-radius: 10px;
+  border-color: #000000;
   overflow: hidden;
   box-shadow: 0px 10px 12px rgba(0,0,0,0.1);
   transition: 0.3s ease-in-out;
@@ -255,6 +256,10 @@ width: 600px;
   height: 60%;
 
 }
+.a-b-text{
+  color: #000000;
+
+}
 .a-b-img img{
   padding: 15px;
   width:100%;
@@ -263,6 +268,13 @@ width: 600px;
 }
 .a-box:hover{
   box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+}
+.button-text {
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: bolder;
+  padding: 20px
 }
 #presentation{
   padding-top: 30px;

@@ -1,4 +1,5 @@
 import React from 'react';
+import './home.css';
 
 
 function Featuresbox(props) {
@@ -9,8 +10,7 @@ function Featuresbox(props) {
             </div>
 
             <div className='a-b-text'>
-                <h2> {props.title} </h2>
-                {/* <p> Lorem Ipsum </p> */}
+                <h2 className = 'button-text'> {props.title} </h2>
             </div>
         </div>
     )

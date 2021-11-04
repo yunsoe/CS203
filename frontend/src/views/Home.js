@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
 import Header from '../components/Home/Header';
-import Features from '../components/Home/Features';
-import About from '../components/Home/About';
-import Presentation from '../components/Home/Presentation';
-import Contact from '../components/Home/Contact';
-import aboutimage from '../components/Home/images/Frame 19.png';
-import aboutimage1 from '../components/Home/images/download.png';
 import Featuresbox from '../components/Home/Featuresbox';
 import newspaper from '../components/Home/images/newspaper.png';
 import swabtest from '../components/Home/images/swabtest.png';
