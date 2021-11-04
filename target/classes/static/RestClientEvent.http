@@ -8,6 +8,11 @@ GET http://localhost:8080/companies/1/events
 
 GET http://localhost:8080/users/1/8
 
+#get user past events 
+###
+
+GET http://localhost:8080/users/test1@gmail.com/1/events
+
 
 #get user events 
 ###
@@ -60,4 +65,4 @@ Content-Type: application/json
 
 #delete event 
 ###
-DELETE http://localhost:8080/companies/1/events/5
+DELETE http://localhost:8080/companies/1/events/10

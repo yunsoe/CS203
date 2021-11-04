@@ -4,6 +4,9 @@ import com.example.g2t6.company.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import com.example.g2t6.user.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,6 +51,14 @@ public class Event {
         this.event = event;
         this.eventDate = eventDate;
         this.location = location;
+    }
+
+    public LocalDate getDate (String eventDate) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(eventDate, formatter);
+
+        return date;
     }
 
 }
