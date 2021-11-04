@@ -242,7 +242,7 @@ width: 600px;
 .a-box{
   background-color: #ffffff;
   width:300px;
-  height: 450px;
+  height: 300px;
   margin: 20px;
   border-radius: 10px;
   border-color: #000000;
@@ -252,9 +252,9 @@ width: 600px;
   position: relative;
 }
 .a-b-img{
-  width: 100%;
-  height: 60%;
-
+  /* height: 60%;
+  width: 60%; */
+  
 }
 .a-b-text{
   color: #000000;
@@ -262,8 +262,8 @@ width: 600px;
 }
 .a-b-img img{
   padding: 15px;
-  width:100%;
-  height: 100%;
+  width:60%;
+  height: 60%;
 
 }
 .a-box:hover{
@@ -274,7 +274,8 @@ width: 600px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 25px;
   font-weight: bolder;
-  padding: 20px
+  padding: 20px;
+  font-style: oblique;
 }
 #presentation{
   padding-top: 30px;
