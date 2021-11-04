@@ -23,16 +23,8 @@ function Header() {
                {/* <p className='details'> What are you waiting for? Start now! </p> */}
                {/* <a href='#' className='cv-btn'>Start</a> */}
            </div>
-           
-        </div>
-         <div id='features'>
-         <div className='a-container'>
-             <Featuresbox image={calendar} title="Company Events" />
-             <Featuresbox image={newspaper} title="Latest Industry-Relevant News" />
-             <Featuresbox image={feedback} title="Submit Feedback" />
-             <Featuresbox image={swabtest} title="Upcoming SwabTests" />
-             <Featuresbox image={profile} title="Profile Details" />
-         </div>
+
+        
      </div>
      </div>
     )
