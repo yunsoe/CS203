@@ -32,7 +32,7 @@ export default function Home() {
         history.push("/news");
     }
     const redirectToFeedback = () => {
-        history.push("/viewFeedbacks");
+        history.push("/feedback");
     }
     const redirectToSwabTests = () => {
         history.push("/swabTestHistory");
