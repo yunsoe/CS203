@@ -10,6 +10,7 @@
     "axios": "^0.22.0",
     "bootstrap": "4",
     "date-fns": "^2.25.0",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.4",
     "react-bootstrap-table-next": "^4.0.3",

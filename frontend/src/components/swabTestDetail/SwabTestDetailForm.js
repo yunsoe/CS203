@@ -4,15 +4,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import TimePicker from 'react-time-picker';
+import moment from 'moment';
+
 
 export default function SwabTestDetailForm() {
-
-    // const [time,setTime] = useState("");
+    const [time,setTime] = useState('12:00');
+    const format = 'HH:mm';
      const [date, setDate] = useState("MON");
-    // const [msg,setMessage] = useState("");
+    //  const [msg,setMessage] = useState("");
     const [state, setState] = useState({
-        
-        time: "",
         message : ""
     });
 
@@ -27,7 +28,7 @@ export default function SwabTestDetailForm() {
 
     const handleChange2 = (event) =>
     setDate(event);
-
+ 
    
 
     const handleSubmit = (e) => {
@@ -45,7 +46,7 @@ export default function SwabTestDetailForm() {
                 },
                 body: JSON.stringify({
                     "alertDay": date,
-                    "alertTime": state.time,
+                    "alertTime": time,
                     "message" : state.message,
                 }),
             }
@@ -82,10 +83,12 @@ export default function SwabTestDetailForm() {
         </Col>
              <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             
-             <Form.Group className="mb-3">
+             {/* <Form.Group className="mb-3">
                             <Form.Label>Title:</Form.Label>
                             <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {handleChange} id="time" />
-                        </Form.Group>
+                        </Form.Group> */}
+            <TimePicker onChange={setTime} defaultValue={moment('12:00', format)} type="text" format={format} value={time} />,
+
              <Form.Group className="mb-3">
                     <Form.Label>Details:</Form.Label>
                             <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={handleChange} id="message" />
@@ -97,3 +100,33 @@ export default function SwabTestDetailForm() {
         </div>
     );
 }
+
+
+
+
+/**import { TimePicker } from 'antd';
+import moment from 'moment';
+
+const format = 'HH:mm';
+import React, { useState } from 'react';
+import { TimePicker } from 'antd';
+
+const Demo = () => {
+  const [value, setValue] = useState(null);
+
+  const onChange = time => {
+    setValue(time);
+  };
+
+  return <TimePicker value={value} onChange={onChange} />;
+};
+
+ReactDOM.render(<Demo />, mountNode);
+); 
+
+import { TimePicker } from 'antd';
+import moment from 'moment';
+
+const format = 'HH:mm';
+
+ReactDOM.render(<TimePicker defaultValue={moment('12:08', format)} format={format} />, mountNode);*/
