@@ -89,6 +89,26 @@ public class EventController {
         return user.getEvents();
     }
 
+    @GetMapping("/users/{userEmail}/companies/events")
+    public Set<Event> getAllUpcomingEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) {
+        User user = users.findByEmail(userEmail).orElse(null);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(userEmail);
+        }
+        Set <Event> events = new HashSet <Event> ();
+
+        LocalDate date;
+        
+        for (Event event : events){
+            date = event.getDate(event.getEventDate());
+            if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())){
+                events.add(event);
+            }
+        }
+        return events;
+    }
+
     @GetMapping("/users/{userEmail}/{companyId}/events")
     public Set<Event> getAllUserPastEvents(@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId) {
         if(!companies.existsById(companyId)) {
