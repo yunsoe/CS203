@@ -26,7 +26,11 @@ GET http://localhost:8080/users/sarahanngwps@gmail.com/companies/events
 
 #get event status 
 ###
-GET http://localhost:8080/swabTests/users/2/21
+GET http://localhost:8080/swabTests/users/2/23
+
+#get location status 
+###
+GET http://localhost:8080/swabTests/events/2/21
 
 
 #get user non-registered events 
@@ -48,7 +52,7 @@ Content-Type: application/json
 {
     "event": "Birthday",
     "eventDate": "10/11/2021",
-    "location": "Marina Bay Sands"
+    "location": "Carlton Hotel"
 }
 
 #add users to the event

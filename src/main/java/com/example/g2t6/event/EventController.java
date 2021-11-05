@@ -157,37 +157,46 @@ public class EventController {
         }).orElseThrow(() -> new EventNotFoundException(eventId));
         }
 
-    @GetMapping("swabTests/events/{companyId}")
-    public Set<Event> getAllEventsBySwabTestResultsAndCompanyId(@PathVariable (value = "companyId") Long companyId) {
+    @GetMapping("swabTests/events/{companyId}/{eventId}")
+    public boolean getLocationStatus (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         } 
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        LocalDate date = LocalDate.now();  
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate today = LocalDate.now();  
 
         List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
 
-        
+        //get all positive swab tests in the last 14 days 
         for (int i = 0; i < 14; i++) {
-            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, date.minusDays(i)));
+            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, today.minusDays(i)));
         }
         Set <User>  positiveUsers = new HashSet <User> ();
-        Set <Event> positiveEvents = new HashSet <Event> ();
+        Set <String> positiveLocations = new HashSet <String> ();
 
+        LocalDate date;
+        //get all the users who tested positive in the last 14 days 
         for (SwabTest swabTest : positiveSwabTests){
             positiveUsers.add(swabTest.getUser());
         }
-
+        //get the locations where they attended events in the last 14 days 
         for (User user : positiveUsers){
-            positiveEvents.addAll(user.getEvents());
+            for (Event event : user.getEvents()){
+                date = LocalDate.parse(event.getEventDate(), formatter);
+                if (date.isBefore(today) && date.isAfter(today.minusDays(14))){
+                    positiveLocations.add(event.getLocation());
+                }
+            }
         }
-
-
-        positiveEvents.retainAll(events.findByCompanyId(companyId));
-
-        
-        return positiveEvents;        
+        //check if the location of the event is contained in the set 
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            for (String location : positiveLocations){
+                if (location.equals(event.getLocation())){
+                    return true;
+                }
+            } return false;
+        }).orElseThrow(() -> new EventNotFoundException(eventId));
         }
 
     @GetMapping("swabTests/users/{companyId}/{eventId}")
