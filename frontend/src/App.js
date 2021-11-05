@@ -26,7 +26,7 @@ import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
 import update from "./components/swabTest/update";
-import updateSwabTestDetail from "./components/swabTestDetail/updateSwabTestDetail";
+import updateSwabTestDetail from "./components/swabTestDetail/UpdateSwabTestDetail";
 import News from "./views/News";
 import Regulations from "./views/Regulations";
 import SwabTestDetailForm from "./components/swabTestDetail/SwabTestDetailForm";
