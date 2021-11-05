@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import LoginForm from "../components/Login/LoginForm";
 import RegistrationForm from "../components/Registration/RegistrationForm";
+import "../components/Home/images/eventbackground.png";
 
 export default function Authentication() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   return (
     <div
       style={{
-        backgroundColor: "#001833",
+        // backgroundColor: "#001833",
         height: "100vh",
         display: "flex",
         alignItems: "center",

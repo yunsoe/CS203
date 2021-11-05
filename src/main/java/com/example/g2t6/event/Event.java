@@ -5,10 +5,13 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import com.example.g2t6.user.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -53,12 +56,13 @@ public class Event {
         this.location = location;
     }
 
-    public LocalDate getDate (String eventDate) {
+    public Date getDate () throws ParseException {
+	
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Date date = dateFormatter.parse(eventDate);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date = LocalDate.parse(eventDate, formatter);
-
-        return date;
+       return date;
     }
 
 }

@@ -8,6 +8,12 @@ body{
   background-color: #ffffff;
   font-family: 'bahnschrift', sans-serif;
 }
+
+.event {
+  background-image: "./images/background.jpg";
+
+}
+
 *{
   box-sizing: border-box;
 }

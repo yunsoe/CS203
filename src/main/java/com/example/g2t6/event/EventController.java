@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,12 @@ import com.example.g2t6.swabTest.*;
 import com.example.g2t6.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
+import javax.sound.sampled.DataLine;
 import javax.validation.Valid;
 
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
 import java.time.LocalDate;  
 
 
@@ -90,27 +95,30 @@ public class EventController {
     }
 
     @GetMapping("/users/{userEmail}/companies/events")
-    public Set<Event> getAllUpcomingEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) {
+    public Set<Event> getAllUpcomingEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) throws ParseException {
         User user = users.findByEmail(userEmail).orElse(null);
 
         if (user == null) {
             throw new UsernameNotFoundException(userEmail);
         }
-        Set <Event> events = new HashSet <Event> ();
 
-        LocalDate date;
+        Set <Event> pastEvents = new HashSet <Event> ();
+        Set <Event> allEvents = user.getEvents();
+        Date today = new Date ();
+
+        Date date; 
         
-        for (Event event : events){
-            date = event.getDate(event.getEventDate());
-            if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())){
-                events.add(event);
+        for (Event event : allEvents){
+            date = event.getDate();
+            if (date.after(today) || date.equals(today)){
+                pastEvents.add(event);
             }
         }
-        return events;
+        return pastEvents;
     }
 
     @GetMapping("/users/{userEmail}/{companyId}/events")
-    public Set<Event> getAllUserPastEvents(@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId) {
+    public Set <Event> getAllUserPastEvents(@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId) throws ParseException {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         } 
@@ -121,17 +129,19 @@ public class EventController {
             throw new UsernameNotFoundException(userEmail);
         }
 
-        Set <Event> events = new HashSet <Event> ();
+        Set <Event> pastEvents = new HashSet <Event> ();
+        Set <Event> allEvents = user.getEvents();
+        Date today = new Date ();
 
-        LocalDate date;
+        Date date; 
         
-        for (Event event : events){
-            date = event.getDate(event.getEventDate());
-            if (date.isBefore(LocalDate.now())){
-                events.add(event);
+        for (Event event : allEvents){
+            date = event.getDate();
+            if (date.before(today)){
+                pastEvents.add(event);
             }
         }
-        return events;
+        return pastEvents;
     }
 
     

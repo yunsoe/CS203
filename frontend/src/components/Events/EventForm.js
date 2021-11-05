@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { Form, Button, FormGroup } from "react-bootstrap";
+import "../Home/home.css";
 
 export default function EventForm() {
 
@@ -76,6 +77,7 @@ export default function EventForm() {
 
 
     return (
+        <div >
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom: 100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 50, backgroundColor: 'white', borderRadius: 10}}>
                 <h3>Add New Event</h3>
@@ -98,5 +100,6 @@ export default function EventForm() {
                 </Form>
             </div>
         </div>
+    </div>
     )
 }
