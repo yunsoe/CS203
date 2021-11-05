@@ -29,19 +29,31 @@ public class WebScraperController {
         ArrayList<String> overallPoints = new ArrayList<>();
         try {
 
-            Document d = Jsoup.connect("https://www.gobusiness.gov.sg/safemanagement/sector").timeout(6000).get();
-            Elements body = d.select("ul.jekyllcodex_accordion");
+            // Document d = Jsoup.connect("https://www.gobusiness.gov.sg/safemanagement/sector").timeout(6000).get();
+            // Elements body = d.select("ul.jekyllcodex_accordion");
             
+            // for (Element e: body.select("li")) {
+            //     String title = e.select("label").text();
+
+            //     overallPoints.add(title);
+
+
+            //     for (Element links: e.select("a")) {
+            //         overallPoints.add(links.attr("href"));
+            //         links.nextElementSibling();
+            //     }
+            // }
+
+            Document d = Jsoup.connect("https://www.mti.gov.sg/Newsroom/Updates-on-COVID-19").timeout(6000).get();
+            Elements body = d.select("div.article-content > ul");
+
             for (Element e: body.select("li")) {
-                String title = e.select("label").text();
 
-                overallPoints.add(title);
-
-
-                for (Element links: e.select("a")) {
-                    overallPoints.add(links.attr("href"));
-                    links.nextElementSibling();
-                }
+                String link = e.select("a").attr("href");
+                String desc = e.text();
+                
+                overallPoints.add(desc);
+                overallPoints.add(link);
             }
            
 
