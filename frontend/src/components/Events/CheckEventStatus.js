@@ -50,7 +50,7 @@ export default function CheckEventStatus() {
                         Hence, it would be advisable for you to <strong> do a swab test as soon as possible 
                         and self-quarantine if necessary</strong>. As a precaution, please unregister from all upcoming events
                         until you've taken a swab test and tested negative.</h4>
-                    : <h4>None of the attendees are Covid-Positive.</h4>}
+                    : <h4>None of the attendees tested Covid-Positive.</h4>}
                 </div>
             );
         
