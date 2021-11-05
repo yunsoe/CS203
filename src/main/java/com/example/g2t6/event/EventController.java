@@ -190,6 +190,31 @@ public class EventController {
         return positiveEvents;        
         }
 
+    @GetMapping("swabTests/users/{companyId}/{eventId}")
+    public int getEventStatus (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        } 
+        LocalDate date = LocalDate.now();  
+
+        List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
+
+        for (int i = 0; i < 14; i++) {
+            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, date.minusDays(i)));
+        }
+        Set <User>  positiveUsers = new HashSet <User> ();
+
+        for (SwabTest swabTest : positiveSwabTests){
+            positiveUsers.add(swabTest.getUser());
+        }
+        
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            Set <User> userList = event.getUsers();
+            positiveUsers.retainAll(userList);
+            return positiveUsers.size();
+        }).orElseThrow(() -> new EventNotFoundException(eventId));        
+        }
+
 
     /**
      * 

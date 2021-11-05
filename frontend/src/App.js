@@ -19,7 +19,8 @@ import ViewEvents from "./components/Events/ViewEvents";
 import UpdateEvent from "./components/Events/UpdateEvent";
 import ViewAttendees from "./components/Events/ViewAttendees";
 import ViewOtherCompanyEvents from "./components/Events/ViewOtherCompanyEvents";
-import ViewCovidEvents from "./components/Events/ViewCovidEvents";
+import CheckEventStatus from "./components/Events/CheckEventStatus";
+// import ViewCovidEvents from "./components/Events/ViewCovidEvents";
 import ViewEventHistory from "./components/Events/ViewEventHistory";
 import SwabTestForm from "./components/swabTest/SwabTestForm";
 import SwabTestHistory from "./components/swabTest/SwabTestHistory";
@@ -111,6 +112,7 @@ export default class App extends Component {
             <Route path="/eventForm" component={EventForm} />
             <Route path="/viewEvents" component={ViewEvents} />
             <Route path="/viewOtherCompanyEvents" component={ViewOtherCompanyEvents} />
+            <Route path="/checkEventStatus" component={CheckEventStatus} />
             {/* <Route path="/viewCovidEvents" component={ViewCovidEvents} /> */}
             <Route path="/updateEvent" component={UpdateEvent} />
             <Route path="/viewAttendees" component={ViewAttendees} />

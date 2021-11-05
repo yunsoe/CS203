@@ -24,7 +24,9 @@ GET http://localhost:8080/users/sarahanngwps@gmail.com/events
 
 GET http://localhost:8080/users/sarahanngwps@gmail.com/companies/events
 
-
+#get event status 
+###
+GET http://localhost:8080/swabTests/users/2/21
 
 
 #get user non-registered events 
