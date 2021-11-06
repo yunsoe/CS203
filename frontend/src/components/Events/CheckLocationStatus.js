@@ -50,6 +50,8 @@ export default function CheckLocationStatus() {
                     {status ? 
                         <div>
                         <h4> <em style = {{color: "red", fontFamily:"Arial"}}>There have been COVID-19 cases at this location recently.</em>
+                        <br></br>
+                        <br></br>
                             <p style = {{fontFamily:"Arial", textAlign: "center"}}>Hence, it would be advisable for you to change the location of your event.
                             </p>
                         </h4>

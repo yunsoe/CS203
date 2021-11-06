@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import LoginForm from "../components/Login/LoginForm";
 import RegistrationForm from "../components/Registration/RegistrationForm";
-import "../components/Home/images/eventbackground.png";
+import "./View.css";
 
 export default function Authentication() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   return (
-    <div
+    <div id = 'login'
       style={{
-        // backgroundColor: "#001833",
+        // backgroundColor: "red",
         height: "100vh",
         display: "flex",
-        alignItems: "center",
+        // alignItems: "center",
+        paddingTop: "150px",
+        paddingBottom: "325px",
         justifyContent: "center",
       }}
     >
