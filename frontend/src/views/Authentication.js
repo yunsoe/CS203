@@ -6,6 +6,8 @@ import "./View.css";
 export default function Authentication() {
   const [isLoginForm, setIsLoginForm] = useState(true);
   return (
+  <div >
+    
     <div id = 'login'
       style={{
         // backgroundColor: "red",
@@ -17,11 +19,24 @@ export default function Authentication() {
         justifyContent: "center",
       }}
     >
+    <h1> 
+    Many Industries, One Singapore
+    </h1>
+    <div id = 'loginwords'>
+        <p>Join over 90% of industries
+        <br></br>
+        in Singapore in stopping the spread
+        <br></br>
+        of COVID-19 through keeping up
+        <br></br>
+        with regulations and news</p>
+    </div>
       {isLoginForm ? (
         <LoginForm setIsLoginForm={setIsLoginForm} />
       ) : (
         <RegistrationForm setIsLoginForm={setIsLoginForm} />
       )}
+    </div>
     </div>
   );
 }
