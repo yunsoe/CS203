@@ -48,14 +48,6 @@ public class G2t6Application {
 		firewall.setAllowedHttpMethods(Arrays.asList("GET","POST","DELETE", "PUT", "OPTIONS"));
         return firewall;
     }
-
-	@PostConstruct
-    public void init() {
-
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
-
-        System.out.println("Date in UTC: " + new Date().toString());
-    }
 }
 
 @Configuration

@@ -49,26 +49,27 @@ export default function SwabTestForm() {
         <div style={{display: "flex", justifyContent: "center", marginTop: 100, marginBottom:100}}>
             <div className="col-5 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
              <h3>Submit Swab Result</h3>
-
         <br/>
         <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
-        <Col>
-        <Form.Label>swab Result:</Form.Label>
-        </Col>
-         <Col>
-        <select value={state} onChange={(e) => handleChange(e.target.value)} >
-            <option  value="false">negative</option> 
-            <option value="true">positive</option>
-        </select>
-        </Col>
-             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-             <Col>
-             <Form.Label>date of swab:</Form.Label>
-             </Col>
-             <Col>
-             <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
-             </Col>
-             <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
+            <Col>
+                <Form.Label>Swab Result:</Form.Label>
+            </Col>
+            <Col>
+                <select value={state} onChange={(e) => handleChange(e.target.value)} >
+                    <option  value="false">Negative</option> 
+                    <option value="true">Positive</option>
+                </select>
+            </Col>
+            <p></p>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Col>
+                    <Form.Label>Date of Swab Test:</Form.Label>
+                </Col>
+                <Col>
+                    <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
+                </Col>
+                <p></p>
+                <Col><Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button></Col>
             </Form.Group>
         </Form>
         </div>
