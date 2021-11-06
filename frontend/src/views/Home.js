@@ -35,9 +35,9 @@ export default function Home() {
 
     return(
         <div id = "body">
-            <div id = "main">
+            {/* <div id = "main"> */}
             <Header/>
-            </div>
+            {/* </div> */}
          <div id='features'>
          <div className='a-container'>
             <button class="btn btn-default" onClick = {() => {redirectToEvents();}}>

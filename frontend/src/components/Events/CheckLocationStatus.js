@@ -7,10 +7,11 @@ import { useHistory} from "react-router-dom";
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
-export default function CheckEventStatus() {
+export default function CheckLocationStatus() {
+    
+    const history = useHistory();
 
     const [status , setStatus] = useState();
-
 
     // const[users, setUsers] = useState(null);
     // const[removeEvent,setRemoveEvent] = useState("");
@@ -24,7 +25,7 @@ export default function CheckEventStatus() {
         async function fetchStatus() {
             
             const companyId = await (await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/company")).json();
-            const response = await fetch(API_BASE_URL + "swabTests/users/" + companyId + "/" + localStorage.getItem("eventId"));
+            const response = await fetch(API_BASE_URL + "swabTests/events/" + companyId + "/" + localStorage.getItem("eventId"));
             const data = await response.json();
 
             console.log(data);
@@ -36,22 +37,41 @@ export default function CheckEventStatus() {
     
 
     }, []);
-
+    
+    const redirectToView = () => {
+        history.push("/viewEvents");
+    }
 
     function renderPage() {
             return(
                 <div>
-                    <h3>Event Status</h3>
+                    <h3>Location Status</h3>
                     <br/>
                     {status ? 
-                        <h4 style = {{fontFamily:"Arial"}}> <em style = {{color: "red", fontFamily:"Arial"}}>Number of attendees who tested Covid-positive : {status}.</em>
+                        <div>
+                        <h4> <em style = {{color: "red", fontFamily:"Arial"}}>There have been COVID-19 cases at this location recently.</em>
                         <br></br>
                         <br></br>
-                        Hence, it would be advisable for you to <strong> do a swab test as soon as possible 
-                        and self-quarantine if necessary</strong>. As a precaution, please unregister from all upcoming events
-                        until you've taken a swab test and tested negative.</h4>
-                    : <h4 style = {{fontFamily:"Arial"}}> None of the attendees tested Covid-Positive.</h4>}
+                            <p style = {{fontFamily:"Arial", textAlign: "center"}}>Hence, it would be advisable for you to change the location of your event.
+                            </p>
+                        </h4>
+                        <br></br>
+                        <br></br>
+                        </div>
+                    : <h4 style = {{fontFamily:"Arial", textAlign: "center"}}>There have been no COVID-19 cases detected at this location as of today.</h4>}
+                      <br></br>
+                      <br></br>
+                    <div style = {{ textAlign: "center"}}>
+                    <Button 
+                        onClick={() => {
+                            redirectToView();
+                        }}
+                        >
+                        View Events 
+                    </Button>
+                    </div>
                 </div>
+                
             );
         
     }

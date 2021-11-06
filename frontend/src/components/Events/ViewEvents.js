@@ -30,6 +30,11 @@ export default function ViewEvents() {
         history.push("/viewAttendees");
     }
 
+    const redirectToCheck = (id) => {
+        localStorage.setItem("eventId",id);
+        history.push("/checkLocationStatus");
+    }
+
     const updateInfo = (cell, row, rowIndex, formatExtraData) => {
         return (
             <Button
@@ -90,6 +95,21 @@ export default function ViewEvents() {
         );
 
     }
+
+    const checkLocation = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  redirectToCheck(row.id);
+              }}
+            >
+              Check
+            </Button>
+        );
+
+    }
+
+    
 
     const sendDetailsToServer = () => {
         fetch(
@@ -218,6 +238,11 @@ export default function ViewEvents() {
             dataField: "leave",
             text: "Leave",
             formatter: leaveEvent
+        },
+        {
+            dataField: "Location Status",
+            text: "Check",
+            formatter: checkLocation
         }
     ];
 

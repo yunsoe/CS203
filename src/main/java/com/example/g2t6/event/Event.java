@@ -55,14 +55,14 @@ public class Event {
         this.eventDate = eventDate;
         this.location = location;
     }
-
-    public Date getDate () throws ParseException {
+    
+    // public Date getDate () throws ParseException {
 	
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+	// 	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Date date = dateFormatter.parse(eventDate);
+	// 	Date date = dateFormatter.parse(eventDate);
 
-       return date;
-    }
+    //    return date;
+    // }
 
 }

@@ -102,19 +102,19 @@ public class EventController {
             throw new UsernameNotFoundException(userEmail);
         }
 
-        Set <Event> pastEvents = new HashSet <Event> ();
+        Set <Event> upcomingEvents = new HashSet <Event> ();
         Set <Event> allEvents = user.getEvents();
-        Date today = new Date ();
-
-        Date date; 
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date; 
         
         for (Event event : allEvents){
-            date = event.getDate();
-            if (date.after(today) || date.equals(today)){
-                pastEvents.add(event);
+            date = LocalDate.parse(event.getEventDate(), formatter);
+            if (date.isAfter(today) || date.isEqual(today)){
+                upcomingEvents.add(event);
             }
         }
-        return pastEvents;
+        return upcomingEvents;
     }
 
     @GetMapping("/users/{userEmail}/{companyId}/events")
@@ -129,15 +129,17 @@ public class EventController {
             throw new UsernameNotFoundException(userEmail);
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         Set <Event> pastEvents = new HashSet <Event> ();
         Set <Event> allEvents = user.getEvents();
-        Date today = new Date ();
+        LocalDate today = LocalDate.now();
 
-        Date date; 
+        LocalDate date; 
         
         for (Event event : allEvents){
-            date = event.getDate();
-            if (date.before(today)){
+            date = LocalDate.parse(event.getEventDate(), formatter);
+            if (date.isBefore(today)){
                 pastEvents.add(event);
             }
         }

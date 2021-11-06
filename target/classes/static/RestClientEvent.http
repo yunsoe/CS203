@@ -30,8 +30,7 @@ GET http://localhost:8080/swabTests/users/2/23
 
 #get location status 
 ###
-GET http://localhost:8080/swabTests/events/2/21
-
+GET http://localhost:8080/swabTests/events/2/23
 
 #get user non-registered events 
 ###
@@ -51,7 +50,7 @@ Content-Type: application/json
 
 {
     "event": "Birthday",
-    "eventDate": "10/11/2021",
+    "eventDate": "05/11/2021",
     "location": "Carlton Hotel"
 }
 
@@ -79,4 +78,4 @@ Content-Type: application/json
 
 #delete event 
 ###
-DELETE http://localhost:8080/companies/1/events/10
+DELETE http://localhost:8080/companies/2/events/21
