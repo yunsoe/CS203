@@ -64,7 +64,7 @@ public class ScheduleSwabAlert {
     }
 
     @PostConstruct
-    @Scheduled(cron = "0/30 * * * * *")
+    @Scheduled(cron = "0 0/1 * * * *")
     public void initializeScheduler() {
         try {
             this.Schedule();
