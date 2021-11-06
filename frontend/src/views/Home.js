@@ -29,7 +29,11 @@ export default function Home() {
         history.push("/feedback");
     }
     const redirectToSwabTests = () => {
-        history.push("/swabTestHistory");
+        if (localStorage.getItem("authority") !== "ROLE_ADMIN") {
+            history.push("/swabTestUserView");
+        } else {
+            history.push("/swabTestHistory");
+        }
     }
 
 
