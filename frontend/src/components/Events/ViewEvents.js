@@ -241,7 +241,7 @@ export default function ViewEvents() {
         },
         {
             dataField: "Location Status",
-            text: "Check",
+            text: "Check Location",
             formatter: checkLocation
         }
     ];
