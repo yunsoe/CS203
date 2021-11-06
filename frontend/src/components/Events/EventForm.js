@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { Form, Button, FormGroup } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {format} from "date-fns";
 import "../Home/home.css";
 
 export default function EventForm() {
@@ -11,6 +14,9 @@ export default function EventForm() {
         location: "",
         // users:""
     });
+
+    const [date,setDate] = useState(new Date());
+    const [selectedDate,setSelectedDate] = useState();
 
     const handleChange = (e) => {
         const {id , value} = e.target   
@@ -49,8 +55,8 @@ export default function EventForm() {
                         setState((prevState) => ({
                             ...prevState
                         }));
-                        document.getElementById("eventForm").reset();
                         alert("Your event has been successfully added.");
+                        window.location.reload();
                     } else {
                         console.log(response.json);
                         alert("There was an error on our side, please try again later.");
@@ -62,17 +68,10 @@ export default function EventForm() {
 
     const handleSubmitClick = (e) => {
         e.preventDefault();
-        
-        var today = new Date();
-        const dateEvent = state.eventDate.split("/");
-        var dateOfEvent = new Date(dateEvent[2] + "-" + dateEvent[1] + "-" + dateEvent[0]);
-        var isAfterToday = (dateOfEvent > today);
 
-        if(isAfterToday) {
-            submitEvent();   
-        } else {
-            alert('Please enter a date after today.');
-        }
+        state.eventDate = format(selectedDate, 'dd/MM/yyyy');
+
+        submitEvent();
     }
 
 
@@ -89,7 +88,7 @@ export default function EventForm() {
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Date:</Form.Label>
-                        <Form.Control required placeholder="DD/MM/YYYY" pattern="^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([1][26]|[2468][048]|[3579][26])00))))" minLength={2} maxLength={30} type="text" onChange={handleChange} id="eventDate"/>
+                        <DatePicker required wrapperClassName="datePicker" selected={selectedDate} minDate={new Date(date.getFullYear(),date.getMonth(),date.getDate()+1)} dateFormat="dd/MM/yyyy" placeholderText="Select Date (DD/MM/YYYY)" className="form-control" onChange = {(input) => setSelectedDate(input)}/>
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Location:</Form.Label>
