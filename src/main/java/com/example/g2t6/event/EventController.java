@@ -2,6 +2,7 @@ package com.example.g2t6.event;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
@@ -206,12 +207,13 @@ public class EventController {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         } 
-        LocalDate date = LocalDate.now();  
+    
+        LocalDate today = LocalDate.now();  
 
         List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
 
         for (int i = 0; i < 14; i++) {
-            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, date.minusDays(i)));
+            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, today.minusDays(i)));
         }
         Set <User>  positiveUsers = new HashSet <User> ();
 
@@ -220,6 +222,12 @@ public class EventController {
         }
         
         return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(event.getEventDate(),formatter);
+
+            if (date.isBefore(today.minusDays(14))){
+                return 0;
+            }
             Set <User> userList = event.getUsers();
             positiveUsers.retainAll(userList);
             return positiveUsers.size();
