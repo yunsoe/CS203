@@ -1,64 +1,40 @@
-import React, { Component } from 'react';
-import Cards from './CardUI';
+import React, { useState, useEffect } from 'react';
+import './cardstyle.css';
+import Pagination from './Pagination';
+import Post from './Post';
 
+export default function News() {
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState('');
 
+  useEffect(() => {
+    fetch('https://newsapi.org/v2/top-headlines?country=sg&q=covid&pageSize=20&apiKey=a7b36878384f42e09d8f7d094a283986')
+      .then((response) => {
+        if (response.ok) return response.json();
+        throw new Error('Something went wrong while requesting posts');
+      })
+      .then((posts) => setPosts(posts.articles))
+      .catch((error) => setError(error.message));
+  }, []);
 
-export default class NewsDisplay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            News: [],
-            isLoaded: false,
-        };
-    }
-    
+  //console.log(posts.articles)
+  if (error) return <h1>{error}</h1>;
 
-    getNewsData() {
+  return (
+    <div>
+      {posts.length > 0 ? (
+        <>
+          <Pagination
+            data={posts}
+            RenderComponent={Post}
+            pageLimit={2}
+            dataLimit={3}
+          />
+        </>
+      ) : (
+       <h1>No News to display</h1>
+      )}
+    </div>
+  );
 
-        fetch('https://newsapi.org/v2/top-headlines?q=covid&country=sg&apiKey=c01cde2cf83347a9acda8bfa4287242f')
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    isLoaded: true,
-                    News: json.articles,
-                })
-            });
-      
-
-        /* Manual Fetch */
-        // fetch('http://localhost:8080/news')
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         this.setState({
-        //             isLoaded: true,
-        //             News: json,
-        //         })
-        //     });
-    }
-
-    componentDidMount(){
-        this.getNewsData()
-    }
-
-    render() {
-        var { News, isLoaded } = this.state; 
-
-        if(!isLoaded) {
-            return <div>Loading...</div>;
-        } else {
-            return (
-                <div className='news'>
-                        {News.slice(0, 10).map(News => (
-                            <div className='container fluid d-flex justify-content-center' key={News.id}> 
-                            <div className='row'>
-                                <div className='col-md-4'>
-                                    <Cards url={News.urlToImage} title={News.title} link={News.url} />
-                                </div>
-                            </div>
-                        </div>
-                        ))};
-                </div>
-            )
-        }
-    }
 }

@@ -23,7 +23,7 @@ export default function Home() {
         history.push("/viewEvents");
     }
     const redirectToNews = () => {
-        history.push("/news");
+        history.push("/regulations");
     }
     const redirectToFeedback = () => {
         history.push("/feedback");

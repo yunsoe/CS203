@@ -2,7 +2,7 @@ body{
   background: radial-gradient(#001833, #001833, #001833);
 }
 
-.card{
+/* .card{
   width: 20rem;
   height: 32rem;
 }
@@ -44,5 +44,101 @@ body{
 .news{
     display: flex;
     align-items: center;
+} */
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  max-width: 40rem;
+  margin: 20px auto;
+  padding: 0.1rem 5rem;
+  background: #fff;
+  position: relative;
+  padding-top: 0.1rem;
+  padding-bottom: 0.2rem;
+  border-radius: 4%;
 }
 
+.btn btn-outline-success {
+  padding-top: 4rem;
+  position: absolute;
+  bottom:   0;
+  margin-bottom: auto;
+}
+
+small {
+  border: 2px solid #777;
+  border-radius: 7px;
+  padding: 5px 12px;
+  color: #777;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationItem {
+  background: #fff;
+  border: 2px solid rgb(12, 4, 4);
+  padding: 4px 4px;
+  border-radius: 10%;
+  height: 3rem;
+  width: 3rem;
+  position: relative;
+  margin: 0 10px;
+  /* cursor: pointer; */
+}
+
+.paginationItem span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.prev,
+.next {
+  background: #fff;
+  border: rgb(0, 0, 0);
+  padding: 10px;
+  color: rgb(0, 0, 0);
+  border-radius: 10%;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+  margin: 0 10px;
+  height: 3rem;
+  width: 4rem;
+  cursor: pointer;
+}
+
+.paginationItem.active {
+  border: 1px solid #888;
+  color: #888;
+  pointer-events: none;
+}
+
+.prev.disabled,
+.next.disabled {
+  pointer-events: none;
+  box-shadow: none;
+  color: #999;
+}
+
+.post h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.post h4 {
+  text-align: center;
+  /* font-family: hknova-semibold; */
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 0.7rem;
+  align-content: center;
+  color: #050505;
+}
