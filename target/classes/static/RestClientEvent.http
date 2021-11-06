@@ -30,7 +30,7 @@ GET http://localhost:8080/swabTests/users/2/23
 
 #get location status 
 ###
-GET http://localhost:8080/swabTests/events/2/22
+GET http://localhost:8080/swabTests/events/2/23
 
 #get user non-registered events 
 ###

@@ -20,6 +20,7 @@ import UpdateEvent from "./components/Events/UpdateEvent";
 import ViewAttendees from "./components/Events/ViewAttendees";
 import ViewOtherCompanyEvents from "./components/Events/ViewOtherCompanyEvents";
 import CheckEventStatus from "./components/Events/CheckEventStatus";
+import CheckLocationStatus from "./components/Events/CheckLocationStatus";
 // import ViewCovidEvents from "./components/Events/ViewCovidEvents";
 import ViewEventHistory from "./components/Events/ViewEventHistory";
 import SwabTestForm from "./components/swabTest/SwabTestForm";
@@ -27,7 +28,7 @@ import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
 import update from "./components/swabTest/update";
-import updateSwabTestDetail from "./components/swabTestDetail/UpdateSwabTestDetail";
+import updateSwabTestDetail from "./components/swabTestDetail/updateSwabTestDetail";
 import News from "./views/News";
 import Regulations from "./views/Regulations";
 import SwabTestDetailForm from "./components/swabTestDetail/SwabTestDetailForm";
@@ -113,6 +114,7 @@ export default class App extends Component {
             <Route path="/viewEvents" component={ViewEvents} />
             <Route path="/viewOtherCompanyEvents" component={ViewOtherCompanyEvents} />
             <Route path="/checkEventStatus" component={CheckEventStatus} />
+            <Route path="/checkLocationStatus" component={CheckLocationStatus} />
             {/* <Route path="/viewCovidEvents" component={ViewCovidEvents} /> */}
             <Route path="/updateEvent" component={UpdateEvent} />
             <Route path="/viewAttendees" component={ViewAttendees} />
