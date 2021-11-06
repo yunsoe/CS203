@@ -165,7 +165,7 @@ export default function ViewEvents() {
         
         async function fetchEvents() {
             
-            const response = await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/events");
+            const response = await fetch(API_BASE_URL + "users/" + localStorage.getItem("email") + "/companies/events");
             const data = await response.json();
 
             console.log(data);

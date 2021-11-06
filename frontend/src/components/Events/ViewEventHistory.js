@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import {Button,Form} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
+
 
 import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -13,10 +15,29 @@ export default function ViewEventHistory() {
         id:""
     });
 
+    const history = useHistory();
+
+    const checkEventStatus = (id) => {
+        localStorage.setItem("eventId",id);
+        history.push("/checkEventStatus");
+    }
+
     const[events, setEvents] = useState(null);
     // const[removeEvent,setRemoveEvent] = useState("");
     // const[eventId,setEventId] = useState();
 
+    const checkStatus = (cell, row, rowIndex, formatExtraData) => {
+        return (
+            <Button
+              onClick={() => {
+                  checkEventStatus(row.id);
+              }}
+            >
+              Check Status
+            </Button>
+        );
+
+    }
 
 
     useEffect(() => {
@@ -58,6 +79,11 @@ export default function ViewEventHistory() {
             dataField: "location",
             text: "Location",
             sort: true
+        },
+        {
+            dataField: "Status",
+            text: "Check Status",
+            formatter: checkStatus
         }
     ];
 

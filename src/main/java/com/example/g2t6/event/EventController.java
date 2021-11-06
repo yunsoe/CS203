@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 
 import org.springframework.http.ResponseEntity;
@@ -15,9 +17,12 @@ import com.example.g2t6.swabTest.*;
 import com.example.g2t6.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
+import javax.sound.sampled.DataLine;
 import javax.validation.Valid;
 
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
 import java.time.LocalDate;  
 
 
@@ -90,27 +95,30 @@ public class EventController {
     }
 
     @GetMapping("/users/{userEmail}/companies/events")
-    public Set<Event> getAllUpcomingEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) {
+    public Set<Event> getAllUpcomingEventsByUserEmail(@PathVariable (value = "userEmail") String userEmail) throws ParseException {
         User user = users.findByEmail(userEmail).orElse(null);
 
         if (user == null) {
             throw new UsernameNotFoundException(userEmail);
         }
-        Set <Event> events = new HashSet <Event> ();
 
-        LocalDate date;
+        Set <Event> pastEvents = new HashSet <Event> ();
+        Set <Event> allEvents = user.getEvents();
+        Date today = new Date ();
+
+        Date date; 
         
-        for (Event event : events){
-            date = event.getDate(event.getEventDate());
-            if (date.isAfter(LocalDate.now()) || date.isEqual(LocalDate.now())){
-                events.add(event);
+        for (Event event : allEvents){
+            date = event.getDate();
+            if (date.after(today) || date.equals(today)){
+                pastEvents.add(event);
             }
         }
-        return events;
+        return pastEvents;
     }
 
     @GetMapping("/users/{userEmail}/{companyId}/events")
-    public Set<Event> getAllUserPastEvents(@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId) {
+    public Set <Event> getAllUserPastEvents(@PathVariable (value = "userEmail") String userEmail, @PathVariable (value = "companyId") Long companyId) throws ParseException {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         } 
@@ -121,17 +129,19 @@ public class EventController {
             throw new UsernameNotFoundException(userEmail);
         }
 
-        Set <Event> events = new HashSet <Event> ();
+        Set <Event> pastEvents = new HashSet <Event> ();
+        Set <Event> allEvents = user.getEvents();
+        Date today = new Date ();
 
-        LocalDate date;
+        Date date; 
         
-        for (Event event : events){
-            date = event.getDate(event.getEventDate());
-            if (date.isBefore(LocalDate.now())){
-                events.add(event);
+        for (Event event : allEvents){
+            date = event.getDate();
+            if (date.before(today)){
+                pastEvents.add(event);
             }
         }
-        return events;
+        return pastEvents;
     }
 
     
@@ -147,37 +157,71 @@ public class EventController {
         }).orElseThrow(() -> new EventNotFoundException(eventId));
         }
 
-    @GetMapping("swabTests/events/{companyId}")
-    public Set<Event> getAllEventsBySwabTestResultsAndCompanyId(@PathVariable (value = "companyId") Long companyId) {
+    @GetMapping("swabTests/events/{companyId}/{eventId}")
+    public boolean getLocationStatus (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
         if(!companies.existsById(companyId)) {
             throw new CompanyNotFoundException(companyId);
         } 
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate today = LocalDate.now();  
+
+        List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
+
+        //get all positive swab tests in the last 14 days 
+        for (int i = 0; i < 14; i++) {
+            positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, today.minusDays(i)));
+        }
+        Set <User>  positiveUsers = new HashSet <User> ();
+        Set <String> positiveLocations = new HashSet <String> ();
+
+        LocalDate date;
+        //get all the users who tested positive in the last 14 days 
+        for (SwabTest swabTest : positiveSwabTests){
+            positiveUsers.add(swabTest.getUser());
+        }
+        //get the locations where they attended events in the last 14 days 
+        for (User user : positiveUsers){
+            for (Event event : user.getEvents()){
+                date = LocalDate.parse(event.getEventDate(), formatter);
+                if (date.isBefore(today) && date.isAfter(today.minusDays(14))){
+                    positiveLocations.add(event.getLocation());
+                }
+            }
+        }
+        //check if the location of the event is contained in the set 
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            for (String location : positiveLocations){
+                if (location.equals(event.getLocation())){
+                    return true;
+                }
+            } return false;
+        }).orElseThrow(() -> new EventNotFoundException(eventId));
+        }
+
+    @GetMapping("swabTests/users/{companyId}/{eventId}")
+    public int getEventStatus (@PathVariable (value = "companyId") Long companyId, @PathVariable (value = "eventId") Long eventId) {
+        if(!companies.existsById(companyId)) {
+            throw new CompanyNotFoundException(companyId);
+        } 
         LocalDate date = LocalDate.now();  
 
         List <SwabTest> positiveSwabTests = new ArrayList <SwabTest> ();
 
-        
         for (int i = 0; i < 14; i++) {
             positiveSwabTests.addAll(swabTestService.listSwabHistoryByResulTestsAndDate(true, date.minusDays(i)));
         }
         Set <User>  positiveUsers = new HashSet <User> ();
-        Set <Event> positiveEvents = new HashSet <Event> ();
 
         for (SwabTest swabTest : positiveSwabTests){
             positiveUsers.add(swabTest.getUser());
         }
-
-        for (User user : positiveUsers){
-            positiveEvents.addAll(user.getEvents());
-        }
-
-
-        positiveEvents.retainAll(events.findByCompanyId(companyId));
-
         
-        return positiveEvents;        
+        return events.findByIdAndCompanyId(eventId,companyId).map(event -> {
+            Set <User> userList = event.getUsers();
+            positiveUsers.retainAll(userList);
+            return positiveUsers.size();
+        }).orElseThrow(() -> new EventNotFoundException(eventId));        
         }
 
 
