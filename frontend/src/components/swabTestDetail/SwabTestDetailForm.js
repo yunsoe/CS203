@@ -68,37 +68,40 @@ export default function SwabTestDetailForm() {
         <br/>
         <Form id="Form" onSubmit = {(e) => handleSubmit(e)}> 
         
-        <Form.Label>Date:</Form.Label>
+            <Col><Form.Label>Date:</Form.Label></Col>
         
-         <Col>
-        <select value={date} onChange={(e) => handleChange2(e.target.value)}  >
-            <option  value="MON">Mon</option> 
-            <option value="TUE">Tue</option>
-            <option value="WED">Wed</option>
-            <option value="THU">Thurs</option>
-            <option value="FRI">Friday</option>
-            <option value="SAT">Sat</option>
-            <option value="SUN">Sun</option>
-        </select>
-        </Col>
-             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            
-             {/* <Form.Group className="mb-3">
-                            <Form.Label>Title:</Form.Label>
-                            <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {handleChange} id="time" />
-                        </Form.Group> */}
             <Col>
-            <Form.Label>Time:</Form.Label>
+                <select value={date} onChange={(e) => handleChange2(e.target.value)}  >
+                    <option  value="MON">Mon</option> 
+                    <option value="TUE">Tue</option>
+                    <option value="WED">Wed</option>
+                    <option value="THU">Thurs</option>
+                    <option value="FRI">Friday</option>
+                    <option value="SAT">Sat</option>
+                    <option value="SUN">Sun</option>
+                </select>
             </Col>
-            
 
-            <TimePicker onChange={setTime} defaultValue={moment('12:00', format)} type="text" format={format} value={time} />,
+            <p></p>
 
-             <Form.Group className="mb-3">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+
+            <Col>
+                <Form.Label>Time:</Form.Label>
+            </Col>
+
+            <Col>
+                <TimePicker onChange={setTime} defaultValue={moment('12:00', format)} type="text" format={format} value={time} />
+            </Col>
+
+            <p></p>
+
+            <Col>
+                <Form.Group className="mb-3">
                     <Form.Label>Details:</Form.Label>
-                            <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={handleChange} id="message" />
+                    <Form.Control required as="textarea" rows={5} minLength={10} maxLength={500} type="text" placeholder="Enter message details" onChange={handleChange} id="message" />
                 </Form.Group>
-             <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit</Button>
+                <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit</Button></Col>
             </Form.Group>
         </Form>
         </div>
