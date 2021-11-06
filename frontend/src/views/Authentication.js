@@ -20,7 +20,7 @@ export default function Authentication() {
       }}
     >
     <h1> 
-    Many Industries, One Singapore
+    Many Industries, <br></br>One Singapore,<br></br>One Website
     </h1>
     <div id = 'loginwords'>
         <p>Join over 90% of industries
