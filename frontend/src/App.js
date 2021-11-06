@@ -27,8 +27,8 @@ import SwabTestForm from "./components/swabTest/SwabTestForm";
 import SwabTestHistory from "./components/swabTest/SwabTestHistory";
 import SwabTestUserView from "./components/swabTest/SwabTestUserView";
 import ViewFeedbacks from "./components/Feedback/ViewFeedbacks";
-import update from "./components/swabTest/update";
-import updateSwabTestDetail from "./components/swabTestDetail/UpdateSwabTestDetail";
+import Update from "./components/swabTest/Update";
+import UpdateSwabTestDetail from "./components/swabTestDetail/UpdateSwabTestDetail";
 import News from "./views/News";
 import Regulations from "./views/Regulations";
 import SwabTestDetailForm from "./components/swabTestDetail/SwabTestDetailForm";
@@ -127,8 +127,8 @@ export default class App extends Component {
             <Route path="/swabTestUserView" component={SwabTestUserView} /> 
             <Route path="/swabTestDetailForm" component={SwabTestDetailForm} /> 
             <Route path="/swabTestDetail" component={SwabTestDetail} />             
-            <Route path="/update" component={update} />
-            <Route path="/updateSwabTestDetail" component={updateSwabTestDetail} />            
+            <Route path="/update" component={Update} />
+            <Route path="/updateSwabTestDetail" component={UpdateSwabTestDetail} />            
             <Route path="/viewFeedbacks" component={ViewFeedbacks} /> 
             <Route path="/news" component={News} />
             <Route path="/regulations" component={Regulations} />
