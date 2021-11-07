@@ -8,7 +8,7 @@ export default function News() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('https://newsapi.org/v2/top-headlines?country=sg&q=covid&pageSize=20&apiKey=a7b36878384f42e09d8f7d094a283986')
+    fetch('https://newsapi.org/v2/top-headlines?country=sg&category=health&pageSize=20&apiKey=a7b36878384f42e09d8f7d094a283986')
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error('Something went wrong while requesting posts');
@@ -27,8 +27,8 @@ export default function News() {
           <Pagination
             data={posts}
             RenderComponent={Post}
-            pageLimit={2}
-            dataLimit={3}
+            pageLimit={3}
+            dataLimit={5}
           />
         </>
       ) : (
