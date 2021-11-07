@@ -5,15 +5,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
-
+import TimePicker from 'react-time-picker';
+import moment from 'moment';
 
 export default function UpdateSwabTestDetail() {
     const history = useHistory();
-
-
+    const [time,setTime] = useState('12:00');
+    const format = 'HH:mm';
     const [state, setState] = useState({
-        
-        time: "",
         message : ""
     });
 
@@ -39,7 +38,7 @@ export default function UpdateSwabTestDetail() {
                 },
                 body: JSON.stringify({
                     "alertDay": "hgh",
-                    "alertTime": state.time,
+                    "alertTime": time,
                     "message": state.message
                 }),
             }
@@ -64,8 +63,8 @@ export default function UpdateSwabTestDetail() {
     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             
             <Form.Group className="mb-3">
-                           <Form.Label>Title:</Form.Label>
-                           <Form.Control required minLength={2} maxLength={30} type="text" placeholder="HH:MM" onChange= {handleChange} id="time" />
+                           <Form.Label>Time:</Form.Label>
+                           <TimePicker onChange={setTime} defaultValue={moment('12:00', format)} type="text" format={format} value={time} />
                        </Form.Group>
             <Form.Group className="mb-3">
                    <Form.Label>Details:</Form.Label>
