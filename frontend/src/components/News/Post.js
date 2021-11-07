@@ -1,6 +1,7 @@
 import React from 'react';
 import './cardstyle.css';
-import { Image } from 'react-native';
+// import { Image } from 'react-native';
+import Photo from './photo.png';
 
 
 
@@ -8,7 +9,8 @@ function Post(props) {
     const { id, urlToImage, title, description, url } = props.data;
     return (
       <div className="post">
-        <Image source={{ uri: urlToImage }} style={{ width: 640, height: 300, borderTopRightRadius: 20, borderTopLeftRadius: 20,}} ></Image>
+        {/* <Image source={{ uri: urlToImage }} style={{ width: 640, height: 300, borderTopRightRadius: 20, borderTopLeftRadius: 20,}} ></Image> */}
+        <img src={urlToImage || Photo} style={{ width: 640, height: 300, borderTopRightRadius: 20, borderTopLeftRadius: 20,}}></img>
         <small>{id}</small>
         <h1>{title}</h1>
         <h4>{description}</h4>
