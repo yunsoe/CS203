@@ -7,7 +7,9 @@ Note:
 1. Amazon RDS database is slow, may take some time for forms to load completely / submit.
 
 2. System admin account (not the same as a company admin):
-
-Username: sysadmin@gmail.com
-
-Password: P@ssw0rd123@
+   Username: sysadmin@gmail.com
+   Password: P@ssw0rd123@
+   
+3. Feedbacks for the application submitted via the feedback form are sent to this email:
+   Username: cs203grp6@gmail.com
+   Password: P@ssw0rd123@
