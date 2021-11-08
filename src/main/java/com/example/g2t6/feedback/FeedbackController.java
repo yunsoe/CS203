@@ -32,7 +32,7 @@ public class FeedbackController {
         // using "map" to handle the returned Optional object from "findByEmail(UserEmail)"
         return users.findById(userEmail).map(user ->{
             feedback.setUser(user);
-            Mail mail = new Mail("zxnlee00@gmail.com", "New Feedback - " + feedback.getTitle(), "Title: " + feedback.getTitle() + "\nDetails: " + feedback.getDetails());
+            Mail mail = new Mail("cs203grp6@gmail.com", "New Feedback - " + feedback.getTitle(), "Title: " + feedback.getTitle() + "\nDetails: " + feedback.getDetails());
             mailService.sendMail(mail);
             return feedbacks.save(feedback);
         }).orElseThrow(() -> new UsernameNotFoundException("Email '" + userEmail + "' not found"));
