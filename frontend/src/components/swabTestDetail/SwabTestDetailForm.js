@@ -6,9 +6,13 @@ import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import TimePicker from 'react-time-picker';
 import moment from 'moment';
+import {useHistory} from "react-router-dom";
 
 
 export default function SwabTestDetailForm() {
+
+    const history = useHistory();
+
     const [time,setTime] = useState('12:00');
     const format = 'HH:mm';
      const [date, setDate] = useState("MON");
@@ -29,8 +33,10 @@ export default function SwabTestDetailForm() {
     const handleChange2 = (event) =>
     setDate(event);
  
+    const redirectToViewSwabTestDetail = () => {
+        history.push("/swabTestDetail");
+    };
    
-
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(date)
@@ -53,6 +59,7 @@ export default function SwabTestDetailForm() {
         ).then(function (response) {
             if (response.status === 200) {
                 alert("Submission successful.");
+                redirectToViewSwabTestDetail();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
