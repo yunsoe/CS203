@@ -12,6 +12,7 @@ export default function SwabTestForm() {
 
     const [date,setDate] = useState(new Date())
     const [state, setState] = useState("");
+    const [today,setToday] = useState(new Date());
       
 
     const handleChange = (event) =>
@@ -24,7 +25,7 @@ export default function SwabTestForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(state)
+        console.log(state);
 
         fetch(
             API_BASE_URL + "users/" + localStorage.getItem("email") + "/swabTests", 
@@ -41,9 +42,13 @@ export default function SwabTestForm() {
                 }),
             }
         ).then(function (response) {
+            console.log(response.status);
             if (response.status === 201) {
                 alert("Submission successful.");
                 redirectToSwabTestUserView();
+            } else if (response.status === 409) {
+                alert("This date for this swab already exists.");
+                //window.location.reload();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
@@ -72,7 +77,7 @@ export default function SwabTestForm() {
                     <Form.Label>Date of Swab Test:</Form.Label>
                 </Col>
                 <Col>
-                    <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
+                    <DatePicker maxDate={new Date(today.getFullYear(),today.getMonth(),today.getDate())} wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
                 </Col>
                 <p></p>
                 <Col><Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button></Col>

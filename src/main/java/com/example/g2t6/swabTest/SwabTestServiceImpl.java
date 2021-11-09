@@ -17,7 +17,7 @@ public class SwabTestServiceImpl implements SwabTestService{
 
     @Override
     public SwabTest addSwabHistory(SwabTest test){
-        List<SwabTest> sameDate = swabTests.findByActualSwabDate(test.getActualSwabDate());
+        List<SwabTest> sameDate = swabTests.findByActualSwabDateAndUserEmail(test.getActualSwabDate(), test.getUser().getEmail());
         if(sameDate.size() == 0){
             return swabTests.save(test);
         }

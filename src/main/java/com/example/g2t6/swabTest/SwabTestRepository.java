@@ -8,6 +8,7 @@ public interface SwabTestRepository extends JpaRepository<SwabTest, Long>{
     List<SwabTest> findByUserEmail(String email);
     List<SwabTest> findBySwabResultAndActualSwabDate(boolean result,LocalDate actualSwabDate);
     List<SwabTest> findByActualSwabDate(LocalDate actualSwabDate);
+    List<SwabTest> findByActualSwabDateAndUserEmail(LocalDate actualSwabDate, String userEmail);
     Optional<SwabTest> findByIdAndUserEmail(Long id, String userEmail);
     List<SwabTest> findByActualSwabDateBetween(LocalDate eDate, LocalDate sDate);
 }
