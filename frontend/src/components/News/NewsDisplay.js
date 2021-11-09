@@ -50,12 +50,12 @@ export default function News() {
         <>
         <form className='search-btn'>
          <select className="category" value={searchTerm} onChange={handleInput} onClick={handleSubmitClick} >
-             <option  value="health">health</option> 
-             <option value="business">business</option>
-             <option value="general">general</option>
-             <option value="sports">sports</option>
-             <option value="science">science</option>
-             <option value="technology">technology</option>
+             <option  value="health">Health</option> 
+             <option value="business">Business</option>
+             <option value="general">General</option>
+             <option value="sports">Sports</option>
+             <option value="science">Science</option>
+             <option value="technology">Technology</option>
          </select>
          
         </form>
