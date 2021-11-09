@@ -85,9 +85,23 @@ export default function ViewOtherCompanyEvents() {
             const data = await response.json();
 
             console.log(data);
+            const today = new Date();
+
+            let eventsData = Object.assign([], data);
 
             if (data.length !== 0) {
-                setEvents(data);
+                data.forEach((event) => {
+                    const splitEventDate = event.eventDate.split("/");
+                    const dateOfEvent = new Date(splitEventDate[2], splitEventDate[1]-1, splitEventDate[0]);
+
+                    if (dateOfEvent < today) {
+                        var eventIndex = eventsData.findIndex(x => x.id === event.id);
+
+                        eventsData.splice(eventIndex, 1);
+                    }
+                });
+
+                setEvents(eventsData);
             }
         }
     
