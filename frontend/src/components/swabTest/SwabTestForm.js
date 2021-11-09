@@ -5,15 +5,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
+import moment from 'moment';
 
 export default function SwabTestForm() {
 
     const history = useHistory();
 
-    const [date,setDate] = useState(new Date())
+    const [date,setDate] = useState(new Date());
     const [state, setState] = useState("");
     const [today,setToday] = useState(new Date());
-      
 
     const handleChange = (event) =>
     setState(event);
