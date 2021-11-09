@@ -11,7 +11,8 @@ function Post(props) {
       <div className="post">
         {/* <Image source={{ uri: urlToImage }} style={{ width: 640, height: 300, borderTopRightRadius: 20, borderTopLeftRadius: 20,}} ></Image> */}
         <img src={urlToImage || Photo} style={{ width: 640, height: 300, borderTopRightRadius: 20, borderTopLeftRadius: 20,}}></img>
-        <small>{id}</small>
+        {/* <small>{id}</small> */}
+        <p></p>
         <h1>{title}</h1>
         <h4>{description}</h4>
         <a href={url} className='btn btn-outline-success'>Go to Site</a>
