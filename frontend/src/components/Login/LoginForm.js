@@ -3,6 +3,7 @@ import { API_BASE_URL } from "../../constants/apiConstants";
 import { useHistory } from "react-router-dom";
 import { Form, Button, FormGroup } from "react-bootstrap";
 import AuthContext from "../../navigation/AuthContext";
+import { Dimensions } from 'react-native';
 
 export default function LoginForm(props) {
   const history = useHistory();
@@ -68,8 +69,11 @@ export default function LoginForm(props) {
     props.setIsLoginForm(false);
   };
 
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
+
   return (
-    <div className="col-4 login-card mt-2 hv-center" style={{padding:30, paddingTop: 40, paddingBottom: 40, backgroundColor: 'white', borderRadius: 10}}>
+    <div className="col-4 login-card mt-2 hv-center" style={{width: width * 0.5, height: height * 0.5, padding: width * 0.02, paddingTop: height * 0.05, paddingBottom: height * 0.05, backgroundColor: 'white', borderRadius: 10}}>
       <h3>Login</h3>
       <br />
       <AuthContext.Consumer>
