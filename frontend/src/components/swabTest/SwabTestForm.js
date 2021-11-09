@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
 import {useHistory} from "react-router-dom";
+import moment from 'moment';
 
 export default function SwabTestForm() {
 
@@ -12,7 +13,9 @@ export default function SwabTestForm() {
 
     const [date,setDate] = useState(new Date())
     const [state, setState] = useState("");
-      
+    const today = moment();
+
+ 
 
     const handleChange = (event) =>
     setState(event);
@@ -72,7 +75,7 @@ export default function SwabTestForm() {
                     <Form.Label>Date of Swab Test:</Form.Label>
                 </Col>
                 <Col>
-                    <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
+                    <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} maxDate={moment().toDate()} onChange = {(input) => setDate(input)}/>
                 </Col>
                 <p></p>
                 <Col><Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button></Col>
