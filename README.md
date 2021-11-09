@@ -11,5 +11,5 @@ Note:
    Password: P@ssw0rd123@
    
 3. Feedbacks for the application submitted via the feedback form are sent to this email:
-   Username: cs203grp6@gmail.com
-   Password: P@ssw0rd123@
+   Username: cs203g2t6@gmail.com
+   Password: Cs203123@
