@@ -6,15 +6,39 @@ import Post from './Post';
 export default function News() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleInput = (e) => {
+    e.preventDefault()
+    console.log(e.target.value)
+    setSearchTerm(e.target.value)
+  };
+
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+    
+      fetch(`https://newsapi.org/v2/top-headlines?country=sg&category=${searchTerm}&pageSize=20&apiKey=a7b36878384f42e09d8f7d094a283986`)
+        .then((response) => {
+          if (response.ok) return response.json();
+          throw new Error('Something went wrong while requesting posts');
+        })
+        .then((posts) => setPosts(posts.articles))
+        .catch((error) => setError(error.message));
+    
+  }
+
 
   useEffect(() => {
-    fetch('https://newsapi.org/v2/top-headlines?country=sg&category=health&pageSize=20&apiKey=a7b36878384f42e09d8f7d094a283986')
+
+      fetch('https://newsapi.org/v2/top-headlines?country=sg&category=health&apiKey=a7b36878384f42e09d8f7d094a283986')
       .then((response) => {
         if (response.ok) return response.json();
         throw new Error('Something went wrong while requesting posts');
       })
       .then((posts) => setPosts(posts.articles))
       .catch((error) => setError(error.message));
+    
+    
   }, []);
 
   //console.log(posts.articles)
@@ -24,15 +48,26 @@ export default function News() {
     <div>
       {posts.length > 0 ? (
         <>
+        <form className='search-btn'>
+         <select className="category" value={searchTerm} onChange={handleInput} onClick={handleSubmitClick} >
+             <option  value="health">health</option> 
+             <option value="business">business</option>
+             <option value="general">general</option>
+             <option value="sports">sports</option>
+             <option value="science">science</option>
+             <option value="technology">technology</option>
+         </select>
+         
+        </form>
           <Pagination
             data={posts}
             RenderComponent={Post}
-            pageLimit={3}
+            pageLimit={4}
             dataLimit={5}
           />
         </>
       ) : (
-       <h6>No News to display</h6>
+       <h4>Loading</h4>
       )}
     </div>
   );
