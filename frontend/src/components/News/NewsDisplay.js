@@ -32,7 +32,7 @@ export default function News() {
           />
         </>
       ) : (
-       <h1>No News to display</h1>
+       <h6>No News to display</h6>
       )}
     </div>
   );

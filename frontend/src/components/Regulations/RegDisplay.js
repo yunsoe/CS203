@@ -100,7 +100,7 @@ export default class NewsDisplay extends Component {
                             </label>
                             <div>
                                 <p>
-                                    All enterprises in the aviation section are to comply to mandatory measures stipulated
+                                    All enterprises in the aviation section can find the latest Covid 19 news releases
                                     <a href="https://www.caas.gov.sg/about-caas/newsroom" target="_blank" rel="noreferrer">here</a>
                                     . 
                                 </p>
@@ -226,7 +226,7 @@ export default class NewsDisplay extends Component {
                             </label>
                             <div>
                                 <p>
-                                   LTS's measures for Covid 19 can be found 
+                                   LTA's measures for Covid 19 can be found 
                                     <a href="https://www.lta.gov.sg/content/ltagov/en/industry_innovations/industry_matters/LTA's Measures for COVID-19.html" target="_blank" rel="noreferrer">here</a>
                                     . 
                                 </p>
