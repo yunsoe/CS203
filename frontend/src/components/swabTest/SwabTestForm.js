@@ -4,8 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
 import { API_BASE_URL } from "../../constants/apiConstants";
+import {useHistory} from "react-router-dom";
 
 export default function SwabTestForm() {
+
+    const history = useHistory();
 
     const [date,setDate] = useState(new Date())
     const [state, setState] = useState("");
@@ -14,6 +17,9 @@ export default function SwabTestForm() {
     const handleChange = (event) =>
     setState(event);
 
+    const redirectToSwabTestUserView = () => {
+        history.push("/swabTestUserView");
+    };
    
 
     const handleSubmit = (e) => {
@@ -37,7 +43,7 @@ export default function SwabTestForm() {
         ).then(function (response) {
             if (response.status === 201) {
                 alert("Submission successful.");
-                //document.getElementById("feedbackForm").reset();
+                redirectToSwabTestUserView();
             } else {
                 alert("There was an error on our side, please try again later.");
             }
