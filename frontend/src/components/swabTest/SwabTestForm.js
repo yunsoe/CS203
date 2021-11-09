@@ -12,9 +12,7 @@ export default function SwabTestForm() {
     const history = useHistory();
 
     const [date,setDate] = useState(new Date())
-    const [state, setState] = useState("");
-    const today = moment();
-
+    const [state, setState] = useState("
  
 
     const handleChange = (event) =>
