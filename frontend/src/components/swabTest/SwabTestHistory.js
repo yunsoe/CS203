@@ -16,9 +16,11 @@ export default function SwabTestForm() {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [data, setData] = useState([]);
+    const [data2,setData2] = useState([]);
     const [userEmail, setUserEmail] = useState("");
     const[employees, setEmployees] = useState(null);
     const [userExist,setUserExist] = useState(false);
+    const[employeeExist,setEmployeeExist] = useState(false);
 
     useEffect(() => {
         fetchEmployeesFromCompany();
@@ -32,13 +34,18 @@ export default function SwabTestForm() {
             const response = await fetch(API_BASE_URL + "users/" + companyId);
             const employeeData = await response.json();
             console.log(employeeData);
-            var adminIndex = employeeData.findIndex(x => x.email === localStorage.getItem("email"));
-            // remove admin from list of employees
-            employeeData.splice(adminIndex, 1);
+            // var adminIndex = employeeData.findIndex(x => x.email === localStorage.getItem("email"));
+            // // remove admin from list of employees
+            // employeeData.splice(adminIndex, 1);
+
+
 
             if (employeeData.length !== 0) {
+              
               employeeData.forEach((thing, i) => thing.id = i);
               employeeData.forEach((thing, i) => thing.index = i+1);
+
+
                 setEmployees(employeeData);
             }
         }
@@ -107,14 +114,63 @@ export default function SwabTestForm() {
       const date = format(startDate ,'yyyy-MM-dd')
         const date2 = format(endDate ,'yyyy-MM-dd')
         axios.get(`${API_BASE_URL}swabTests/${date}/date/${date2}`).then(response=>{
-          setData(response.data);
-          console.log(response.data);
+          let swabTestData = response.data;
+          
+          console.log(swabTestData);
+
+          var employeeEmails = [];
+          employees.forEach((employee, index) => {
+            employeeEmails.push(employee.email);
+          });
+
+          console.log(employeeEmails);
+
+          let copyData = Object.assign([], swabTestData);
+
+          swabTestData.forEach((entry, index) => {
+            console.log(entry.user.email);
+            if (employeeEmails.includes(entry.user.email) === false) {
+              console.log("does not exist");
+              var employeeIndex = copyData.findIndex(x => x.user.email === entry.user.email);
+              copyData.splice(employeeIndex, 1);
+            } else {
+              console.log("exists");
+            }
+          });
+
+          console.log();
+
+          setData(copyData);
+          console.log(copyData);
+
+          console.log(data);
+
           setState(state);
-          console.log(data)
-      }).catch((error) => {
-        console.log(error)
-      })
-    };
+            
+            // employees.forEach(employee, index) {            
+            //   //console.log(item2.email)
+            //   // if(item.user.email === item2.email){
+            //   //   setEmployeeExist(true);console.log(item.user.email)
+            //   //   console.log(index)
+            //   // }
+
+
+              
+            // });
+            // if (employeeExist === false) {
+            //   console.log(employeeExist)                
+            //   object.splice(index, 1);
+            // }
+            // setEmployeeExist(false);
+          });
+          //console.log(response.data);
+      //     setData(data);
+      //     setState(state);
+      //     console.log(data)
+      // }).catch((error) => {
+      //   console.log(error)
+      // })
+    }
 
     function loadData1(){ 
         if(employees != null){
@@ -221,5 +277,7 @@ export default function SwabTestForm() {
         </div>
     );
 }
+
+
 
 
