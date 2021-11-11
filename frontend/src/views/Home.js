@@ -56,9 +56,6 @@ export default function Home() {
              <button class="btn btn-default" onClick = {() => {redirectToSwabTests();}}>
              <Featuresbox image={swabtest} title="Upcoming SwabTests" />
              </button>
-             <button class="btn btn-default">
-             <Featuresbox image={profile} title="Profile Details" />
-             </button>
          </div>
             {/* <Contact/> */}
             </div>

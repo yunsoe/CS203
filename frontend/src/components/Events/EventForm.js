@@ -4,9 +4,12 @@ import { Form, Button, FormGroup } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {format} from "date-fns";
+import { useHistory} from "react-router-dom";
 import "../Home/home.css";
 
 export default function EventForm() {
+
+    const history = useHistory();
 
     const [state , setState] = useState({
         event: "",
@@ -74,6 +77,10 @@ export default function EventForm() {
         submitEvent();
     }
 
+    const redirectToView = () => {
+        history.push("/viewEvents");
+    }
+
 
     return (
         <div >
@@ -95,7 +102,17 @@ export default function EventForm() {
                         <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Location" onChange={handleChange} id="location" />
                     </Form.Group>
                     
-                    <Button variant="primary" type="submit" style={{marginBottom: 10}}>Add Event</Button>
+                    <span>
+                        <Button variant="primary" type="submit" style={{marginBottom: 10, marginRight: 10, display:"inline-block"}}>Add Event</Button>
+                        <Button variant="primary" style={{marginBottom: 10, backgroundColor: "red", marginRight: 10, display:"inline-block"}}
+                        onClick={() => {
+                            redirectToView();
+                        }}
+                        >
+                        Cancel  
+                    </Button>
+                    </span>
+                    
                 </Form>
             </div>
         </div>

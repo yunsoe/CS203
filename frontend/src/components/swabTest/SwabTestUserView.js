@@ -88,7 +88,7 @@ export default function SwabTestUserView() {
                                 pagination={paginationFactory({ sizePerPage: 5 })}
                             />
                         ) : (
-                            <p>The company has no Swab Result yet.</p>
+                            <p>The user has no Swab Results yet.</p>
                         )}
                     </Form>
                 </div>

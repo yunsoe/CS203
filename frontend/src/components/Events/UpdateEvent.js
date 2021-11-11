@@ -76,6 +76,10 @@ export default function UpdateEvent() {
         updateForm();
     }
 
+    const redirectToView = () => {
+        history.push("/viewEvents");
+    }
+
 
 
     return (
@@ -96,7 +100,16 @@ export default function UpdateEvent() {
                         <Form.Control required minLength={2} maxLength={30} type="text" placeholder="Enter Location" onChange={handleChange} id="location" />
                     </Form.Group>
                     
-                    <Button variant="primary" type="submit" style={{marginBottom: 10}}>Edit Event</Button>
+                    <span>
+                        <Button variant="primary" type="submit" style={{marginBottom: 10, marginRight: 10, display:"inline-block"}}>Edit Event</Button>
+                        <Button variant="primary" style={{marginBottom: 10, backgroundColor: "red", marginRight: 10, display:"inline-block"}}
+                        onClick={() => {
+                            redirectToView();
+                        }}
+                        >
+                        Cancel  
+                    </Button>
+                    </span>
                 </Form>
             </div>
         </div>

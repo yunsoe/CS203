@@ -100,7 +100,6 @@ export default function ViewOtherCompanyEvents() {
                         eventsData.splice(eventIndex, 1);
                     }
                 });
-
                 setEvents(eventsData);
             }
         }

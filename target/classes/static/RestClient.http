@@ -1,0 +1,71 @@
+# get users
+GET http://localhost:8080/users
+Accept: application/json
+
+# get swab tests
+###
+GET http://localhost:8080/swabTests/abc@gmail.com
+Accept: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+# add feedback
+###
+POST http://localhost:8080/users/def@gmail.com/feedbacks
+Content-Type: application/json
+# User role
+Authorization: Basic def@gmail.com:goodpassword
+
+{
+    "title": "feedback2",
+    "details": "details for feedback2"
+}
+
+# add company
+###
+POST http://localhost:8080/companies
+Content-Type: application/json
+
+{
+    "name": "company b"
+}
+
+# add user: admin
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+    "email": "abc@gmail.com",
+    "name": "admin a",
+    "password": "goodpassword",
+    "role": "HR",
+    "authorities": "ROLE_ADMIN"
+}
+
+# add user: employee - company doesnt exist
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+
+{
+    "email": "hij@gmail.com",
+    "name": "employee c",
+    "password": "goodpassword",
+    "role": "tester",
+    "authorities": "ROLE_USER"
+}
+
+# add user: employee
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword
+
+{
+    "email": "def@gmail.com",
+    "name": "employee b",
+    "password": "goodpassword",
+    "role": "developer",
+    "authorities": "ROLE_USER"
+}
+

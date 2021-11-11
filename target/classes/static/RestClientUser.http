@@ -1,0 +1,78 @@
+# get users
+GET http://localhost:8080/users
+Accept: application/json
+
+# get user's company id
+###
+GET http://localhost:8080/users/abc@gmail.com/company
+Accept: application/json
+
+# add user: admin
+###
+POST http://localhost:8080/users/admin/registration
+Content-Type: application/json
+
+{
+    "companyId": "1",
+    "email": "abc@gmail.com",
+    "name": "admin a",
+    "password": "goodpassword123",
+    "role": "HR"
+}
+
+# add user: employee - company doesnt exist
+###
+POST http://localhost:8080/users/2
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword123
+
+{
+    "email": "hij@gmail.com",
+    "name": "employee c",
+    "password": "goodpassword",
+    "role": "tester",
+    "authorities": "ROLE_USER"
+}
+
+# login
+###
+GET http://localhost:8080/users/login/abc@gmail.com/goodpassword123
+
+# add user: employee
+###
+POST http://localhost:8080/users/1
+Content-Type: application/json
+Authorization: Basic abc@gmail.com goodpassword123
+
+{
+    "email": "def@gmail.com",
+    "name": "employee b",
+    "password": "goodpassword",
+    "role": "developer",
+    "authorities": "ROLE_USER"
+}
+
+# get users: by company id
+###
+GET http://localhost:8080/users/1
+Accept: application/json
+
+# reset user password
+###
+PUT http://localhost:8080/users/abc@gmail.com/resetPassword
+
+# change user password
+###
+PUT http://localhost:8080/users/testcompanyadmin1@gmail.com/changePassword
+Content-Type: application/json
+Authorization: Basic testcompanyadmin1@gmail.com goodpassword123
+
+{
+    "currentPassword": "goodpassword123",
+    "newPassword": "abcd1245@"
+}
+
+# delete users: by user email and company id
+###
+DELETE http://localhost:8080/users/1/test5@gmail.com
+Authorization: Basic test1@gmail.com password

@@ -9,7 +9,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 export default function ViewAttendees() {
 
-    // const history = useHistory();
+    const history = useHistory();
 
     const [state , setState] = useState({
         email: "",
@@ -54,8 +54,14 @@ export default function ViewAttendees() {
         }
     ];
 
+
+    const redirectToView = () => {
+        history.push("/viewEvents");
+    }
+
     function renderPage() {
             return(
+                <div>
                 <div>
                     <h3>View Attendees</h3>
                     <br/>
@@ -69,6 +75,17 @@ export default function ViewAttendees() {
                         />
                     : <p>No users have signed up yet.</p>}
                 </div>
+                <div style = {{ textAlign: "center"}}>
+                    <Button 
+                        onClick={() => {
+                            redirectToView();
+                        }}
+                        >
+                        View Events 
+                    </Button>
+                </div>
+                </div>
+                
             );
         
     }
