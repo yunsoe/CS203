@@ -32,7 +32,7 @@ export default function Update() {
                 alert("Thank you for your submission.");
                 history.push("/swabTestUserView");
 
-            } else {
+            }  else {
                 alert("There was an error on our side, please try again later.");
             }
         });
@@ -55,7 +55,8 @@ export default function Update() {
          <Col>
          <DatePicker wrapperClassName="datePicker" className="form-control" selected={date} onChange = {(input) => setDate(input)}/>
          </Col>
-         <Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button>
+         <p></p>
+         <Col><Button variant="primary" type="submit" style={{marginBottom: 10}}>Submit Swab Result</Button></Col>
         </Form.Group>
     </Form>
     </div>
