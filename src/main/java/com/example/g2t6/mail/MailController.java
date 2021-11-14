@@ -20,6 +20,11 @@ public class MailController {
     //     this.mailService = ms;
     // }
 
+    /**
+    * Gets a list of all the users
+    * @param mail Mail to be sent
+    * @return ResponseEntity<String>
+    */
     @PostMapping("/send")
     public ResponseEntity<String> sendMail(@RequestBody Mail mail) {
         mailService.sendMail(mail);

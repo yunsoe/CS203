@@ -26,6 +26,13 @@ public class FeedbackController {
     @Autowired
     private MailService mailService;
     
+    /**
+    * Add a new feedback
+    * @param userEmail Email of user adding the feedback
+    * @param feedback Feedback to be added
+    * @exception UsernameNotFoundException User with the email specified was not found
+    * @return The newly added feedback
+    */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users/{userEmail}/feedbacks")
     public Feedback addfeedback(@PathVariable (value = "userEmail") String userEmail, @Valid @RequestBody Feedback feedback) {
@@ -38,6 +45,10 @@ public class FeedbackController {
         }).orElseThrow(() -> new UsernameNotFoundException("Email '" + userEmail + "' not found"));
     }
 
+    /**
+    * Gets a list of all the feedbacks
+    * @return List of all feedbacks
+    */
     @GetMapping("/feedbacks")
     public List<Feedback> getFeedbacks() {
         return feedbacks.findAll();    

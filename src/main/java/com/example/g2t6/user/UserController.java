@@ -48,7 +48,7 @@ public class UserController {
     /**
     * Gets the company ID for a particular user
     * @param userEmail This is the email of the user whose company ID we want to retrieve
-    * @throws {UsernameNotFoundException} User with this email was not found
+    * @exception UsernameNotFoundException User with this email was not found
     * @return This user's company ID
     */
     @GetMapping("/users/{userEmail}/company")
@@ -66,7 +66,7 @@ public class UserController {
     /**
     * Gets list of users in a particular company
     * @param companyId This is the company ID that we want to retrieve the list of users for
-    * @throws {CompanyNotFoundException} Company ID was not found
+    * @exception CompanyNotFoundException Company ID was not found
     * @return List of users in the company
     */
     @GetMapping("/users/{companyId}")
@@ -84,8 +84,8 @@ public class UserController {
     * Adding a new user (employee) and using BCrypt encoder to encrypt the password for storage 
     * @param user User to be added
     * @param companyId The company ID of the user to be added
-    * @throws {CompanyNotFoundException} Company ID was not found
-    * @throws {UserAlreadyExistsException} User with the email specified already exists
+    * @exception CompanyNotFoundException Company ID was not found
+    * @exception UserAlreadyExistsException User with the email specified already exists
     * @return The new user
     */
     @ResponseStatus(HttpStatus.CREATED)
@@ -112,7 +112,7 @@ public class UserController {
     * Adding a new user (admin) and using BCrypt encoder to encrypt the password for storage 
     * @param json A map that contains the information of the admin user to be added, including
     *             email, name, password, role, and company Id.
-    * @throws {UserAlreadyExistsException} User with the email specified already exists
+    * @exception UserAlreadyExistsException User with the email specified already exists
     * @return The new user
     */
     @ResponseStatus(HttpStatus.CREATED)
@@ -144,7 +144,7 @@ public class UserController {
     * Checks if the user credentials are valid 
     * @param userEmail Email of the user to be validated
     * @param password Password of the user to be validated
-    * @throws {UsernameNotFoundException} User with this email was not found, or password entered does not match the existing password
+    * @exception UsernameNotFoundException User with this email was not found, or password entered does not match the existing password
     * @return The user if the credentials are valid
     */
     @GetMapping("/users/login/{userEmail}/{password}")
@@ -167,7 +167,7 @@ public class UserController {
     /**
     * To reset the password for the user with the email specified and send an email with the updated password
     * @param userEmail Email of the user whose password is to be resetted
-    * @throws {UsernameNotFoundException} User with this email was not found
+    * @exception UsernameNotFoundException User with this email was not found
     * @return The user with the email specified
     */
     @PutMapping("users/{userEmail}/resetPassword")
@@ -192,8 +192,8 @@ public class UserController {
     * To change the password for the user with the updated password specified and using BCrypt encoder to encrypt the password for storage 
     * @param userEmail Email of the user whose password is to be resetted
     * @param json A map with the current password and new password
-    * @throws {UsernameNotFoundException} User with this email was not found
-    * @throws {UserIncorrectPasswordException} Current password specified does not match the existing password
+    * @exception UsernameNotFoundException User with this email was not found
+    * @exception UserIncorrectPasswordException Current password specified does not match the existing password
     * @return The user with the email specified
     */
     @PutMapping("users/{userEmail}/changePassword")
@@ -225,8 +225,8 @@ public class UserController {
     * Delete a user from a company
     * @param companyId Company Id of user to be deleted
     * @param userEmail Email of user to be deleted
-    * @throws {CompanyNotFoundException} Company was not found
-    * @throws {UsernameNotFoundException} User with email specified was not found
+    * @exception CompanyNotFoundException Company was not found
+    * @exception UsernameNotFoundException User with email specified was not found
     * @return ReponseEntity<>
     */
     @DeleteMapping("/users/{companyId}/{userEmail}")
