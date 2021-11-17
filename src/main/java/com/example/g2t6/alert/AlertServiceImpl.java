@@ -33,6 +33,10 @@ public class AlertServiceImpl implements AlertService {
     //     this.userRepository = userRepository;
     // }
 
+    /** 
+    * @param user/employee's email
+    * @return a list of alerts configured
+    */
     @Override
     public List<Alert> getAllAlertsByUser(String userEmail) {
         if(!userRepository.existsById(userEmail)) {
@@ -41,6 +45,10 @@ public class AlertServiceImpl implements AlertService {
         return alertRepository.findByUserEmail(userEmail);
     }
 
+    /**
+    * @param user/employee's email and the new alert
+    * @return the alert configured
+    */
     @Override
     public Alert addAlert(String userEmail, Alert alert) {
         return userRepository.findByEmail(userEmail).map(user ->{
@@ -51,6 +59,10 @@ public class AlertServiceImpl implements AlertService {
         }).orElseThrow(() -> new UsernameNotFoundException(userEmail));
     }
 
+    /**
+    * @param user/employee's email, alert ID and new alert
+    * @return the alert updated
+    */
     @Override
     public Alert updateAlert(String userEmail, long alertId, Alert newAlert) {
         if(!userRepository.existsById(userEmail)) {
