@@ -5,13 +5,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import com.example.g2t6.user.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,15 +34,15 @@ public class Event {
     private Set<User> users = new HashSet<>();
 
 
-    // @NotNull(message = "Event Name should not be null")
+    @NotNull(message = "Event Name should not be null")
     @Column(name="event")
     private String event;
 
-    // @NotNull(message = "Event Date should not be null")
+    @NotNull(message = "Event Date should not be null")
     @Column(name="event_date")
     private String eventDate; 
 
-    // @NotNull(message = "Location should not be null")
+    @NotNull(message = "Location should not be null")
     @Column(name="location")
     private String location;
 
@@ -56,13 +52,5 @@ public class Event {
         this.location = location;
     }
     
-    // public Date getDate () throws ParseException {
-	
-	// 	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-		
-	// 	Date date = dateFormatter.parse(eventDate);
-
-    //    return date;
-    // }
 
 }

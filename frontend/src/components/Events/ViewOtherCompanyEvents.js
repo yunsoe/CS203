@@ -14,8 +14,6 @@ export default function ViewOtherCompanyEvents() {
     });
 
     const[events, setEvents] = useState(null);
-    // const[removeEvent,setRemoveEvent] = useState("");
-    // const[eventId,setEventId] = useState();
 
     
    
@@ -164,32 +162,4 @@ export default function ViewOtherCompanyEvents() {
 }
 
 
-        // async function fetchEvents() {
-        //     fetch(
-        //         API_BASE_URL + "users/" + localStorage.getItem("email") + "/company",
-        //         {
-        //             method: "GET",
-        //         }
-        //     ).then(function (response) {
-        //         response.json().then(function(companyId) {
-        //             fetch(
-        //                 API_BASE_URL + "companies/" + companyId + "/events",
-        //                 {
-        //                     method: "GET",
-
-        //                 }
-        //             ).then(function (response) {
-                        
-        //                 const data = response.json;
-        //                 console.log(data);
-
-        //                 if (data.length !== 0) {
-        //                     setEvents(data);
-        //                 }
-        //             }
-        //             );
-
-                   
-        //         });
-        //     });
-        // }
+       

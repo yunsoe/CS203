@@ -17,9 +17,7 @@ export default function ViewAttendees() {
     });
 
     const[users, setUsers] = useState(null);
-    // const[removeEvent,setRemoveEvent] = useState("");
-    // const[eventId,setEventId] = useState();
-
+ 
 
 
     useEffect(() => {

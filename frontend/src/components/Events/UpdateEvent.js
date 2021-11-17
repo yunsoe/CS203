@@ -14,7 +14,6 @@ export default function UpdateEvent() {
         event: "",
         eventDate : "",
         location: "",
-        // users:""
     });
 
     const [date,setDate] = useState(new Date());
@@ -49,7 +48,6 @@ export default function UpdateEvent() {
                             "event": state.event,
                             "eventDate": state.eventDate,
                             "location": state.location,
-                            // "users":state.users,
                         }),
                     }
                 ).then(function (response) {
