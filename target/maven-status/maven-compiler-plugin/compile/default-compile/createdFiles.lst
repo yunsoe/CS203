@@ -2,8 +2,10 @@ com/example/g2t6/industry/IndustryController.class
 com/example/g2t6/swabTestDetail/SwabTestDetail.class
 com/example/g2t6/swabTestDetail/SwabTestDetailController.class
 com/example/g2t6/company/Company.class
+com/example/g2t6/news/WebScraperController.class
 com/example/g2t6/user/UserRepository.class
 com/example/g2t6/feedback/FeedbackNotFoundException.class
+com/example/g2t6/Scheduler/ScheduleSwabAlert.class
 com/example/g2t6/user/CustomUserDetailsService.class
 com/example/g2t6/news/NewsNotFoundException.class
 com/example/g2t6/industry/IndustryService.class
@@ -23,6 +25,7 @@ com/example/g2t6/mail/MailServiceImpl.class
 com/example/g2t6/event/EventNotFoundException.class
 com/example/g2t6/swabTest/SwabTestService.class
 com/example/g2t6/news/NewsServiceImpl.class
+com/example/g2t6/Scheduler/RunnableTask.class
 com/example/g2t6/company/CompanyServiceImpl.class
 com/example/g2t6/security/SecurityConfig.class
 com/example/g2t6/company/CompanyService.class
@@ -48,7 +51,9 @@ com/example/g2t6/G2t6Application.class
 com/example/g2t6/news/NewsService.class
 com/example/g2t6/industry/Industry.class
 com/example/g2t6/swabTest/SwabTestController.class
+com/example/g2t6/alert/AlertService.class
 com/example/g2t6/mail/MailController.class
 com/example/g2t6/news/NewsController.class
 com/example/g2t6/news/NewsRepository.class
 com/example/g2t6/user/UserAlreadyExistsException.class
+com/example/g2t6/SchedulingConfiguration.class

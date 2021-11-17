@@ -15,7 +15,6 @@ export default function EventForm() {
         event: "",
         eventDate : "",
         location: "",
-        // users:""
     });
 
     const [date,setDate] = useState(new Date());

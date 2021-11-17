@@ -56,7 +56,7 @@ Content-Type: application/json
 
 #add users to the event
 ###
-PUT http://localhost:8080/companies/2/events/17/users/samantha@gmail.com
+PUT http://localhost:8080/companies/2/events/48/users/claire@gmail.com
 
 
 #delete users from the event 

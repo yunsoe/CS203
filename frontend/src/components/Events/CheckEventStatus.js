@@ -12,12 +12,6 @@ export default function CheckEventStatus() {
     const [status , setStatus] = useState();
 
 
-    // const[users, setUsers] = useState(null);
-    // const[removeEvent,setRemoveEvent] = useState("");
-    // const[eventId,setEventId] = useState();
-
-
-
     useEffect(() => {
         fetchStatus();
         

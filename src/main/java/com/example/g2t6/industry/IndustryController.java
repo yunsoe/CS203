@@ -21,10 +21,6 @@ public class IndustryController {
     @Autowired
     private IndustryService industryService;
 
-    // public IndustryController(IndustryService is){
-    //     this.industryService = is;
-    // }
-
     /**
      * List all industries in the system
      * @return list of all industries
@@ -38,21 +34,19 @@ public class IndustryController {
      * Search for industry with the given id
      * If there is no industry with the given "id", throw a IndustryNotFoundException
      * @param id
+     * @exception IndustryNotFoundException Industry not found
      * @return industry with the given id
      */
     @GetMapping("/industries/{id}")
     public Industry getIndustry(@PathVariable Long id){
         Industry industry = industryService.getIndustry(id);
 
-        // Need to handle "industry not found" error using proper HTTP status code
-        // In this case it should be HTTP 404
         if(industry == null) throw new IndustryNotFoundException(id);
         return industryService.getIndustry(id);
 
     }
     /**
      * Add a new industry with POST request to "/industries"
-     * Note the use of @RequestBody
      * @param industry
      * @return list of all industries
      */
